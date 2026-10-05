@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     max_request_bytes: int = Field(default=1048576, ge=1024, le=16777216)
     utility_requests_per_minute: int = Field(default=60, ge=1, le=10000)
     utility_global_requests_per_minute: int = Field(default=600, ge=1, le=100000)
+    ui_experiment_config: Path = ROOT / "config" / "ui-experiments.json"
     frontend_dist: Path = ROOT / "frontend" / "dist"
 
     @field_validator("public_url")

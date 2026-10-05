@@ -30,3 +30,6 @@ frontend/*.tsbuildinfo
 
 !tools/
 !tools/build_web_validators.mjs
+
+!config/
+!config/ui-experiments.json

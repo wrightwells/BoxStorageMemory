@@ -16,6 +16,8 @@ services:
       MAX_REQUEST_BYTES: ${MAX_REQUEST_BYTES:-1048576}
       UTILITY_REQUESTS_PER_MINUTE: ${UTILITY_REQUESTS_PER_MINUTE:-60}
       UTILITY_GLOBAL_REQUESTS_PER_MINUTE: ${UTILITY_GLOBAL_REQUESTS_PER_MINUTE:-600}
+    volumes:
+      - ./config:/app/config:ro
     restart: unless-stopped
     read_only: true
     tmpfs:

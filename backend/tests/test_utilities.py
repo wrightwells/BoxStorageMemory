@@ -151,11 +151,18 @@ def test_drive_folder_qr_decodes_to_google_folder_url() -> None:
     assert decoded.text == "https://drive.google.com/drive/folders/" + folder_id
 
 
-@pytest.mark.parametrize("body", [
-    {}, {"folderId": ""}, {"folderId": "../bad"}, {"folderId": "folder\n"},
-    {"folderId": "x" * 257}, {"folderId": 3},
-    {"folderId": "folder", "url": "https://evil.example"},
-])
+@pytest.mark.parametrize(
+    "body",
+    [
+        {},
+        {"folderId": ""},
+        {"folderId": "../bad"},
+        {"folderId": "folder\n"},
+        {"folderId": "x" * 257},
+        {"folderId": 3},
+        {"folderId": "folder", "url": "https://evil.example"},
+    ],
+)
 def test_drive_folder_qr_rejects_invalid_id_and_url_overrides(body: dict) -> None:
     response = client().post("/api/v1/qr/drive-folder", json=body)
     assert response.status_code == 422
@@ -166,7 +173,12 @@ def test_drive_folder_qr_uses_utility_guard() -> None:
     app = client(utility_requests_per_minute=1)
     assert app.post("/api/v1/qr/drive-folder", json={"folderId": "folder"}).status_code == 200
     assert app.post("/api/v1/qr/drive-folder", json={"folderId": "folder"}).status_code == 429
-    assert client().post("/api/v1/qr/drive-folder", json={"folderId": "folder", "access_token": "sentinel"}).status_code == 400
+    assert (
+        client()
+        .post("/api/v1/qr/drive-folder", json={"folderId": "folder", "access_token": "sentinel"})
+        .status_code
+        == 400
+    )
 
 
 @pytest.mark.parametrize(
@@ -218,7 +230,7 @@ def test_openapi_matches_export_and_has_only_implemented_operations() -> None:
     schema = client().get("/api/openapi.json").json()
     assert schema == json.loads((ROOT / "api/v1/openapi.json").read_text())
     assert schema == json.loads((ROOT / "openapi.json").read_text())
-    assert len(schema["paths"]) == 8
+    assert len(schema["paths"]) == 9
     assert "/api/v1/search" not in schema["paths"]
     assert (
         "image/png" in schema["paths"]["/api/v1/qr/generate"]["post"]["responses"]["200"]["content"]

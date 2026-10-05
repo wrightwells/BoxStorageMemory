@@ -1,3 +1,7 @@
+import { BoxIcon } from "./BoxIcon";
+import { useReferenceLayout } from "./ReferenceLayout";
+import { ReferenceBoxView } from "./ReferenceBoxView";
+import { InventoryThumbnail, usePhotoRecognition } from "./PhotoRecognition";
 import { LoadingStatus } from "./LoadingStatus";
 import { previewJson } from "./previewJson";
 import { useEffect, useState } from "react";
@@ -18,6 +22,7 @@ function BoxCard({ entry }: { entry: BoxIndexEntry }) {
   return (
     <li className="box-card">
       <Link to={`/box/${entry.boxId}`}>
+        <BoxIcon className="box-card-icon" />
         <strong>{entry.boxNumber}</strong> <span>{entry.name}</span>
       </Link>
       <p>{entry.location || "Location not recorded"}</p>
@@ -50,18 +55,6 @@ function ConnectedLibraryView() {
         Library: {connection.root.name}. Connected as {connection.account?.name}
         .
       </p>
-      <div className="actions">
-        <button
-          className="button secondary"
-          onClick={() => void library.load(true)}
-          disabled={state.status === "loading" || state.recovering}
-        >
-          Refresh library
-        </button>
-        <Link className="button secondary" to="/library/new">
-          Draft a new box
-        </Link>
-      </div>
       {initializing && <LoadingStatus>Initializing library…</LoadingStatus>}
       {state.status === "loading" && (
         <LoadingStatus>Loading box index…</LoadingStatus>
@@ -136,7 +129,17 @@ function ConnectedLibraryView() {
           <BoxGroups boxes={state.index.boxes} grouped={groupByLocation} />
         </>
       )}
-      <RecoveryPanel />
+      <section className="library-tools sub-panel" aria-label="Tools">
+        <h2>Tools</h2>
+        <button
+          className="button secondary"
+          onClick={() => void library.load(true)}
+          disabled={state.status === "loading" || state.recovering}
+        >
+          Refresh library
+        </button>
+        <RecoveryPanel />
+      </section>
       <p className="read-only-note">
         Browsing is read-only. Your Drive files are not changed.
       </p>
@@ -203,7 +206,7 @@ export function RecoveryPanel() {
   const report = state.recovery;
   return (
     <section className="sub-panel">
-      <h2>Index recovery</h2>
+      <h3>Index recovery</h3>
       <p>
         Discover inventories inside this library and review a proposed index.
         Unavailable existing records are retained and reported. Original files
@@ -275,6 +278,8 @@ export function InventoryView({ itemOnly = false }: { itemOnly?: boolean }) {
 }
 
 function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
+  const photoRecognition = usePhotoRecognition();
+  const referenceLayout = useReferenceLayout();
   const { boxId = "", itemId = "" } = useParams();
   const { state: connection } = useStorage();
   const { library, state } = useLibrary();
@@ -305,6 +310,18 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
   }, [library, boxId, connection.root, state.revision, attempt]);
   if (!connection.root) return <LibraryConnection />;
   const item = view?.inventory.items.find((item) => item.id === itemId);
+  if (referenceLayout && !itemOnly && view)
+    return (
+      <ReferenceBoxView
+        view={view}
+        refresh={() => {
+          setView(undefined);
+          setError(undefined);
+          void library.load(true);
+          setAttempt(attempt + 1);
+        }}
+      />
+    );
   return (
     <>
       <Link to={itemOnly ? `/box/${boxId}` : "/library"}>
@@ -396,11 +413,23 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
                           <td>{item.quantity}</td>
                           <td>{item.description}</td>
                           <td>
-                            <PhotoButton item={item} boxId={boxId} />
+                            {photoRecognition && item.images?.[0] ? (
+                              <InventoryThumbnail
+                                boxId={boxId}
+                                itemId={item.id}
+                                filename={item.images[0]}
+                                name={item.name}
+                              />
+                            ) : (
+                              <PhotoButton item={item} boxId={boxId} />
+                            )}
+                            {photoRecognition && !item.images?.length && (
+                              <p>No photographs.</p>
+                            )}
                             {!!item.images?.length && (
                               <p>
-                                {item.images.length} photographs — open item to
-                                view
+                                {item.images.length} photographs
+                                {!photoRecognition && " — open item to view"}
                               </p>
                             )}
                           </td>

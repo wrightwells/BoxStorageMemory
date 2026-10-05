@@ -1,3 +1,4 @@
+import { useReferenceLayout } from "../components/ReferenceLayout";
 import { Link, useLocation } from "react-router-dom";
 import { useStorage } from "../components/StorageProvider";
 import { validUuid } from "../services/library";
@@ -104,7 +105,12 @@ export function LoginPage() {
 export function LibraryPage() {
   return (
     <section className="page-panel">
-      <h1>Box library</h1>
+      <header className="library-heading">
+        <h1>Box library</h1>
+        <Link className="button" to="/library/new">
+          Add
+        </Link>
+      </header>
       <LibraryView />
     </section>
   );
@@ -118,9 +124,10 @@ export function SearchPage() {
   );
 }
 export function BoxPage() {
+  const referenceLayout = useReferenceLayout();
   return (
-    <section className="page-panel">
-      <h1>Box details</h1>
+    <section className={referenceLayout ? "reference-box-page" : "page-panel"}>
+      {!referenceLayout && <h1>Box details</h1>}
       <InventoryView />
     </section>
   );

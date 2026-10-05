@@ -113,3 +113,14 @@ This build enables empty-library initialization and new-box creation through the
 
 
 Existing-box save follow-up (4 October 2026): ordinary box/item additions, updates and removals now use the coordinated v2 protocol in [decision 008](decisions/008-coordinated-editing.md). Photo management now uses the same owner and conditional writes. NFC mutation, recovery publication and automatic interrupted-operation recovery remain gated. This supersedes the earlier existing-box-save limitation above.
+
+
+## Runtime UX experiments
+
+The approved default is NAV-001 persistent desktop navigation and the phone/tablet bottom bar. `baselineVariant: "persistent-navigation"` promotes both new and existing sessions; `?ui=control` preserves the prior navigation as a rollback option. Both Compose configurations mount `./config:/app/config:ro`; edit or atomically replace `config/ui-experiments.json` on the host without restarting. Disabling NAV-001 or forcing `control` restores the previous navigation. Missing/invalid global configuration also uses that safe fallback.
+
+[CTX-001 — return to search results](search-context-experiment.md) is the next independent experiment. Its default rollout is 0% and measurement remains disabled. Preview with `?context=restore-search`; disable `searchContext.enabled` or force `searchContext.forceVariant` to `control` to roll it back while keeping approved navigation. Open pages poll every 15 seconds, with a 5-second request timeout. `UI_EXPERIMENT_CONFIG` sets the file path outside Compose. Each future baseline promotion requires explicit approval.
+
+[IMG-001 — photo recognition](photo-recognition-experiment.md) adds `photoRecognition` flags with 0% default rollout. Preview with `?photos=photo-recognition`; disable its `enabled` flag or force `control` to restore photo icons without changing navigation or search flags. No Drive writes or external analytics are introduced.
+
+[REF-001 — reference-based box workspace](reference-box-experiment.md) adds independent `referenceLayout` flags. Preview with `?layout=reference-box`; disable its `enabled` flag or force `control` for rollback. The approved `referenceLayout.baselineVariant: "reference-box"` is the default regardless of old session assignments; explicit control selection and runtime rollback remain available. Measurement remains off.

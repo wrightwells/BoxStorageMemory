@@ -1,0 +1,24 @@
+{
+  "experimentId": "NAV-001",
+  "enabled": true,
+  "rolloutPercentage": 0,
+  "forceVariant": null,
+  "measurementEnabled": false,
+  "baselineVariant": "persistent-navigation",
+  "searchContext": {
+    "enabled": true,
+    "rolloutPercentage": 0,
+    "forceVariant": null
+  },
+  "photoRecognition": {
+    "enabled": true,
+    "rolloutPercentage": 0,
+    "forceVariant": null
+  },
+  "referenceLayout": {
+    "enabled": true,
+    "rolloutPercentage": 0,
+    "forceVariant": null,
+    "baselineVariant": "reference-box"
+  }
+}

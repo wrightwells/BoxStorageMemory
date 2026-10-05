@@ -1,0 +1,74 @@
+/* NAV-001: all visual changes are scoped to Variant B. */
+html[data-ui-variant="persistent-navigation"] {
+  --ux-surface-navigation: #ffffff;
+  --ux-border-navigation: #dbe5e5;
+  --ux-elevation-navigation: 0 4px 16px rgb(24 65 65 / 12%);
+  --ux-space-small: 0.5rem;
+  --ux-space-medium: 1rem;
+  --ux-radius-control: 0.7rem;
+  --ux-text-primary: #203334;
+  --ux-text-secondary: #5b7072;
+  --ux-action-primary: #146b60;
+  --ux-action-destructive: #a32626;
+  --ux-status-success: #185c47;
+  --ux-status-warning: #805900;
+  --ux-status-error: #a32626;
+  --ux-type-navigation: 0.8rem;
+  --ux-icon-navigation: 18px;
+  --ux-touch-target: 56px;
+  --ux-motion-feedback: 150ms;
+  --ux-navigation-height: 5.5rem;
+  scroll-padding-block-start: calc(var(--ux-navigation-height) + 1rem);
+}
+.persistent-navigation {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--ux-surface-navigation);
+  box-shadow: var(--ux-elevation-navigation);
+}
+@media (max-width: 900px) {
+  html[data-ui-variant="persistent-navigation"] {
+    scroll-padding-block-start: 1rem;
+    scroll-padding-block-end: calc(
+      var(--ux-navigation-height) + env(safe-area-inset-bottom) + 1rem
+    );
+  }
+  html[data-ui-variant="persistent-navigation"] #root {
+    padding-bottom: calc(
+      var(--ux-navigation-height) + env(safe-area-inset-bottom)
+    );
+  }
+  .persistent-navigation {
+    position: static;
+  }
+  .persistent-navigation nav {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: calc(var(--ux-space-small) / 2);
+    padding: var(--ux-space-small) var(--ux-space-small)
+      calc(var(--ux-space-small) + env(safe-area-inset-bottom));
+    background: var(--ux-surface-navigation);
+    border-top: 1px solid var(--ux-border-navigation);
+    box-shadow: var(--ux-elevation-navigation);
+  }
+  .persistent-navigation nav a {
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.35rem;
+    font-size: var(--ux-type-navigation);
+    min-height: var(--ux-touch-target);
+    min-width: 0;
+  }
+}
+@media print {
+  .persistent-navigation nav {
+    display: none;
+  }
+  html[data-ui-variant="persistent-navigation"] #root {
+    padding-bottom: 0;
+  }
+}

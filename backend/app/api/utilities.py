@@ -17,6 +17,7 @@ from backend.app.models.utilities import (
     ValidationResponse,
 )
 from backend.app.services.health import APP_VERSION
+from backend.app.services.ui_experiments import UIExperiments, read_flags
 from backend.app.services.utilities import UtilityService
 
 ERRORS: dict[int | str, dict[str, Any]] = {
@@ -45,6 +46,11 @@ def utility_router(config: Settings) -> APIRouter:
             "index": "box-index.schema.json",
         }.items()
     }
+
+    @router.get("/ui-experiments", response_model=UIExperiments)
+    def ui_experiments(response: Response) -> UIExperiments:
+        response.headers["Cache-Control"] = "no-store"
+        return read_flags(config.ui_experiment_config)
 
     @router.get("/config", response_model=PublicConfig)
     def public_config() -> PublicConfig:

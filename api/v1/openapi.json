@@ -124,6 +124,40 @@
         "type": "object"
       },
       "JsonValue": {},
+      "PhotoRecognitionFlags": {
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "default": false,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "forceVariant": {
+            "anyOf": [
+              {
+                "enum": [
+                  "control",
+                  "photo-recognition"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forcevariant"
+          },
+          "rolloutPercentage": {
+            "default": 0,
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Rolloutpercentage",
+            "type": "integer"
+          }
+        },
+        "title": "PhotoRecognitionFlags",
+        "type": "object"
+      },
       "PublicConfig": {
         "properties": {
           "apiVersion": {
@@ -179,6 +213,146 @@
           "boxId"
         ],
         "title": "QRRequest",
+        "type": "object"
+      },
+      "ReferenceLayoutFlags": {
+        "additionalProperties": false,
+        "properties": {
+          "baselineVariant": {
+            "default": "control",
+            "enum": [
+              "control",
+              "reference-box"
+            ],
+            "title": "Baselinevariant",
+            "type": "string"
+          },
+          "enabled": {
+            "default": false,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "forceVariant": {
+            "anyOf": [
+              {
+                "enum": [
+                  "control",
+                  "reference-box"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forcevariant"
+          },
+          "rolloutPercentage": {
+            "default": 0,
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Rolloutpercentage",
+            "type": "integer"
+          }
+        },
+        "title": "ReferenceLayoutFlags",
+        "type": "object"
+      },
+      "SearchContextFlags": {
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "default": false,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "forceVariant": {
+            "anyOf": [
+              {
+                "enum": [
+                  "control",
+                  "restore-search"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forcevariant"
+          },
+          "rolloutPercentage": {
+            "default": 0,
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Rolloutpercentage",
+            "type": "integer"
+          }
+        },
+        "title": "SearchContextFlags",
+        "type": "object"
+      },
+      "UIExperiments": {
+        "additionalProperties": false,
+        "properties": {
+          "baselineVariant": {
+            "default": "control",
+            "enum": [
+              "control",
+              "persistent-navigation"
+            ],
+            "title": "Baselinevariant",
+            "type": "string"
+          },
+          "enabled": {
+            "default": false,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "experimentId": {
+            "const": "NAV-001",
+            "default": "NAV-001",
+            "title": "Experimentid",
+            "type": "string"
+          },
+          "forceVariant": {
+            "anyOf": [
+              {
+                "enum": [
+                  "control",
+                  "persistent-navigation"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forcevariant"
+          },
+          "measurementEnabled": {
+            "default": false,
+            "title": "Measurementenabled",
+            "type": "boolean"
+          },
+          "photoRecognition": {
+            "$ref": "#/components/schemas/PhotoRecognitionFlags"
+          },
+          "referenceLayout": {
+            "$ref": "#/components/schemas/ReferenceLayoutFlags"
+          },
+          "rolloutPercentage": {
+            "default": 0,
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Rolloutpercentage",
+            "type": "integer"
+          },
+          "searchContext": {
+            "$ref": "#/components/schemas/SearchContextFlags"
+          }
+        },
+        "title": "UIExperiments",
         "type": "object"
       },
       "ValidationIssue": {
@@ -840,6 +1014,104 @@
           }
         },
         "summary": "Inventory Schema"
+      }
+    },
+    "/api/v1/ui-experiments": {
+      "get": {
+        "operationId": "ui_experiments_api_v1_ui_experiments_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIExperiments"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Malformed JSON or unsupported credentials"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Resource not found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Method not allowed"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request body exceeds configured limit"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "JSON content type required"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid request shape"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Rate limit exceeded; Retry-After gives seconds"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal failure"
+          }
+        },
+        "summary": "Ui Experiments"
       }
     },
     "/api/v1/validate/index": {

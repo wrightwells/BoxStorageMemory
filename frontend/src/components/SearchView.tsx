@@ -1,5 +1,6 @@
+import { useSearchContext } from "./SearchContext";
 import { Spinner } from "./LoadingStatus";
-import { useEffect, useMemo } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ClientError, errorMessage } from "../services/errors";
 import { matchSearch } from "../services/search";
@@ -15,6 +16,9 @@ function ConnectedSearch() {
   const { search, state } = useSearch();
   const [params, setParams] = useSearchParams();
   const query = params.get("q") ?? "";
+  const context = useSearchContext();
+  const returned = useRef(false);
+  const results = useRef<HTMLUListElement>(null);
   useEffect(() => {
     if (state.status === "idle") void search.load();
   }, [search, state.status, state.revision]);
@@ -28,6 +32,23 @@ function ConnectedSearch() {
       ),
     [state.records, query],
   );
+  useLayoutEffect(() => {
+    if (!context.enabled || returned.current || state.status !== "ready")
+      return;
+    returned.current = true;
+    if (context.snapshot.query !== query || !context.snapshot.result) return;
+    const target = Array.from(
+      results.current?.querySelectorAll<HTMLAnchorElement>("a[data-result]") ??
+        [],
+    ).find((link) => link.dataset.result === context.snapshot.result);
+    if (!target) return;
+    const frame = requestAnimationFrame(() => {
+      target.focus({ preventScroll: true });
+      window.boxStorageSearchUx?.record("contextRestored");
+      window.scrollTo(0, context.snapshot.scroll);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [context, query, state.status]);
   return (
     <>
       <label htmlFor="storage-query">Search boxes and items</label>
@@ -38,9 +59,16 @@ function ConnectedSearch() {
         maxLength={500}
         placeholder="Box number, item description, tags or notes"
         onChange={(event) => {
+          window.boxStorageSearchUx?.record("queryChanged");
           const next = new URLSearchParams(params);
           if (event.target.value) next.set("q", event.target.value);
           else next.delete("q");
+          if (context.enabled)
+            context.remember({
+              query: event.target.value,
+              scroll: 0,
+              result: null,
+            });
           setParams(next, { replace: true });
         }}
       />
@@ -105,10 +133,20 @@ function ConnectedSearch() {
           {!matches.length && state.status === "ready" && (
             <p>No matching boxes or items.</p>
           )}
-          <ul className="item-list" aria-label="Search results">
+          <ul ref={results} className="item-list" aria-label="Search results">
             {matches.map((match) => (
               <li key={match.key}>
                 <Link
+                  data-result={match.key}
+                  onClick={() => {
+                    window.boxStorageSearchUx?.record("resultOpened");
+                    if (context.enabled)
+                      context.remember({
+                        query,
+                        scroll: window.scrollY,
+                        result: match.key,
+                      });
+                  }}
                   to={
                     match.itemId
                       ? `/box/${match.boxId}/item/${match.itemId}`

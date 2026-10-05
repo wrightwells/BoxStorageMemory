@@ -21,7 +21,9 @@ CREDENTIAL_KEYS = {
     "googleRefreshToken",
 }
 UTILITY_PATHS = {
-    "/api/v1/validate/inventory", "/api/v1/validate/index", "/api/v1/qr/generate",
+    "/api/v1/validate/inventory",
+    "/api/v1/validate/index",
+    "/api/v1/qr/generate",
     "/api/v1/qr/drive-folder",
 }
 

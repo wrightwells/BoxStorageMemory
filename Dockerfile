@@ -27,6 +27,7 @@ COPY backend/app backend/app
 COPY backend/__init__.py backend/__init__.py
 COPY shared/python shared/python
 COPY schemas schemas
+COPY config/ui-experiments.json config/ui-experiments.json
 COPY --from=frontend-build /build/frontend/dist frontend/dist
 USER 10001:10001
 EXPOSE 8080

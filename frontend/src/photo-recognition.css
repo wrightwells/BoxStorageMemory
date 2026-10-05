@@ -1,0 +1,31 @@
+/* IMG-001 components exist only in the independent photo-recognition variant. */
+.inventory-thumbnail {
+  width: 120px;
+  max-width: 100%;
+}
+.inventory-thumbnail-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #edf4f3;
+}
+.inventory-thumbnail img {
+  display: block;
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+}
+.inventory-thumbnail p {
+  margin-block: 0.35rem;
+}
+@media print {
+  .inventory-thumbnail .loading-status,
+  .inventory-thumbnail button {
+    display: none;
+  }
+}

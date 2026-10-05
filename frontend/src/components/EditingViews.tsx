@@ -1,6 +1,6 @@
 import { LoadingStatus } from "./LoadingStatus";
 import { previewJson } from "./previewJson";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Link,
   useBlocker,
@@ -86,6 +86,66 @@ function ConnectedEditor({ create }: { create: boolean }) {
   useEffect(() => {
     void editing.open(create ? undefined : boxId).catch(setError);
   }, [editing, boxId, create]);
+
+  const addedFor = useRef<string | undefined>(undefined);
+  const [addedItem, setAddedItem] = useState<string>();
+  useEffect(() => {
+    if (
+      location.state?.addItem !== true ||
+      addedFor.current === location.key ||
+      create ||
+      state.busy ||
+      state.status !== "ready" ||
+      editing.getSnapshot().status !== "ready" ||
+      state.locked ||
+      !draft ||
+      draft.readOnly ||
+      draft.document.box.id !== boxId ||
+      draft.kind !== "edit"
+    )
+      return;
+    addedFor.current = location.key;
+    try {
+      setAddedItem(editing.addItem());
+    } catch (error) {
+      setError(error);
+    }
+  }, [
+    location.key,
+    location.state,
+    create,
+    state.busy,
+    state.status,
+    state.locked,
+    location.pathname,
+    navigate,
+    draft,
+    boxId,
+    editing,
+  ]);
+  useEffect(() => {
+    if (addedItem) document.getElementById(`name-${addedItem}`)?.focus();
+  }, [addedItem]);
+  useEffect(() => {
+    if (
+      addedItem &&
+      location.state?.addItem === true &&
+      !state.dirty &&
+      !state.busy
+    ) {
+      navigate(location.pathname, {
+        replace: true,
+        state: { ...location.state, addItem: false },
+      });
+    }
+  }, [
+    addedItem,
+    location.state,
+    location.pathname,
+    state.dirty,
+    state.busy,
+    navigate,
+  ]);
   useEffect(() => {
     const itemId = location.state?.focusItemId;
     if (

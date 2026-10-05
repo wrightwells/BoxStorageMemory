@@ -15,6 +15,7 @@ The contract is [api/v1/openapi.json](../api/v1/openapi.json), also mirrored at 
 | Operation | Response |
 | --- | --- |
 | GET `/api/v1/health` | Liveness, application version, API version |
+| GET `/api/v1/ui-experiments` | Credential-free runtime UX flags; invalid/missing operator configuration returns disabled Control A |
 | GET `/api/v1/config` | Application name/version, canonical public origin, public web OAuth client ID, Web NFC flag, PNG format and compatibility |
 | GET `/api/v1/schema/inventory` | Frozen v1 inventory JSON Schema |
 | GET `/api/v1/schema/index` | Frozen v1 index JSON Schema |
@@ -22,6 +23,8 @@ The contract is [api/v1/openapi.json](../api/v1/openapi.json), also mirrored at 
 | POST `/api/v1/validate/index` | Same result for an index |
 | POST `/api/v1/qr/generate` | `image/png`, no-store, black/white, four-module quiet zone |
 | POST `/api/v1/qr/drive-folder` | Same PNG format, encoding the direct Google Drive folder URL |
+
+Runtime UX flags are read on every request and are never cached. They are separate from the existing strict public configuration contract. See [UX experiment controls and study workflow](ux-experiments.md).
 
 `/qr/drive-folder` accepts `{ "folderId": "<Drive folder ID>" }`, with a strict 1–256 character ASCII letters/digits/underscore/hyphen ID and no additional fields or URL overrides. It encodes `https://drive.google.com/drive/folders/<folderId>` without accessing Drive. The browser saves this PNG as `box-folder-qr.png` during coordinated box creation. It uses the same request limits, credential rejection and utility rate limit as `/qr/generate`.
 

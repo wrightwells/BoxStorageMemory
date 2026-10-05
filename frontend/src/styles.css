@@ -771,7 +771,7 @@ fieldset:disabled {
   }
   nav {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .feature-grid {
     gap: 0.75rem;
@@ -892,4 +892,26 @@ fieldset:disabled {
     border: 0;
     border-radius: 0;
   }
+}
+
+.library-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.library-heading h1,
+.library-heading .button {
+  margin: 0;
+}
+.box-card-icon {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin-right: 0.6rem;
+}
+.library-tools {
+  margin-top: 2rem;
 }
