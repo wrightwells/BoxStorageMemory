@@ -1,0 +1,43 @@
+# HTTPS deployment: no application port is published. TLS state contains only certificates.
+services:
+  box-storage:
+    build: .
+    image: ${BOX_STORAGE_IMAGE:-box-storage-memory:1.0.0}
+    environment:
+      APP_NAME: ${APP_NAME:-Box Storage}
+      PUBLIC_URL: ${PUBLIC_URL:?Set PUBLIC_URL to the HTTPS origin}
+      GOOGLE_WEB_CLIENT_ID: ${GOOGLE_WEB_CLIENT_ID:-}
+      API_PORT: 8080
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      ALLOWED_ORIGINS: ${PUBLIC_URL:?Set PUBLIC_URL to the HTTPS origin}
+      ENABLE_WEB_NFC: ${ENABLE_WEB_NFC:-false}
+      ENABLE_API_DOCS: "false"
+      MAX_REQUEST_BYTES: ${MAX_REQUEST_BYTES:-1048576}
+      UTILITY_REQUESTS_PER_MINUTE: ${UTILITY_REQUESTS_PER_MINUTE:-60}
+      UTILITY_GLOBAL_REQUESTS_PER_MINUTE: ${UTILITY_GLOBAL_REQUESTS_PER_MINUTE:-600}
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, python, -m, backend.app.healthcheck]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+  proxy:
+    build:
+      context: docker/proxy
+    environment:
+      BOX_STORAGE_HOST: ${BOX_STORAGE_HOST:?Set BOX_STORAGE_HOST to the public hostname}
+    ports: ["80:80", "443:443"]
+    volumes: ["tls-data:/data", "tls-config:/config"]
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+    depends_on:
+      box-storage:
+        condition: service_healthy
+volumes:
+  tls-data:
+  tls-config:

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "box": {
+    "id": "9a46f128-1b5a-42ad-a240-b9015cff9ca7",
+    "number": "BOX-0002",
+    "name": "Spare Box",
+    "created": "2026-10-03T14:00:00Z",
+    "modified": "2026-10-03T14:00:00Z",
+    "nfcIds": []
+  },
+  "items": []
+}

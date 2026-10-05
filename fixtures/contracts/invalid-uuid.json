@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "box": {
+    "id": "not-a-uuid",
+    "number": "BOX-0001",
+    "name": "Electrical Box",
+    "description": "General electrical items",
+    "location": "Garage",
+    "tags": [
+      "electrical",
+      "tools"
+    ],
+    "created": "2026-10-03T14:00:00Z",
+    "modified": "2026-10-03T15:30:00Z",
+    "nfcIds": [
+      "04AABBCCDDEE11"
+    ]
+  },
+  "items": [
+    {
+      "id": "77eb8825-f466-4353-a106-d99d78ad0cc9",
+      "name": "13A Extension Lead",
+      "description": "10 metre orange extension lead",
+      "quantity": 1,
+      "tags": [
+        "electrical",
+        "extension"
+      ],
+      "images": [
+        "BOX-0001-extension-lead-77eb8825-front.jpg"
+      ],
+      "notes": "Stored coiled"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "contractVersion": "1.0.0",
+  "schemaVersion": 1,
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "schemas": [
+    {
+      "file": "inventory.schema.json",
+      "id": "urn:box-storage-memory:schema:inventory:1",
+      "sha256": "3ba76bbf8359082ec4028c471c5a573692bc96c895b2d59e68dbfc678fb5dd99"
+    },
+    {
+      "file": "box-index.schema.json",
+      "id": "urn:box-storage-memory:schema:box-index:1",
+      "sha256": "5baeb7f36d56711be34250b0287b87ee9f5c94bcae55ca2765794ea52ce3c2a0"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:box-storage-memory:schema:inventory:1",
+  "title": "Box Storage inventory v1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "box",
+    "items"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "box": {
+      "type": "object",
+      "required": [
+        "id",
+        "number",
+        "name",
+        "created",
+        "modified",
+        "nfcIds"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "number": {
+          "$ref": "#/$defs/boxNumber"
+        },
+        "name": {
+          "$ref": "#/$defs/meaningfulText"
+        },
+        "description": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "tags": {
+          "$ref": "#/$defs/tags"
+        },
+        "created": {
+          "$ref": "#/$defs/utcTimestamp"
+        },
+        "modified": {
+          "$ref": "#/$defs/utcTimestamp"
+        },
+        "nfcIds": {
+          "$ref": "#/$defs/nfcIds"
+        }
+      },
+      "additionalProperties": true
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "quantity"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/uuid"
+          },
+          "name": {
+            "$ref": "#/$defs/meaningfulText"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "$ref": "#/$defs/tags"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/imageFilename"
+            },
+            "uniqueItems": true
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$(?![\\s\\S])"
+    },
+    "boxNumber": {
+      "type": "string",
+      "pattern": "^BOX-(?=[0-9]*[1-9])(?:[0-9]{4}|[1-9][0-9]{4,8})$(?![\\s\\S])"
+    },
+    "meaningfulText": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[^\\u0009-\\u000D\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+    },
+    "utcTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?!0000)[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-5][0-9](?:\\.[0-9]{1,3})?Z$(?![\\s\\S])"
+    },
+    "nfcId": {
+      "type": "string",
+      "pattern": "^(?:[0-9A-F]{2}){1,32}$(?![\\s\\S])"
+    },
+    "imageFilename": {
+      "type": "string",
+      "maxLength": 255,
+      "pattern": "^[^./\\\\:\\x00-\\x1F\\x7F%?#][^/\\\\:\\x00-\\x1F\\x7F%?#]*\\.(?:jpg|jpeg|png|webp)$(?![\\s\\S])"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true
+    },
+    "nfcIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(?:[0-9A-F]{2}){1,32}$(?![\\s\\S])"
+      },
+      "uniqueItems": true
+    }
+  }
+}

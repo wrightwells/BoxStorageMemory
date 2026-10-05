@@ -1,0 +1,5 @@
+# Optional LAN binding; the base Compose file retains localhost access.
+services:
+  box-storage:
+    ports:
+      - "${HOST_IP_ADDRESS:?Set HOST_IP_ADDRESS to the requested host IPv4 address}:${HOST_PORT:-8080}:${API_PORT:-8080}"

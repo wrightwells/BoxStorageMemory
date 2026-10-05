@@ -1,0 +1,32 @@
+{
+  "name": "box-storage-memory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:contracts": "tsc -p tsconfig.contracts.json",
+    "test:contracts": "npm run build:contracts && node --test tests/contracts/*.test.mjs",
+    "test:prototypes": "node --test prototypes/stage1/*.test.mjs",
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run check:web-validators && npm run build --workspace frontend",
+    "lint": "npm run lint --workspace frontend",
+    "typecheck": "npm run typecheck --workspace frontend",
+    "test:frontend": "npm run test --workspace frontend",
+    "format:check": "prettier --check frontend package.json tsconfig.contracts.json .github/workflows/ci.yml compose.yaml compose.production.yaml playwright.config.ts tests/browser",
+    "build:web-validators": "node tools/build_web_validators.mjs",
+    "check:web-validators": "node tools/build_web_validators.mjs --check",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "typescript": "5.9.3"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

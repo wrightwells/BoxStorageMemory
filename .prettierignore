@@ -1,0 +1,8 @@
+node_modules
+.build
+.venv
+frontend/dist
+package-lock.json
+*.tsbuildinfo
+
+frontend/src/generated/*.mjs

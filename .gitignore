@@ -9,7 +9,26 @@ Thumbs.db
 # Environment / secrets
 .env
 .env.*
+!.env.example
+!.env.production.example
 *.local
 
 # Logs
 *.log
+
+# Contract tooling
+node_modules/
+.build/
+.venv/
+__pycache__/
+*.pyc
+frontend/dist/
+*.tsbuildinfo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Release/browser test artifacts
+playwright-report/
+test-results/
+releases/*.zip

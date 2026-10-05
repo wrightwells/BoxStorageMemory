@@ -1,0 +1,1041 @@
+[
+  {
+    "name": "valid-inventory",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "valid-inventory.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "valid-empty-box",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "valid-empty-box.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "valid-index",
+    "action": "validate",
+    "kind": "index",
+    "file": "valid-index.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "valid-empty-index",
+    "action": "validate",
+    "kind": "index",
+    "file": "valid-empty-index.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "valid-unknown-fields",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "valid-unknown-fields.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "valid-zero-quantity",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "valid-zero-quantity.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "valid-equal-fractional-timestamps",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "valid-equal-fractional-timestamps.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "invalid-uuid",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-uuid.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/id",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-uuid-variant",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-uuid-variant.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/id",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-box-number-zero",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-box-number-zero.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/number",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-box-number-canonical",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-box-number-canonical.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/number",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-box-name",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-box-name.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/name",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-item-name",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-item-name.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/name",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-negative-quantity",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-negative-quantity.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/quantity",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-fractional-quantity",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-fractional-quantity.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/quantity",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-boolean-quantity",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-boolean-quantity.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/quantity",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-unsafe-quantity",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-unsafe-quantity.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/quantity",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-date",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-date.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/created",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-non-utc-date",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-non-utc-date.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/created",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-leap-second",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-leap-second.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/created",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-year-zero",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-year-zero.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/created",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-time-order",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-time-order.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/modified",
+          "code": "INVALID_TIMESTAMP_ORDER"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-nfc-canonical",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-nfc-canonical.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/nfcIds/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-nfc-odd",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-nfc-odd.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/nfcIds/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-duplicate-nfc",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-duplicate-nfc.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/nfcIds",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-traversal-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-traversal-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/images/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-backslash-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-backslash-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/images/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-url-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-url-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/images/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-encoded-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-encoded-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/images/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-svg-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-svg-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/images/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-duplicate-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-duplicate-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/0/images",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-folder-id",
+    "action": "validate",
+    "kind": "index",
+    "file": "invalid-folder-id.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/0/driveFolderId",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-duplicate-boxId",
+    "action": "validate",
+    "kind": "index",
+    "file": "invalid-duplicate-boxId.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/1/boxId",
+          "code": "DUPLICATE_BOX_ID"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-duplicate-boxNumber",
+    "action": "validate",
+    "kind": "index",
+    "file": "invalid-duplicate-boxNumber.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/1/boxNumber",
+          "code": "DUPLICATE_BOX_NUMBER"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-duplicate-driveFolderId",
+    "action": "validate",
+    "kind": "index",
+    "file": "invalid-duplicate-driveFolderId.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/1/driveFolderId",
+          "code": "DUPLICATE_FOLDER_ID"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-cross-box-nfc",
+    "action": "validate",
+    "kind": "index",
+    "file": "invalid-cross-box-nfc.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/1/nfcIds/0",
+          "code": "DUPLICATE_NFC_ID"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-duplicate-item",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-duplicate-item.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/1/id",
+          "code": "DUPLICATE_ITEM_ID"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-shared-image",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-shared-image.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/items/1/images/0",
+          "code": "IMAGE_HAS_MULTIPLE_OWNERS"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-missing-number",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-missing-number.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "unsupported-schema",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "unsupported-schema.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/schemaVersion",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-schema-type",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-schema-type.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/schemaVersion",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "nfc-41",
+    "action": "nfc",
+    "input": "04:A1:34:ca:92:71:80",
+    "expected": "04A134CA927180"
+  },
+  {
+    "name": "nfc-42",
+    "action": "nfc",
+    "input": "04-a1-34-ca-92-71-80",
+    "expected": "04A134CA927180"
+  },
+  {
+    "name": "nfc-43",
+    "action": "nfc",
+    "input": "04 a1 34 ca 92 71 80",
+    "expected": "04A134CA927180"
+  },
+  {
+    "name": "nfc-44",
+    "action": "nfc",
+    "input": " 04a134ca927180 ",
+    "expected": "04A134CA927180"
+  },
+  {
+    "name": "nfc-45",
+    "action": "nfc",
+    "input": "00",
+    "expected": "00"
+  },
+  {
+    "name": "nfc-invalid-46",
+    "action": "nfc",
+    "input": "",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-47",
+    "action": "nfc",
+    "input": null,
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-48",
+    "action": "nfc",
+    "input": 123,
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-49",
+    "action": "nfc",
+    "input": "ABC",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-50",
+    "action": "nfc",
+    "input": "0x04AA",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-51",
+    "action": "nfc",
+    "input": "04::AA",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-52",
+    "action": "nfc",
+    "input": "04:AA-BB",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-53",
+    "action": "nfc",
+    "input": "04  AA",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-54",
+    "action": "nfc",
+    "input": "GG",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "nfc-invalid-55",
+    "action": "nfc",
+    "input": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "error": "INVALID_NFC_ID"
+  },
+  {
+    "name": "number-56",
+    "action": "number",
+    "input": " box-1 ",
+    "expected": "BOX-0001"
+  },
+  {
+    "name": "number-57",
+    "action": "number",
+    "input": "BOX-00001",
+    "expected": "BOX-0001"
+  },
+  {
+    "name": "number-58",
+    "action": "number",
+    "input": "BOX-10000",
+    "expected": "BOX-10000"
+  },
+  {
+    "name": "number-invalid-59",
+    "action": "number",
+    "input": "BOX-0",
+    "error": "INVALID_BOX_NUMBER"
+  },
+  {
+    "name": "number-invalid-60",
+    "action": "number",
+    "input": "BOX-0000",
+    "error": "INVALID_BOX_NUMBER"
+  },
+  {
+    "name": "number-invalid-61",
+    "action": "number",
+    "input": "0001",
+    "error": "INVALID_BOX_NUMBER"
+  },
+  {
+    "name": "number-invalid-62",
+    "action": "number",
+    "input": "BOX--1",
+    "error": "INVALID_BOX_NUMBER"
+  },
+  {
+    "name": "number-invalid-63",
+    "action": "number",
+    "input": "BOX-1000000000",
+    "error": "INVALID_BOX_NUMBER"
+  },
+  {
+    "name": "number-invalid-64",
+    "action": "number",
+    "input": null,
+    "error": "INVALID_BOX_NUMBER"
+  },
+  {
+    "name": "qr-valid",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com/",
+    "input": "https://boxes.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "expected": "9a46f128-1b5a-42ad-a240-b9015cff9ca6"
+  },
+  {
+    "name": "qr-localhost",
+    "action": "qr",
+    "publicUrl": "http://localhost:8080",
+    "input": "http://localhost:8080/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "expected": "9a46f128-1b5a-42ad-a240-b9015cff9ca6"
+  },
+  {
+    "name": "qr-invalid-67",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6?x=1",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-68",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6#",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-69",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6/",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-70",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "http://boxes.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-71",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://other.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-72",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/anything/../box/9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-73",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/box/%9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-74",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6\n",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-75",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com/box/9A46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-76",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "plain text",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "qr-invalid-77",
+    "action": "qr",
+    "publicUrl": "https://boxes.example.com",
+    "input": "https://boxes.example.com@evil.example/box/9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+    "error": "INVALID_QR_URL"
+  },
+  {
+    "name": "origin-invalid-78",
+    "action": "origin",
+    "input": "http://boxes.example.com",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-79",
+    "action": "origin",
+    "input": "https://boxes.example.com/subpath",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-80",
+    "action": "origin",
+    "input": "https://user@boxes.example.com",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-81",
+    "action": "origin",
+    "input": "https://@boxes.example.com",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-82",
+    "action": "origin",
+    "input": "https://boxes.example.com?",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-83",
+    "action": "origin",
+    "input": "https://boxes.example.com/#",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-84",
+    "action": "origin",
+    "input": "https://boxes.example.com:0",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-85",
+    "action": "origin",
+    "input": "https://boxes.example.com\\evil",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-valid-86",
+    "action": "origin",
+    "input": "https://BOXES.example.com:443/",
+    "expected": "https://boxes.example.com"
+  },
+  {
+    "name": "origin-valid-87",
+    "action": "origin",
+    "input": "http://[::1]:8080",
+    "expected": "http://[::1]:8080"
+  },
+  {
+    "name": "schema-mode-88",
+    "action": "mode",
+    "input": {
+      "schemaVersion": 1
+    },
+    "expected": "supported"
+  },
+  {
+    "name": "schema-mode-89",
+    "action": "mode",
+    "input": {
+      "schemaVersion": 1.0
+    },
+    "expected": "supported"
+  },
+  {
+    "name": "schema-mode-90",
+    "action": "mode",
+    "input": {
+      "schemaVersion": 2
+    },
+    "expected": "read-only"
+  },
+  {
+    "name": "schema-mode-91",
+    "action": "mode",
+    "input": {
+      "schemaVersion": 0
+    },
+    "expected": "invalid"
+  },
+  {
+    "name": "schema-mode-92",
+    "action": "mode",
+    "input": {
+      "schemaVersion": "1"
+    },
+    "expected": "invalid"
+  },
+  {
+    "name": "schema-mode-93",
+    "action": "mode",
+    "input": {
+      "schemaVersion": true
+    },
+    "expected": "invalid"
+  },
+  {
+    "name": "schema-mode-94",
+    "action": "mode",
+    "input": {
+      "schemaVersion": null
+    },
+    "expected": "invalid"
+  },
+  {
+    "name": "invalid-uuid-newline",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-uuid-newline.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/id",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-number-newline",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-number-newline.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/number",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-nfc-newline",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-nfc-newline.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/nfcIds/0",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-folder-newline",
+    "action": "validate",
+    "kind": "index",
+    "file": "invalid-folder-newline.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/0/driveFolderId",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-whitespace-name-bom",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-whitespace-name-bom.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/name",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid-whitespace-name-nel",
+    "action": "validate",
+    "kind": "inventory",
+    "file": "invalid-whitespace-name-nel.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/box/name",
+          "code": "SCHEMA_VIOLATION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "origin-invalid-canonical-0",
+    "action": "origin",
+    "input": "https://127.1",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-canonical-1",
+    "action": "origin",
+    "input": "https://0177.0.0.1",
+    "error": "INVALID_PUBLIC_URL"
+  },
+  {
+    "name": "origin-invalid-canonical-2",
+    "action": "origin",
+    "input": "http://localhost:080",
+    "error": "INVALID_PUBLIC_URL"
+  }
+]

@@ -1,0 +1,13 @@
+{
+    # Suppress potentially sensitive request/exception diagnostics. App logs are sanitized.
+    log default {
+        output discard
+    }
+    admin off
+}
+
+{$BOX_STORAGE_HOST} {
+    # No access-log directive: request URLs and headers must not enter proxy logs.
+    reverse_proxy box-storage:8080
+    header -Server
+}

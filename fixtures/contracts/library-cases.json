@@ -1,0 +1,75 @@
+[
+  {
+    "name": "library-valid",
+    "file": "library-valid.json",
+    "expected": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "library-stale-nfc",
+    "file": "library-stale-nfc.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/0/nfcIds",
+          "code": "INDEX_MISMATCH"
+        }
+      ]
+    }
+  },
+  {
+    "name": "library-wrong-identity",
+    "file": "library-wrong-identity.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/0/boxId",
+          "code": "INDEX_MISMATCH"
+        }
+      ]
+    }
+  },
+  {
+    "name": "library-missing",
+    "file": "library-missing.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/1",
+          "code": "MISSING_INVENTORY"
+        }
+      ]
+    }
+  },
+  {
+    "name": "library-unindexed",
+    "file": "library-unindexed.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes",
+          "code": "UNINDEXED_INVENTORY"
+        }
+      ]
+    }
+  },
+  {
+    "name": "library-invalid-inventory",
+    "file": "library-invalid-inventory.json",
+    "expected": {
+      "valid": false,
+      "errors": [
+        {
+          "path": "/boxes/1",
+          "code": "INVALID_INVENTORY"
+        }
+      ]
+    }
+  }
+]

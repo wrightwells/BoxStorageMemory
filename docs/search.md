@@ -1,0 +1,17 @@
+# Search and independent Drive context
+
+Open Search after selecting your account and library root. Enter a full or partial box number, box name, location, tag, item name, description or note. Matching ignores case and normalizes Unicode; the complete entered text must occur within one field. Blank queries show no records. Search does not use Google full-text indexing or download photographs.
+
+Results show the item's wording, containing permanent box number, box name and location. Open an item result to its UUID-based detail route, or choose Edit item to focus its name in the box editor. Queries remain in the page URL and survive the account-setup return route; inventory records stay in memory only.
+
+Search reads authoritative inventories for boxes in the current root index, with at most four box reads in flight. Results appear progressively. Loading and failed box reads are explicitly incomplete, with unavailable box numbers and errors. A ready search means all listed inventories were read, **not** that every folder in Drive was discovered. Unindexed folders require the library's recovery preview; an invalid/missing index requires recovery before search. Stale index metadata is reported and inventory wording wins.
+
+Use Refresh search after external Drive changes. Library refresh, root/account changes, sign-out, editor mutations and photo operations invalidate records; late requests from a previous context cannot repopulate results. Previously read inventories are reused until refresh/invalidation. There is no continuous Drive change subscription or guarantee of a simultaneous multi-file snapshot. Unsaved drafts do not replace authoritative results.
+
+Folder publication/update derives `BOX-number name` and a plain Drive description containing number, name, location, description and tags. New ordinary JPEGs use box-number/item-name/item-UUID/photo-UUID filenames and a Drive description containing box/item context and permanent item identity. Descriptions are bounded to 1,000 characters and exclude unknown extension fields. Existing photos are not silently renamed or redescribed when their item changes; inventory remains authoritative. Ownership app properties support recovery and are not user-facing search text. No duplicate companion inventory is created.
+
+Production folder and image mutations remain disabled until the earlier conditional-write and cleanup gates are verified. Metadata generation and orchestration have simulator coverage; this is not live Drive publication evidence.
+
+Google documents `fullText` queries as considering names, descriptions and certain content/metadata, with token matching rather than the application's arbitrary substring behavior. See Google's [search term reference](https://developers.google.com/workspace/drive/api/guides/ref-search-terms) and [file-search guide](https://developers.google.com/workspace/drive/api/guides/search-files). These API rules do not establish native Drive UI ranking, indexing delay, JSON content indexing or identical search semantics.
+
+The [single-account test](stages-1-7-account-test.md) observed readable folders, JSON and an ordinary JPEG in Drive. It did not measure native Drive search or publish Stage 9 descriptions. Native search by box number, item wording and description, timing after updates, and visibility in a second client remain live acceptance checks. Inspect the ordinary file's name, parent folder, description and inventory directly if native search omits it.

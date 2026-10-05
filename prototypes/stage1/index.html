@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Box Storage — Stage 1 integration probe</title>
+  <style>
+    body { font: 1rem system-ui; max-width: 58rem; margin: 2rem auto; padding: 0 1rem; }
+    label { display: block; margin: 1rem 0 .3rem; }
+    input, select { padding: .5rem; width: min(95%, 38rem); }
+    button { margin: .4rem .4rem .4rem 0; padding: .65rem; }
+    fieldset { margin: 1.5rem 0; } pre { white-space: pre-wrap; }
+  </style>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script type="module" src="./ui.mjs"></script>
+</head>
+<body>
+  <h1>Stage 1 Google Drive probe</h1>
+  <p>Development prototype. Use a disposable account. Tokens stay in memory and go directly to Google.
+    Existing roots can only be inspected. Experimental writes require dedicated probe files.</p>
+  <p>Follow <a href="../../docs/google-setup.md">the setup instructions</a>. This page does not prove production concurrency safety.</p>
+  <p>The operator configures one application web client ID below and reuses it for the
+    consent test accounts. Ordinary users need no Cloud project, project membership or
+    payment-card setup. This field belongs to the development probe, not user onboarding.</p>
+  <fieldset>
+    <legend>Authorization</legend>
+    <label for="client">Operator-configured public web OAuth client ID</label><input id="client" autocomplete="off">
+    <label for="scope">Drive scope to test</label>
+    <select id="scope">
+      <option value="https://www.googleapis.com/auth/drive">Existing library access (drive)</option>
+      <option value="https://www.googleapis.com/auth/drive.file">App-created files only (drive.file experiment)</option>
+    </select>
+    <button id="authorize">Authorize / choose account</button><button id="renew">Renew authorization</button>
+    <button id="signout">Sign out locally</button><button id="revoke">Revoke Google authorization</button>
+  </fieldset>
+  <fieldset>
+    <legend>Root selection and discovery</legend>
+    <label for="root">Drive root folder ID</label><input id="root" autocomplete="off">
+    <button id="select">Inspect existing root</button><button id="list">List immediate children</button>
+    <button id="create">Create disposable probe root</button><button id="scratch">Create probe JSON files</button>
+  </fieldset>
+  <fieldset>
+    <legend>Conditional write experiments</legend>
+    <p>Use two tabs to test independent sessions. Copy a probe file ID into the second tab and register it,
+      then load the same baseline in each tab before either saves. Each tab keeps its own token.</p>
+    <label for="file">Disposable probe file ID</label><input id="file" autocomplete="off">
+    <label for="writer">Writer marker</label><select id="writer"><option>A</option><option>B</option></select>
+    <label><input id="confirm" type="checkbox" style="width:auto"> I confirm this is a disposable Stage 1 probe file.</label>
+    <button id="register">Register existing probe file</button><button id="baseline">Load baseline</button>
+    <button id="write">Try conditional write</button><button id="race">Race two writers in this tab</button>
+  </fieldset>
+  <h2>Result</h2><pre id="status" role="status" aria-live="polite">Not authorized.</pre>
+</body>
+</html>

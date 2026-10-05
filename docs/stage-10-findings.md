@@ -1,0 +1,9 @@
+# Stage 10 verification
+
+4 October 2026. Local QR labels, safe camera/paste scanning and optional Web NFC workflows are delivered. See [QR/NFC usage](qr-nfc.md) and the [acceptance record](release-acceptance.md).
+
+QR generation uses the existing token-free API; display/print includes permanent number/name and canonical URL, with PNG download and regeneration retaining identity. Camera frames are bounded and decoded locally by pinned jsQR 1.4.0; scans accept only exact configured canonical URLs. Invalid/unrelated data never redirects, and denied/unavailable cameras retain lookup alternatives. Tracks are fenced/stopped on stop, result, hidden page, navigation and account/root changes. Label URLs are revoked on context change.
+
+Web NFC is runtime-detected and deployment-gated, uses ordered nonempty serial bytes only, and aborts readers/listeners on stop/context changes. Known/unknown/duplicate/incomplete authority is handled explicitly. A dedicated confirmed tag workflow normalizes UIDs, retains immutable box identity/unknown fields, removes old authority/index before reassignment and reports incomplete steps. Ordinary box edits still cannot change tag fields. Production tag writes remain closed under the earlier concurrency/coordination gates; no cross-file atomicity is claimed.
+
+Real QR pixels, strict malformed URL/serial vectors, camera cancellation, authoritative/stale tag lookup, registration/replacement/removal, confirmed moves, interrupted index save, write gates and label/setup/fallback UI have automated evidence. Actual compiled Chrome/Firefox/mobile-layout browser workflows exercise label generation, QR login routes and denied-camera fallback under CSP with synthetic Google responses. Physical camera/NFC, real final-policy login and independent native UID comparison remain pending. Native Android code is excluded.

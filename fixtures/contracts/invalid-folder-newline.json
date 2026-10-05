@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-10-03T15:30:00Z",
+  "boxes": [
+    {
+      "boxId": "9a46f128-1b5a-42ad-a240-b9015cff9ca6",
+      "boxNumber": "BOX-0001",
+      "name": "Electrical Box",
+      "driveFolderId": "test_electrical_folder\n",
+      "location": "Garage",
+      "nfcIds": [
+        "04AABBCCDDEE11"
+      ]
+    },
+    {
+      "boxId": "9a46f128-1b5a-42ad-a240-b9015cff9ca7",
+      "boxNumber": "BOX-0002",
+      "name": "Spare Box",
+      "driveFolderId": "test_spare_folder",
+      "nfcIds": []
+    }
+  ]
+}

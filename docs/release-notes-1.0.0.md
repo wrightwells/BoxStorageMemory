@@ -1,0 +1,14 @@
+# Box Storage 1.0.0 release candidate
+
+4 October 2026. Versioned token-free API/schema contracts and the server/web handoff are available. This is a **release candidate with verified new-box creation and separate gates for other Drive mutations**, not a fully accepted writable production release.
+
+Delivered: operator-managed Google authorization/root selection, direct client Drive browsing and photo viewing, recovery previews, in-memory box/item drafts and validation, JPEG processing/photo recovery controls, progressive global search, printable QR labels, bounded camera QR decoding, strict label URLs and optional Web NFC serial lookup/tag orchestration. Gated editing/photo/tag operations are verified with an atomic simulator. Ordinary record metadata retains useful box/item context.
+
+The single non-root server/web image, local and HTTPS Compose examples, strict browser policies, sanitized request logs, configuration/runbook, versioned schemas/OpenAPI/fixtures and reproducible independent-client contract archive are included. Browser validation is compiled ahead of time, so application CSP does not require unsafe-eval. Camera QR decoding uses pinned jsQR 1.4.0 (Apache-2.0), loaded only when decoding.
+
+Empty-library initialization and new-box creation now use live-tested Drive v2 CAS and fixed generated IDs; see [decision 007](decisions/007-coordinated-creation.md). Ordinary box/item saves also use the coordinated protocol in decision 008. Photo management now follows decision 009 for upload, reference changes and owned cleanup. Known limitations: cross-box NFC coordination, automatic pending-operation recovery and index replacement remain unverified or incomplete. Those mutation controls remain closed. Search readiness covers indexed inventories; unindexed discovery uses recovery. Existing photo metadata is historical after item edits. Native Drive search, two-account lifecycle, full live writable workflows, Chrome Android/Edge and reference-tag/camera hardware acceptance require further evidence. Native Android implementation is owned by a separate project. See [release acceptance](release-acceptance.md) for evidence and explicit limitations.
+
+No new API or schema version was introduced. Unknown-field preservation and QR/NFC conventions remain compatible with the v1 fixtures. See [client integration](client-integration.md), [deployment runbook](deployment.md) and [compatibility](compatibility.md).
+
+
+Existing-box save follow-up (4 October 2026): ordinary box/item additions, updates and removals now use the coordinated v2 protocol in [decision 008](decisions/008-coordinated-editing.md). Photo management now uses the same owner and conditional writes. NFC mutation, recovery publication and automatic interrupted-operation recovery remain gated. This supersedes the earlier existing-box-save limitation above.
