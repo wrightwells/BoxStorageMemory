@@ -28,6 +28,23 @@ The overlay adds that interface's port 8080 while retaining localhost access. Th
 
 This port binding does not change the configured canonical QR origin or Google application registration. Google OAuth requires HTTPS and rejects raw IP origins except loopback; use a registered HTTPS hostname and the production example for Google sign-in from another device. See [Google origin validation rules](https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow#origin-validation).
 
+### Tailscale HTTPS
+
+The current host is available to devices on its tailnet at **https://dell-linux-mint.bandicoot-pumpkinseed.ts.net**, resolving to `100.82.50.120`. Tailscale Serve terminates HTTPS and proxies to the existing loopback application at `http://127.0.0.1:8080`. The localhost and `10.10.1.8:8080` bindings remain available.
+
+Inspect existing routes before changing Serve; preserve unrelated handlers. Configure this host with:
+
+```bash
+tailscale serve status
+tailscale serve --bg --https=443 --set-path=/ http://127.0.0.1:8080
+```
+
+Set `PUBLIC_URL=https://dell-linux-mint.bandicoot-pumpkinseed.ts.net` in the operator's `.env`. Add that exact origin to `ALLOWED_ORIGINS`, retaining any existing localhost/development/LAN origins that are still required, and recreate the app using both Compose files above. New application QR labels use this canonical HTTPS origin. Serve runs persistently in background mode; access remains subject to the tailnet's access rules. [Tailscale Serve documentation](https://tailscale.com/docs/reference/tailscale-cli/serve).
+
+Register the same HTTPS address under **Authorized JavaScript origins** on the existing Google web OAuth client, without a trailing slash. Application CORS configuration does not register an origin with Google. See [Google setup](google-setup.md).
+
+Verified on 5 October 2026: hostname-validated TLS certificate, HTTPS health/assets/deep routes, canonical URL/CORS/HSTS, retained LAN access, and 12 browser checks across Chrome, Firefox and mobile. Google/Drive requests in those browser checks were mocked; real Google sign-in at the new origin still needs operator registration and a live check.
+
 ## HTTPS example
 
 `compose.production.yaml` is a standalone deployment, not an overlay on the local port-publishing file. Its application port is internal only; Caddy terminates HTTPS on 80/443. Caddy configuration is copied into its proxy image, so no host configuration mount is required. Named TLS volumes contain certificate/configuration state, not inventories or Google user tokens. No privileged mode, host/Docker-socket mount or inventory/database service is used.

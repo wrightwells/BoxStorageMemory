@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -10,6 +10,7 @@ import {
   type TokenResponse,
 } from "../src/services/google";
 import { StorageSession } from "../src/services/session";
+import { ClientError } from "../src/services/errors";
 import { BOX, ITEM, SECOND, fixtureLibrary } from "./library-fixtures";
 
 const config = {
@@ -109,29 +110,95 @@ describe("inventory screens", () => {
     expect(
       await screen.findByRole("link", { name: "13A Extension Lead" }),
     ).toBeInTheDocument();
+    const table = screen.getByRole("table", { name: "Box inventory items" });
+    expect(
+      within(table)
+        .getAllByRole("columnheader")
+        .map((cell) => cell.textContent),
+    ).toEqual(["Item", "Quantity", "Description", "Photographs"]);
+    expect(
+      within(table).getByRole("link", { name: "13A Extension Lead" }),
+    ).toHaveAttribute("href", `/box/${BOX}/item/${ITEM}`);
+    expect(
+      within(table).getByRole("link", { name: "Manage photographs" }),
+    ).toHaveAttribute("href", `/box/${BOX}/item/${ITEM}/photos`);
     expect(fixture.drive.image).not.toHaveBeenCalled();
   });
-  it("browses folders and resolves a box deep link directly", async () => {
+  it("opens indexed nested boxes without redundant settings or folder browsing", async () => {
     const fixture = await prepare();
     fixture.open();
-    await userEvent.click(
-      await screen.findByRole("button", { name: "Garage" }),
-    );
+    const box = await screen.findByRole("link", {
+      name: /BOX-0001 Electrical Box/,
+    });
     expect(
-      await screen.findByRole("button", { name: "BOX-0001 Electrical Box" }),
-    ).toBeInTheDocument();
-    await userEvent.click(
-      screen.getByRole("button", { name: "BOX-0001 Electrical Box" }),
-    );
+      screen.queryByText("Account and folder settings"),
+    ).not.toBeInTheDocument();
     expect(
-      screen.getAllByRole("link", { name: /BOX-0001 Electrical Box/ }),
-    ).toHaveLength(2);
-    await userEvent.click(
-      screen.getAllByRole("link", { name: /BOX-0001 Electrical Box/ })[1]!,
-    );
+      screen.queryByRole("heading", { name: "Browse folders" }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Settings" })).toBeInTheDocument();
+    await userEvent.click(box);
     expect(
       await screen.findByRole("link", { name: "13A Extension Lead" }),
     ).toBeInTheDocument();
+  });
+  it("groups every box by location and keeps boxes without a location visible", async () => {
+    const fixture = await prepare();
+    fixture.index.boxes[0]!.location = " Garage ";
+    fixture.open();
+    await screen.findByRole("link", { name: /BOX-0001 Electrical Box/ });
+    await userEvent.click(screen.getByLabelText("Group boxes by location"));
+    expect(
+      within(screen.getByRole("region", { name: "Garage" })).getByRole("link", {
+        name: /BOX-0001 Electrical Box/,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      within(
+        screen.getByRole("region", {
+          name: "Location not recorded",
+        }),
+      ).getByRole("link", { name: /BOX-0002 Spare Box/ }),
+    ).toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText("Group boxes by location"));
+    expect(
+      screen.queryByRole("region", { name: "Garage" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /BOX-0002 Spare Box/ }),
+    ).toBeInTheDocument();
+  });
+  it("offers initialization only for a confirmed empty library with no index", async () => {
+    const fixture = await prepare();
+    fixture.files.clear();
+    fixture.files.set(fixture.root.id, fixture.root);
+    fixture.open();
+    expect(
+      await screen.findByRole("button", { name: "Initialize empty library" }),
+    ).toBeVisible();
+  });
+  it("offers recovery without initialization when an index is missing in a populated library", async () => {
+    const fixture = await prepare();
+    fixture.files.delete("index-file");
+    fixture.open();
+    await screen.findByText(/The library index is missing/);
+    expect(
+      screen.queryByRole("button", { name: "Initialize empty library" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Preview rebuilt index" }),
+    ).toBeEnabled();
+  });
+  it("does not offer initialization when the library listing is unavailable", async () => {
+    const fixture = await prepare();
+    vi.mocked(fixture.session.drive.listChildren).mockRejectedValueOnce(
+      new ClientError("DRIVE_FORBIDDEN"),
+    );
+    fixture.open();
+    await screen.findByRole("alert");
+    expect(
+      screen.queryByRole("button", { name: "Initialize empty library" }),
+    ).not.toBeInTheDocument();
   });
   it("returns to a requested item after account and root setup", async () => {
     const fixture = await prepare();
@@ -157,33 +224,70 @@ describe("inventory screens", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "This item is not in the current box inventory",
     );
+    expect(
+      screen.queryByRole("link", { name: "Back to library" }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Back to box" })).toHaveAttribute(
+      "href",
+      `/box/${SECOND}`,
+    );
     await userEvent.click(screen.getByRole("link", { name: "Back to box" }));
     expect(await screen.findByText("This box is empty.")).toBeInTheDocument();
   });
-  it("does not download images until asked and releases them on close", async () => {
+  it("automatically loads item photographs and releases them when returning to the box", async () => {
     const fixture = await prepare();
     fixture.open(`/box/${BOX}/item/${ITEM}`);
-    const button = await screen.findByRole("button", { name: "Load photo" });
-    expect(fixture.drive.image).not.toHaveBeenCalled();
-    await userEvent.click(button);
     expect(
       await screen.findByRole("img", { name: /Item photograph/ }),
     ).toHaveAttribute("src", "blob:photo-file");
-    await userEvent.click(screen.getByRole("button", { name: "Close photo" }));
+    expect(fixture.drive.image).toHaveBeenCalled();
+    expect(
+      screen.queryByRole("link", { name: "QR label" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "Manage NFC tags" }),
+    ).not.toBeInTheDocument();
+    const management = screen.getByRole("link", { name: "Manage photographs" });
+    expect(management).toHaveAttribute(
+      "href",
+      `/box/${BOX}/item/${ITEM}/photos`,
+    );
+    expect(within(management).getByRole("img")).toBeInTheDocument();
+    expect(management.querySelector("svg")).toBeNull();
+    expect(
+      screen.queryByRole("button", { name: "Load photo" }),
+    ).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("link", { name: "Back to box" }));
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
     expect(fixture.drive.releaseImage).toHaveBeenCalledWith("blob:photo-file");
   });
+  it("keeps the photo management icon for an item without photographs", async () => {
+    const fixture = await prepare();
+    fixture.inventory.items[0]!.images = [];
+    fixture.open(`/box/${BOX}/item/${ITEM}`);
+    await screen.findByText("No photographs for this item.");
+    const management = screen.getByRole("link", { name: "Manage photographs" });
+    expect(management.querySelector("svg")).not.toBeNull();
+    expect(management).toHaveAttribute(
+      "href",
+      `/box/${BOX}/item/${ITEM}/photos`,
+    );
+    expect(fixture.drive.image).not.toHaveBeenCalled();
+  });
   it("reports a missing image with a retry instead of a broken placeholder", async () => {
     const fixture = await prepare();
+    const photoFile = fixture.files.get("photo-file")!;
     fixture.files.delete("photo-file");
     fixture.open(`/box/${BOX}/item/${ITEM}`);
-    await userEvent.click(
-      await screen.findByRole("button", { name: "Load photo" }),
-    );
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "This photograph is missing",
     );
     expect(screen.getByRole("button", { name: "Retry photo" })).toBeEnabled();
+    fixture.files.set("photo-file", photoFile);
+    await userEvent.click(screen.getByRole("button", { name: "Retry photo" }));
+    expect(
+      await screen.findByRole("img", { name: /Item photograph/ }),
+    ).toHaveAttribute("src", "blob:photo-file");
   });
   it("refreshes externally changed inventories and reports stale lookup metadata", async () => {
     const fixture = await prepare();
@@ -211,6 +315,10 @@ describe("inventory screens", () => {
     expect(
       await screen.findByText(/Found 2 valid inventories/),
     ).toBeInTheDocument();
+    expect(document.body.textContent).not.toContain(BOX);
+    expect(
+      fixture.session.library.getSnapshot().recovery?.candidate.boxes[0]?.boxId,
+    ).toBeDefined();
     expect(
       screen.getByRole("button", { name: "Replace index after review" }),
     ).toBeDisabled();
@@ -233,9 +341,6 @@ describe("inventory screens", () => {
   it("clears displayed records and photo URLs immediately on sign-out", async () => {
     const fixture = await prepare();
     fixture.open(`/box/${BOX}/item/${ITEM}`);
-    await userEvent.click(
-      await screen.findByRole("button", { name: "Load photo" }),
-    );
     await screen.findByRole("img");
     act(() => fixture.session.signOut());
     expect(screen.queryByRole("img")).not.toBeInTheDocument();

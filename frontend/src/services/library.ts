@@ -63,6 +63,7 @@ export interface LibraryState {
   revision: number;
   recovery?: RecoveryReport;
   recovering: boolean;
+  emptyLibrary?: boolean;
 }
 
 const codeOf = (error: unknown) =>
@@ -146,15 +147,21 @@ export class LibraryService {
     if (this.#loading) return this.#loading;
     if (this.#state.status === "ready") return;
     const task = this.task();
-    this.update({ status: "loading", error: undefined });
+    this.update({
+      status: "loading",
+      error: undefined,
+      emptyLibrary: undefined,
+    });
     const loading = (async () => {
       try {
         const root = this.drive.root;
         if (!root) throw new ClientError("ROOT_REQUIRED");
-        const files = (
-          await this.drive.listChildren(root.id, task.signal)
-        ).filter((f) => f.name === "box-storage-index.json");
+        const children = await this.drive.listChildren(root.id, task.signal);
         task.check();
+        const files = children.filter(
+          (f) => f.name === "box-storage-index.json",
+        );
+        this.update({ emptyLibrary: children.length === 0 });
         if (!files.length) throw new ClientError("INDEX_MISSING");
         if (files.length !== 1) throw new ClientError("DUPLICATE_FILE");
         const snapshot = await this.drive.readJson(files[0]!.id, task.signal);

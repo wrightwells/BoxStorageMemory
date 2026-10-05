@@ -1,6 +1,13 @@
 import { LoadingStatus } from "./LoadingStatus";
+import { previewJson } from "./previewJson";
 import { useEffect, useState } from "react";
-import { Link, useBlocker, useParams, useLocation } from "react-router-dom";
+import {
+  Link,
+  useBlocker,
+  useParams,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import type { InventoryItem } from "../../../shared/typescript/models";
 import { ClientError, errorMessage } from "../services/errors";
 import { LibraryConnection } from "./DriveConnection";
@@ -67,6 +74,12 @@ function ConnectedEditor({ create }: { create: boolean }) {
   const { boxId } = useParams();
   const { editing, state } = useEditing();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { photos } = usePhotos();
+  const [photoItem, setPhotoItem] = useState<{
+    boxId: string;
+    itemId: string;
+  }>();
   const [error, setError] = useState<unknown>();
   const [validated, setValidated] = useState(false);
   const draft = state.draft;
@@ -86,6 +99,40 @@ function ConnectedEditor({ create }: { create: boolean }) {
   useEffect(() => {
     setValidated(false);
   }, [draft?.document]);
+  useEffect(() => {
+    if (
+      photoItem &&
+      !state.busy &&
+      !state.dirty &&
+      draft?.document.box.id === photoItem.boxId
+    ) {
+      // Returning from photographs must load the saved inventory, including new images.
+      editing.reset();
+      navigate(`/box/${photoItem.boxId}/item/${photoItem.itemId}/photos`);
+    }
+  }, [
+    photoItem,
+    state.busy,
+    state.dirty,
+    draft?.document.box.id,
+    navigate,
+    editing,
+  ]);
+  const addPhoto = async (itemId: string) => {
+    if (!draft) return;
+    const target = { boxId: draft.document.box.id, itemId };
+    if (state.dirty || (create && state.result?.outcome !== "complete")) {
+      const result = await editing.save();
+      if (result?.outcome !== "complete") return;
+    }
+    const current = editing.getSnapshot();
+    if (
+      current.draft?.document.box.id === target.boxId &&
+      current.draft.document.items.some((item) => item.id === itemId) &&
+      !current.dirty
+    )
+      setPhotoItem(target);
+  };
   const act = (action: () => void | Promise<unknown>) => {
     setError(undefined);
     try {
@@ -129,7 +176,6 @@ function ConnectedEditor({ create }: { create: boolean }) {
           <p>
             Permanent number: <strong>{draft.document.box.number}</strong>
           </p>
-          <p>Box UUID: {draft.document.box.id}</p>
           {create && (
             <p>
               This number is a proposal. It is reserved only after a successful
@@ -199,14 +245,55 @@ function ConnectedEditor({ create }: { create: boolean }) {
             </fieldset>
             <h2>Inventory items</h2>
             {!draft.document.items.length && <p>This draft has no items.</p>}
-            {draft.document.items.map((item) => (
-              <ItemEditor
-                key={item.id}
-                item={item}
-                disabled={!!disabled}
-                act={act}
-              />
-            ))}
+            {!!draft.document.items.length && (
+              <div
+                className="inventory-table-scroll"
+                tabIndex={0}
+                aria-label="Scrollable inventory items"
+              >
+                <table
+                  className="inventory-editor-table"
+                  aria-label="Inventory items"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">Item</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Details and photos</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {draft.document.items.map((item) => (
+                      <ItemEditor
+                        key={item.id}
+                        item={item}
+                        disabled={!!disabled}
+                        photoDisabled={
+                          state.busy ||
+                          !!draft.readOnly ||
+                          !photos.writesAvailable ||
+                          (state.locked &&
+                            state.result?.outcome !== "complete") ||
+                          ((state.dirty || create) && !savingAvailable)
+                        }
+                        newItem={
+                          !draft.original.items.some(
+                            (original) => original.id === item.id,
+                          )
+                        }
+                        addPhoto={() => act(() => addPhoto(item.id))}
+                        act={act}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            <p>
+              Add photo saves any current box changes before opening the item’s
+              photographs.
+            </p>
             <button
               type="button"
               disabled={disabled}
@@ -285,7 +372,7 @@ function ConnectedEditor({ create }: { create: boolean }) {
           )}
           <details>
             <summary>Review draft JSON</summary>
-            <pre>{JSON.stringify(draft.document, null, 2)}</pre>
+            <pre>{previewJson(draft.document)}</pre>
           </details>
           {state.result && (
             <section className="sub-panel" aria-label="Save result">
@@ -338,7 +425,7 @@ function ConnectedEditor({ create }: { create: boolean }) {
           {state.inspection && (
             <details open>
               <summary>Current Drive state for review</summary>
-              <pre>{JSON.stringify(state.inspection, null, 2)}</pre>
+              <pre>{previewJson(state.inspection)}</pre>
             </details>
           )}
           {state.reconciliation && (
@@ -376,89 +463,120 @@ function ConnectedEditor({ create }: { create: boolean }) {
 function ItemEditor({
   item,
   disabled,
+  photoDisabled,
+  newItem,
+  addPhoto,
   act,
 }: {
   item: InventoryItem;
   disabled: boolean;
+  photoDisabled: boolean;
+  newItem: boolean;
+  addPhoto: () => void;
   act: (action: () => void | Promise<unknown>) => void;
 }) {
   const { editing } = useEditing();
+  const [expanded, setExpanded] = useState(newItem);
   return (
-    <fieldset disabled={disabled} className="item-editor">
-      <legend>{item.name || "New item"}</legend>
-      <p>Item UUID: {item.id}</p>
-      <label htmlFor={`name-${item.id}`}>Item name</label>
-      <input
-        id={`name-${item.id}`}
-        value={item.name}
-        onChange={(event) =>
-          act(() => editing.item(item.id, { name: event.target.value }))
-        }
-        required
-      />
-      <label htmlFor={`quantity-${item.id}`}>Quantity</label>
-      <input
-        id={`quantity-${item.id}`}
-        type="number"
-        min="0"
-        max="9007199254740991"
-        step="1"
-        value={Number.isFinite(item.quantity) ? item.quantity : ""}
-        onChange={(event) =>
-          act(() =>
-            editing.item(item.id, {
-              quantity:
-                event.target.value === "" ? NaN : Number(event.target.value),
-            }),
-          )
-        }
-        required
-      />
-      <label htmlFor={`description-${item.id}`}>Item description</label>
-      <textarea
-        id={`description-${item.id}`}
-        value={item.description ?? ""}
-        onChange={(event) =>
-          act(() => editing.item(item.id, { description: event.target.value }))
-        }
-      />
-      <label htmlFor={`tags-${item.id}`}>Item tags (one per line)</label>
-      <textarea
-        id={`tags-${item.id}`}
-        value={item.tags?.join("\n") ?? ""}
-        onChange={(event) =>
-          act(() =>
-            editing.item(item.id, {
-              tags: event.target.value.split("\n").filter((tag) => tag.trim()),
-            }),
-          )
-        }
-      />
-      <label htmlFor={`notes-${item.id}`}>Notes</label>
-      <textarea
-        id={`notes-${item.id}`}
-        value={item.notes ?? ""}
-        onChange={(event) =>
-          act(() => editing.item(item.id, { notes: event.target.value }))
-        }
-      />
-      <p>
-        {item.images?.length ?? 0} photo references will be preserved while
-        editing.
-      </p>
-      <button
-        type="button"
-        onClick={() => {
-          if (
-            window.confirm(
-              `Delete ${item.name || "this item"} from the draft? Its ${item.images?.length ?? 0} photo references will be removed when saved, but all photo files will remain in Drive. Shared or unrelated photos will not be deleted.`,
+    <tr className="item-editor">
+      <td>
+        <label htmlFor={`name-${item.id}`}>Item name</label>
+        <input
+          disabled={disabled}
+          id={`name-${item.id}`}
+          value={item.name}
+          onChange={(event) =>
+            act(() => editing.item(item.id, { name: event.target.value }))
+          }
+          required
+        />
+      </td>
+      <td>
+        <label htmlFor={`quantity-${item.id}`}>Quantity</label>
+        <input
+          disabled={disabled}
+          id={`quantity-${item.id}`}
+          type="number"
+          min="0"
+          max="9007199254740991"
+          step="1"
+          value={Number.isFinite(item.quantity) ? item.quantity : ""}
+          onChange={(event) =>
+            act(() =>
+              editing.item(item.id, {
+                quantity:
+                  event.target.value === "" ? NaN : Number(event.target.value),
+              }),
             )
-          )
-            act(() => editing.removeItem(item.id, true));
-        }}
-      >
-        Delete item
-      </button>
-    </fieldset>
+          }
+          required
+        />
+      </td>
+      <td>
+        <details
+          open={expanded}
+          onToggle={(event) => setExpanded(event.currentTarget.open)}
+        >
+          <summary>Description, tags, notes and photos</summary>
+          <div className="item-expanded-fields">
+            <label htmlFor={`description-${item.id}`}>Item description</label>
+            <textarea
+              disabled={disabled}
+              id={`description-${item.id}`}
+              value={item.description ?? ""}
+              onChange={(event) =>
+                act(() =>
+                  editing.item(item.id, { description: event.target.value }),
+                )
+              }
+            />
+            <label htmlFor={`tags-${item.id}`}>Item tags (one per line)</label>
+            <textarea
+              disabled={disabled}
+              id={`tags-${item.id}`}
+              value={item.tags?.join("\n") ?? ""}
+              onChange={(event) =>
+                act(() =>
+                  editing.item(item.id, {
+                    tags: event.target.value
+                      .split("\n")
+                      .filter((tag) => tag.trim()),
+                  }),
+                )
+              }
+            />
+            <label htmlFor={`notes-${item.id}`}>Notes</label>
+            <textarea
+              disabled={disabled}
+              id={`notes-${item.id}`}
+              value={item.notes ?? ""}
+              onChange={(event) =>
+                act(() => editing.item(item.id, { notes: event.target.value }))
+              }
+            />
+            <p>{item.images?.length ?? 0} photographs</p>
+            <button type="button" disabled={photoDisabled} onClick={addPhoto}>
+              Add photo
+            </button>
+          </div>
+        </details>
+      </td>
+      <td>
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => {
+            if (
+              window.confirm(
+                `Delete ${item.name || "this item"} from the draft? Its ${item.images?.length ?? 0} photo references will be removed when saved, but all photo files will remain in Drive. Shared or unrelated photos will not be deleted.`,
+              )
+            )
+              act(() => editing.removeItem(item.id, true));
+          }}
+        >
+          Delete item
+        </button>
+      </td>
+    </tr>
   );
 }

@@ -183,16 +183,32 @@ async function connect(page: Page) {
 test("strict policies support login, browse/search/edit/label/recovery and clear results on sign-out", async ({
   page,
 }) => {
+  // This workflow now also visits the item photo manager and returns to editing.
+  test.setTimeout(45000);
   const fixture = await mockGoogle(page);
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.name));
   await page.goto("/login");
   await connect(page);
   await page.getByRole("link", { name: "Library", exact: true }).click();
+  await expect(
+    page.getByRole("link", { name: "Account and folder settings" }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Browse folders" }),
+  ).toHaveCount(0);
+  await page.getByLabel("Group boxes by location").check();
+  await expect(
+    page.getByRole("region", { name: source.box.location, exact: true }),
+  ).toBeVisible();
+  await page.getByLabel("Group boxes by location").uncheck();
   await page.getByLabel("Find a box number").fill("box-1");
   await page.getByRole("button", { name: "Open box", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "BOX-0001 · Electrical Box" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("table", { name: "Box inventory items" }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Search", exact: true }).click();
   await page.getByLabel("Search boxes and items").fill("10 metre");
@@ -202,18 +218,69 @@ test("strict policies support login, browse/search/edit/label/recovery and clear
   await expect(page).toHaveURL(
     new RegExp(`/box/${BOX}/item/${source.items[0].id}$`),
   );
-  await page.getByRole("button", { name: "Load photo" }).click();
+  await expect(
+    page.getByRole("link", { name: "Back to box", exact: true }),
+  ).toHaveAttribute("href", `/box/${BOX}`);
+  await expect(
+    page.getByRole("link", { name: "Back to library", exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator(".item-photo img")).toBeVisible();
   expect(
     await page
       .locator(".item-photo img")
       .evaluate((image) => (image as HTMLImageElement).naturalWidth),
   ).toBe(32);
-  await page.getByRole("button", { name: "Close photo" }).click();
+  const photoAction = page.getByRole("link", {
+    name: "Manage photographs",
+    exact: true,
+  });
+  await expect(photoAction.locator("svg")).toHaveCount(0);
+  await expect(photoAction.locator("img")).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "QR label", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("link", { name: "Manage NFC tags", exact: true }),
+  ).toHaveCount(0);
+  const titles = await page.locator(".record-title").evaluateAll((elements) =>
+    elements.map((element) => ({
+      size: getComputedStyle(element).fontSize,
+      weight: getComputedStyle(element).fontWeight,
+    })),
+  );
+  expect(titles).toHaveLength(2);
+  expect(titles[0]).toEqual(titles[1]);
+  expect(Number(titles[0].weight)).toBeGreaterThanOrEqual(700);
+  await photoAction.click();
+  await expect(
+    page.getByLabel("Choose photographs (up to 20, 25 MiB each)"),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Back to item", exact: true }).click();
   await page.getByRole("link", { name: "Edit box and items" }).click();
   await expect(
     page.getByRole("button", { name: "Save changes" }),
   ).toBeDisabled();
+  await expect(
+    page.getByRole("table", { name: "Inventory items" }),
+  ).toBeVisible();
+  await expect(page.getByLabel("Item name", { exact: true })).toBeVisible();
+  await expect(page.locator("body")).not.toContainText(BOX);
+  await expect(page.getByLabel("Notes", { exact: true })).not.toBeVisible();
+  await page
+    .getByText("Description, tags, notes and photos", { exact: true })
+    .click();
+  await expect(page.getByLabel("Notes", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Add photo", exact: true }).click();
+  await expect(page).toHaveURL(
+    new RegExp(`/box/${BOX}/item/${source.items[0].id}/photos$`),
+  );
+  await expect(
+    page.getByLabel("Choose photographs (up to 20, 25 MiB each)"),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Back to item", exact: true }).click();
+  await page
+    .getByRole("link", { name: "Edit box and items", exact: true })
+    .click();
   await page.getByLabel("Box name", { exact: true }).fill("Updated box draft");
   await expect(
     page.getByRole("button", { name: "Save changes" }),
@@ -224,18 +291,51 @@ test("strict policies support login, browse/search/edit/label/recovery and clear
     .click();
   await page.locator(`a[href="/box/${BOX}"]`).first().click();
   await page.getByRole("link", { name: "QR label", exact: true }).click();
-  await page.getByRole("button", { name: "Generate QR label" }).click();
-  await expect(
-    page.getByRole("img", { name: "QR code for BOX-0001" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "BOX-0001", exact: true }),
-  ).toBeVisible();
+  await expect(page.locator(".qr-label--above img")).toBeVisible();
+  await expect(page.locator(".qr-label--left img")).toBeVisible();
+  await page.evaluate(() => {
+    window.print = () => undefined;
+  });
+  for (const layout of ["above", "left"] as const) {
+    const label = page.locator(`.qr-label--${layout}`);
+    const other = page.locator(
+      `.qr-label--${layout === "above" ? "left" : "above"}`,
+    );
+    await expect(label).toHaveText("BOX-0001");
+    await expect(
+      page.getByRole("region", { name: `Number ${layout} QR code` }),
+    ).toHaveCSS("border-top-style", "solid");
+    await page
+      .getByRole("button", {
+        name: `Print label: number ${layout}`,
+        exact: true,
+      })
+      .click();
+    for (const media of ["screen", "print"] as const) {
+      await page.emulateMedia({ media });
+      const number = await label.locator("h3").boundingBox();
+      const code = await label.locator("img").boundingBox();
+      expect(number!.width).toBeCloseTo(code!.width, 1);
+      if (layout === "above") expect(number!.x).toBeCloseTo(code!.x, 1);
+      else expect(number!.x + number!.width).toBeLessThan(code!.x);
+      if (media === "print") {
+        await expect(other).toBeHidden();
+        await expect(label.locator("img")).toBeVisible();
+        await expect(page.locator(".site-header")).toHaveCSS(
+          "visibility",
+          "hidden",
+        );
+      }
+    }
+    await page.emulateMedia({ media: "screen" });
+  }
+  await expect(page.locator("body")).not.toContainText(BOX);
   await page.getByRole("link", { name: "Library", exact: true }).click();
   await page.getByRole("button", { name: "Preview rebuilt index" }).click();
   await expect(
     page.getByText("No duplicate or unavailable records were found."),
   ).toBeVisible();
+  await expect(page.locator("body")).not.toContainText(BOX);
   fixture.inventory.items[0].notes = "External unique note";
   fixture.files.find((f) => f.id === "inventory-file")!.version = "2";
   await page.getByRole("link", { name: "Search", exact: true }).click();
@@ -338,3 +438,186 @@ test("revocation uses only Google's allowed endpoint and ends local access", asy
     ),
   ).toEqual([]);
 });
+
+for (const width of [320, 390, 768, 1024, 1440]) {
+  test(`responsive pages fit a ${width}px viewport`, async ({ page }) => {
+    test.setTimeout(60000);
+    await page.setViewportSize({ width, height: 900 });
+    const fixture = await mockGoogle(page);
+    fixture.inventory.box.description = "Storage-description-".repeat(30);
+    const fits = async () => {
+      await expect(page.locator("main")).toBeVisible();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+      ).toBe(true);
+      for (const link of await page
+        .getByRole("navigation", { name: "Main navigation" })
+        .getByRole("link")
+        .all()) {
+        const bounds = await link.boundingBox();
+        expect(bounds!.height).toBeGreaterThanOrEqual(44);
+        expect(bounds!.x).toBeGreaterThanOrEqual(0);
+        expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+      }
+    };
+    const capture = async (name: string) => {
+      if (process.env.BSM_VISUAL_DIR)
+        await page.screenshot({
+          path: `${process.env.BSM_VISUAL_DIR}/${width}-${name}.png`,
+          fullPage: true,
+        });
+    };
+    await page.goto("/login");
+    await expect(
+      page.getByRole("button", { name: "Sign in with Google" }),
+    ).toBeVisible();
+    await fits();
+    await connect(page);
+    await fits();
+    await page.getByRole("link", { name: "Library", exact: true }).click();
+    await expect(
+      page.getByRole("link", { name: /BOX-0001 Electrical Box/ }),
+    ).toBeVisible();
+    await fits();
+    await capture("library");
+    await page.locator(`a[href="/box/${BOX}"]`).first().click();
+    await expect(
+      page.getByRole("table", { name: "Box inventory items" }),
+    ).toBeVisible();
+    await fits();
+    const table = page.getByRole("table", { name: "Box inventory items" });
+    await table
+      .getByRole("link", { name: "Manage photographs", exact: true })
+      .scrollIntoViewIfNeeded();
+    await expect(
+      table.getByRole("link", { name: "Manage photographs", exact: true }),
+    ).toBeVisible();
+    await capture("box");
+    await page.getByRole("link", { name: "QR label", exact: true }).click();
+    await expect(page.locator(".qr-label--above img")).toBeVisible();
+    await expect(page.locator(".qr-label--left img")).toBeVisible();
+    await fits();
+    await capture("qr-labels");
+    await page.getByRole("link", { name: "Back to box", exact: true }).click();
+    await page
+      .getByRole("link", { name: "Manage NFC tags", exact: true })
+      .click();
+    await expect(
+      page.getByRole("heading", { name: "Manage NFC tags", exact: true }),
+    ).toBeVisible();
+    await fits();
+    await page.getByRole("link", { name: "Back to box", exact: true }).click();
+    await page
+      .getByRole("link", { name: "13A Extension Lead", exact: true })
+      .click();
+    await expect(
+      page.getByRole("heading", { name: "13A Extension Lead", exact: true }),
+    ).toBeVisible();
+    await fits();
+    await page
+      .getByRole("link", { name: "Manage photographs", exact: true })
+      .click();
+    await expect(
+      page.getByLabel("Choose photographs (up to 20, 25 MiB each)"),
+    ).toBeVisible();
+    await fits();
+    await capture("photos");
+    await page.getByRole("link", { name: "Back to item", exact: true }).click();
+    await page
+      .getByRole("link", { name: "Edit box and items", exact: true })
+      .click();
+    await expect(page.getByLabel("Box name", { exact: true })).toBeVisible();
+    await page
+      .getByText("Description, tags, notes and photos", { exact: true })
+      .click();
+    await expect(page.getByLabel("Notes", { exact: true })).toBeVisible();
+    await fits();
+    await capture("editor");
+    await page
+      .getByRole("link", { name: "Back to library", exact: true })
+      .click();
+    await page
+      .getByRole("link", { name: "Draft a new box", exact: true })
+      .click();
+    await expect(page.getByLabel("Box name", { exact: true })).toBeVisible();
+    await fits();
+    await page.getByRole("link", { name: "Search", exact: true }).click();
+    await page.getByLabel("Search boxes and items").fill("10 metre");
+    await expect(
+      page.getByRole("link", { name: "13A Extension Lead", exact: true }),
+    ).toBeVisible();
+    await fits();
+    await page.getByRole("link", { name: "Scan", exact: true }).click();
+    await expect(page.getByLabel("QR label URL")).toBeVisible();
+    await fits();
+    await page.getByRole("link", { name: "Settings", exact: true }).click();
+    await expect(
+      page.getByRole("button", { name: "Sign out", exact: true }),
+    ).toBeVisible();
+    await fits();
+    await page.getByRole("link", { name: "Box Storage", exact: true }).click();
+    await expect(
+      page.getByRole("link", { name: "Open library", exact: true }),
+    ).toBeVisible();
+    await fits();
+    await capture("home");
+  });
+}
+
+for (const reducedMotion of ["no-preference", "reduce"] as const) {
+  test(`operation spinner keeps moving with ${reducedMotion} motion`, async ({
+    page,
+  }) => {
+    await mockGoogle(page);
+    await page.emulateMedia({ reducedMotion });
+    let release!: () => void;
+    const pending = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    await page.route("**/api/v1/health", async (route) => {
+      await pending;
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          status: "ok",
+          version: "1.0.0",
+          apiVersion: "v1",
+        }),
+      });
+    });
+    try {
+      await page.goto("/");
+      const spinner = page.locator(".service-status .spinner");
+      await expect(spinner).toBeVisible();
+      expect(
+        await spinner.evaluate((element) => {
+          const animation = element.getAnimations()[0];
+          return (
+            animation?.playState === "running" &&
+            Number(animation.effect?.getComputedTiming().duration) > 0
+          );
+        }),
+      ).toBe(true);
+      const before = await spinner.evaluate(
+        (element) => element.getAnimations()[0].currentTime,
+      );
+      await expect
+        .poll(() =>
+          spinner.evaluate(
+            (element) => element.getAnimations()[0]?.currentTime,
+          ),
+        )
+        .not.toBe(before);
+      release();
+      await expect(
+        page.getByText("Service available", { exact: true }),
+      ).toBeVisible();
+      await expect(spinner).toHaveCount(0);
+    } finally {
+      release();
+    }
+  });
+}

@@ -1,4 +1,4 @@
-import { act, screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ClientError } from "../src/services/errors";
@@ -20,6 +20,102 @@ afterEach(() => {
 });
 
 describe("create/edit screens", () => {
+  it("shows item rows with expandable details and a photo action", async () => {
+    const f = await prepare(true);
+    f.open();
+    const table = await screen.findByRole("table", { name: "Inventory items" });
+    const row = within(table).getAllByRole("row")[1]!;
+    expect(within(row).getByLabelText("Item name")).toBeVisible();
+    expect(within(row).getByLabelText("Notes")).not.toBeVisible();
+    await userEvent.click(
+      within(row).getByText("Description, tags, notes and photos"),
+    );
+    expect(within(row).getByLabelText("Item description")).toBeVisible();
+    expect(
+      within(row).getByLabelText("Item tags (one per line)"),
+    ).toBeVisible();
+    expect(within(row).getByLabelText("Notes")).toBeVisible();
+    expect(
+      within(row).getByRole("button", { name: "Add photo" }),
+    ).toBeEnabled();
+  });
+  it("saves a newly added item before opening its photo manager", async () => {
+    const f = await prepare(true),
+      router = f.open();
+    await screen.findByLabelText("Box name");
+    await userEvent.click(screen.getByRole("button", { name: "Add item" }));
+    const row = screen.getAllByRole("row").at(-1)!;
+    await userEvent.type(
+      within(row).getByLabelText("Item name"),
+      "New photo item",
+    );
+    expect(within(row).getByLabelText("Notes")).toBeVisible();
+    const item = f.session.editing.getSnapshot().draft!.document.items.at(-1)!;
+    await userEvent.click(
+      within(row).getByRole("button", { name: "Add photo" }),
+    );
+    await waitFor(() =>
+      expect(router.state.location.pathname).toBe(
+        `/box/${BOX}/item/${item.id}/photos`,
+      ),
+    );
+    expect(f.drive.writeJson).toHaveBeenCalled();
+    expect(
+      await screen.findByLabelText(
+        "Choose photographs (up to 20, 25 MiB each)",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      f.session.photos
+        .getSnapshot()
+        .view?.inventory.items.some((saved) => saved.id === item.id),
+    ).toBe(true);
+    await userEvent.click(screen.getByRole("link", { name: "Back to item" }));
+    await userEvent.click(
+      await screen.findByRole("link", { name: "Edit box and items" }),
+    );
+    await waitFor(() =>
+      expect(screen.getAllByLabelText("Item name").at(-1)).toHaveValue(
+        "New photo item",
+      ),
+    );
+    expect(screen.getAllByLabelText("Item name").at(-1)).toBeEnabled();
+  });
+  it("keeps an invalid new item in the editor without opening photos or writing", async () => {
+    const f = await prepare(true),
+      router = f.open();
+    await screen.findByLabelText("Box name");
+    await userEvent.click(screen.getByRole("button", { name: "Add item" }));
+    const row = screen.getAllByRole("row").at(-1)!;
+    await userEvent.click(
+      within(row).getByRole("button", { name: "Add photo" }),
+    );
+    expect(await screen.findByRole("alert")).toHaveTextContent("/items/1/name");
+    expect(router.state.location.pathname).toBe(`/box/${BOX}/edit`);
+    expect(f.drive.writeJson).not.toHaveBeenCalled();
+  });
+  it("keeps photo navigation blocked when saving a new item fails", async () => {
+    const f = await prepare(true),
+      router = f.open();
+    await screen.findByLabelText("Box name");
+    await userEvent.click(screen.getByRole("button", { name: "Add item" }));
+    const row = screen.getAllByRole("row").at(-1)!;
+    await userEvent.type(
+      within(row).getByLabelText("Item name"),
+      "Retained item",
+    );
+    vi.mocked(f.drive.writeJson).mockRejectedValueOnce(
+      new ClientError("DRIVE_CONFLICT"),
+    );
+    await userEvent.click(
+      within(row).getByRole("button", { name: "Add photo" }),
+    );
+    await screen.findByRole("heading", { name: "Save not completed" });
+    expect(router.state.location.pathname).toBe(`/box/${BOX}/edit`);
+    expect(within(row).getByLabelText("Item name")).toHaveValue(
+      "Retained item",
+    );
+  });
   it.each([`/box/${BOX}/edit`, "/library/new"])(
     "retains requested editor route %s through account setup",
     async (path) => {
@@ -45,7 +141,8 @@ describe("create/edit screens", () => {
     const input = await screen.findByLabelText("Box name");
     await userEvent.clear(input);
     await userEvent.type(input, "Changed box");
-    expect(screen.getByText(`Box UUID: ${BOX}`)).toBeInTheDocument();
+    expect(document.body.textContent).not.toContain(BOX);
+    expect(f.session.editing.getSnapshot().draft!.document.box.id).toBe(BOX);
     expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled();
     expect(screen.getByText(/Unsaved changes —/)).toBeInTheDocument();
     expect(f.session.editing.getSnapshot().draft!.document.extension).toEqual({
@@ -213,6 +310,9 @@ describe("create/edit screens", () => {
     const f = await prepare();
     const router = f.open(`/box/${BOX}/edit`, "/library");
     await screen.findByLabelText("Box name");
+    await userEvent.click(
+      screen.getByText("Description, tags, notes and photos"),
+    );
     await userEvent.type(screen.getByLabelText("Notes"), "Unsaved note");
     vi.spyOn(window, "confirm").mockReturnValue(false);
     await act(async () => {
@@ -229,6 +329,9 @@ describe("create/edit screens", () => {
     const f = await prepare();
     f.open();
     await screen.findByLabelText("Notes");
+    await userEvent.click(
+      screen.getByText("Description, tags, notes and photos"),
+    );
     await userEvent.type(screen.getByLabelText("Notes"), "Private note");
     act(() => f.session.signOut());
     expect(screen.queryByLabelText("Notes")).not.toBeInTheDocument();

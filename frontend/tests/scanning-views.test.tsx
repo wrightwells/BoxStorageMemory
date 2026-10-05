@@ -1,4 +1,4 @@
-import { act, screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { StorageSession } from "../src/services/session";
@@ -26,23 +26,36 @@ describe("labels and scanner views", () => {
       .mockResolvedValue(new Blob(["png"], { type: "image/png" }));
     const print = vi.spyOn(window, "print").mockImplementation(() => undefined);
     f.open(`/box/${BOX}/label`);
-    await userEvent.click(
-      await screen.findByRole("button", { name: "Generate QR label" }),
-    );
+    const above = await screen.findByRole("region", {
+      name: "Number above QR code",
+    });
+    const left = screen.getByRole("region", { name: "Number left QR code" });
     expect(
-      await screen.findByRole("img", { name: "QR code for BOX-0001" }),
+      within(above).getByRole("img", { name: "QR code for BOX-0001" }),
     ).toHaveAttribute("src", "blob:label");
+    expect(document.body.textContent).not.toContain(BOX);
     expect(
-      screen.getByRole("heading", { name: "BOX-0001" }),
+      within(above).getByRole("heading", { name: "BOX-0001" }),
     ).toBeInTheDocument();
+    expect(
+      within(above).getByRole("heading", { name: "BOX-0001" }).parentElement,
+    ).toHaveTextContent(/^BOX-0001$/);
     expect(screen.getByRole("link", { name: "Save QR PNG" })).toHaveAttribute(
       "download",
       "BOX-0001-qr.png",
     );
     await userEvent.click(
-      screen.getByRole("button", { name: "Print box label" }),
+      within(above).getByRole("button", { name: "Print label: number above" }),
     );
     expect(print).toHaveBeenCalledOnce();
+    expect(above.querySelector(".qr-label")).toHaveClass("print-target");
+    expect(left.querySelector(".qr-label")).not.toHaveClass("print-target");
+    await userEvent.click(
+      within(left).getByRole("button", { name: "Print label: number left" }),
+    );
+    expect(print).toHaveBeenCalledTimes(2);
+    expect(left.querySelector(".qr-label")).toHaveClass("print-target");
+    expect(above.querySelector(".qr-label")).not.toHaveClass("print-target");
     await userEvent.click(
       screen.getByRole("button", { name: "Regenerate QR label" }),
     );
@@ -54,6 +67,26 @@ describe("labels and scanner views", () => {
     expect(
       screen.queryByRole("img", { name: "QR code for BOX-0001" }),
     ).not.toBeInTheDocument();
+  });
+  it("offers retry when automatic QR generation fails", async () => {
+    const f = await fixture();
+    vi.spyOn(URL, "createObjectURL").mockReturnValue("blob:retried-label");
+    vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => undefined);
+    const qr = vi
+      .spyOn(f.session.api, "qr")
+      .mockRejectedValueOnce(new Error("offline"))
+      .mockResolvedValueOnce(new Blob(["png"], { type: "image/png" }));
+    f.open(`/box/${BOX}/label`);
+    await screen.findByRole("alert");
+    await userEvent.click(
+      screen.getByRole("button", { name: "Retry QR label" }),
+    );
+    await screen.findByRole("region", { name: "Number above QR code" });
+    expect(
+      screen.getAllByRole("img", { name: "QR code for BOX-0001" }),
+    ).toHaveLength(2);
+    expect(qr).toHaveBeenCalledTimes(2);
+    expect(f.session.drive.writeJson).not.toHaveBeenCalled();
   });
   it("opens only valid labels and reports invalid inputs without navigation", async () => {
     const f = await fixture(),

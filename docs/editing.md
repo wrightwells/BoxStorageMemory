@@ -6,6 +6,10 @@ Stage 7 provides `/library/new` and `/box/<boxUuid>/edit`. Choose **Draft a new 
 
 ## Draft controls
 
+Inventory items appear in a table with editable name and quantity columns. Expand **Description, tags, notes and photos** to edit the additional fields or choose **Add photo**. New items start expanded. The table scrolls horizontally on narrow screens.
+
+**Add photo** saves the current box draft before opening that item's photo manager, so new items exist in the saved inventory before photographs are associated. A validation error or incomplete save keeps the editor and draft open. For an unchanged saved item, the action opens its photo manager directly. The photo manager supports selecting files, camera capture, preview and coordinated upload. Returning to the editor loads fresh saved records, including current photo references.
+
 Creating a new box also saves **`box-folder-qr.png`** inside its Google Drive folder. Scanning this image opens `https://drive.google.com/drive/folders/<folderId>` directly. The image is generated from the reserved folder ID and uploaded with a reserved file ID before the index claim. Creation verifies the uploaded bytes and final file metadata before reporting **Save verified**. It is a folder label, separate from item photographs; it never adds an item image reference. Drive permissions still control who can open the folder. Existing app box labels continue to open `/box/<boxUuid>`.
 
 Edit the box name, description, location and tags. Add/edit inventory items with names, nonnegative safe-integer quantities, descriptions, tags and notes. Tags are entered one per line. Box UUID/number/creation time/NFC assignments and existing item UUIDs/photo references are protected. Source JSON extension fields survive edits, including document, box, item and index-entry extensions. New items receive stable UUIDs.

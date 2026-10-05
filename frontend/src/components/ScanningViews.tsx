@@ -1,7 +1,7 @@
+import { flushSync } from "react-dom";
 import { LoadingStatus } from "./LoadingStatus";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { qrUrl } from "../../../shared/typescript/contracts";
 import type { BoxView } from "../services/library";
 import { ClientError, errorMessage } from "../services/errors";
 import {
@@ -23,7 +23,7 @@ export function QrLabelView() {
   );
 }
 function ConnectedLabel() {
-  const { session, state } = useStorage();
+  const { session } = useStorage();
   const { boxId = "" } = useParams();
   const [view, setView] = useState<BoxView>();
   const [url, setUrl] = useState<string>();
@@ -31,23 +31,8 @@ function ConnectedLabel() {
   const [busy, setBusy] = useState(false);
   const owned = useRef<string | undefined>(undefined);
   const controller = useRef<AbortController | undefined>(undefined);
-  useEffect(() => {
-    let active = true;
-    void session.library
-      .box(boxId)
-      .then((value) => {
-        if (active) setView(value);
-      })
-      .catch((error) => {
-        if (active) setError(error);
-      });
-    return () => {
-      active = false;
-      controller.current?.abort();
-      if (owned.current) URL.revokeObjectURL(owned.current);
-    };
-  }, [session, boxId]);
-  const generate = async () => {
+  const [printLayout, setPrintLayout] = useState<"above" | "left">("above");
+  const generate = useCallback(async () => {
     controller.current?.abort();
     const task = new AbortController();
     controller.current = task;
@@ -66,7 +51,26 @@ function ConnectedLabel() {
     } finally {
       if (!task.signal.aborted) setBusy(false);
     }
-  };
+  }, [session, boxId]);
+  useEffect(() => {
+    let active = true;
+    void session.library
+      .box(boxId)
+      .then((value) => {
+        if (active) {
+          setView(value);
+          void generate();
+        }
+      })
+      .catch((error) => {
+        if (active) setError(error);
+      });
+    return () => {
+      active = false;
+      controller.current?.abort();
+      if (owned.current) URL.revokeObjectURL(owned.current);
+    };
+  }, [session, boxId, generate]);
   return (
     <section className="page-panel">
       <h1>Box QR label</h1>
@@ -79,21 +83,44 @@ function ConnectedLabel() {
             Regenerating a label preserves this box’s number, identity and Drive
             folder. A label grants no account access.
           </p>
-          <button disabled={busy} onClick={() => void generate()}>
-            {url ? "Regenerate QR label" : "Generate QR label"}
-          </button>
+          {(url || !!error) && (
+            <button disabled={busy} onClick={() => void generate()}>
+              {url ? "Regenerate QR label" : "Retry QR label"}
+            </button>
+          )}
           {url && (
             <>
-              <div className="qr-label">
-                <h2>{view.inventory.box.number}</h2>
-                <p>{view.inventory.box.name}</p>
-                <img
-                  src={url}
-                  width="256"
-                  height="256"
-                  alt={`QR code for ${view.inventory.box.number}`}
-                />
-                <p>{qrUrl(state.config!.publicUrl, boxId)}</p>
+              <div className="qr-print-options">
+                {(["above", "left"] as const).map((layout) => (
+                  <section
+                    className="qr-print-option"
+                    key={layout}
+                    aria-label={`Number ${layout} QR code`}
+                  >
+                    <h2>Number {layout} QR code</h2>
+                    <div
+                      className={`qr-label qr-label--${layout}${printLayout === layout ? " print-target" : ""}`}
+                    >
+                      <h3>{view.inventory.box.number}</h3>
+                      <img
+                        src={url}
+                        width="256"
+                        height="256"
+                        alt={`QR code for ${view.inventory.box.number}`}
+                      />
+                    </div>
+                    <button
+                      className="button"
+                      disabled={busy}
+                      onClick={() => {
+                        flushSync(() => setPrintLayout(layout));
+                        window.print();
+                      }}
+                    >
+                      Print label: number {layout}
+                    </button>
+                  </section>
+                ))}
               </div>
               <a
                 className="button secondary"
@@ -102,7 +129,6 @@ function ConnectedLabel() {
               >
                 Save QR PNG
               </a>
-              <button onClick={() => window.print()}>Print box label</button>
             </>
           )}
         </>
@@ -403,8 +429,8 @@ function ConnectedTags() {
             {view.inventory.box.number} · {view.inventory.box.name}
           </h2>
           <p>
-            Tag changes preserve the box’s number, UUID and Drive folder. Tag
-            payloads are not used as identity.
+            Tag changes preserve the box’s number and Drive folder. Tag payloads
+            are not used as identity.
           </p>
           {!session.editing.writesAvailable && (
             <p role="status">

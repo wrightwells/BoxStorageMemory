@@ -1,11 +1,11 @@
 import { LoadingStatus } from "./LoadingStatus";
+import { previewJson } from "./previewJson";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import type {
   BoxIndexEntry,
   InventoryItem,
 } from "../../../shared/typescript/models";
-import type { DriveFile } from "../services/drive";
 import { ClientError, errorMessage } from "../services/errors";
 import type { BoxView } from "../services/library";
 import { LibraryConnection } from "./DriveConnection";
@@ -35,6 +35,7 @@ function ConnectedLibraryView() {
   const { session, state: connection } = useStorage();
   const { library, state } = useLibrary();
   const [number, setNumber] = useState("");
+  const [groupByLocation, setGroupByLocation] = useState(false);
   const [lookupError, setLookupError] = useState<unknown>();
   const [initializing, setInitializing] = useState(false);
   const [initializationError, setInitializationError] = useState<unknown>();
@@ -57,7 +58,6 @@ function ConnectedLibraryView() {
         >
           Refresh library
         </button>
-        <Link to="/settings">Account and folder settings</Link>
         <Link className="button secondary" to="/library/new">
           Draft a new box
         </Link>
@@ -67,7 +67,7 @@ function ConnectedLibraryView() {
         <LoadingStatus>Loading box index…</LoadingStatus>
       )}
       {state.error && <Failure error={new ClientError(state.error)} />}
-      {state.error === "INDEX_MISSING" && (
+      {state.error === "INDEX_MISSING" && state.emptyLibrary === true && (
         <section className="sub-panel">
           <h2>Initialize an empty library</h2>
           <p>
@@ -123,17 +123,19 @@ function ConnectedLibraryView() {
           {!state.index.boxes.length && (
             <p>No boxes are indexed in this library.</p>
           )}
-          <ul className="box-grid">
-            {state.index.boxes.map((entry) => (
-              <BoxCard entry={entry} key={entry.boxId} />
-            ))}
-          </ul>
+          {!!state.index.boxes.length && (
+            <label className="location-group-toggle">
+              <input
+                type="checkbox"
+                checked={groupByLocation}
+                onChange={(event) => setGroupByLocation(event.target.checked)}
+              />
+              Group boxes by location
+            </label>
+          )}
+          <BoxGroups boxes={state.index.boxes} grouped={groupByLocation} />
         </>
       )}
-      <FolderBrowser
-        key={`${connection.root.id}:${state.revision}`}
-        root={connection.root}
-      />
       <RecoveryPanel />
       <p className="read-only-note">
         Browsing is read-only. Your Drive files are not changed.
@@ -145,74 +147,53 @@ function ConnectedLibraryView() {
   );
 }
 
-function FolderBrowser({ root }: { root: DriveFile }) {
-  const { library, state } = useLibrary();
-  const [path, setPath] = useState([root]);
-  const [folders, setFolders] = useState<DriveFile[]>([]);
-  const [error, setError] = useState<unknown>();
-  const [loading, setLoading] = useState(true);
-  const [attempt, setAttempt] = useState(0);
-  const current = path[path.length - 1]!;
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setFolders([]);
-    setError(undefined);
-    void library
-      .folders(current.id)
-      .then((files) => {
-        if (active) setFolders(files);
-      })
-      .catch((error) => {
-        if (active) setError(error);
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-    return () => {
-      active = false;
-    };
-  }, [library, current.id, attempt]);
-  return (
-    <section className="sub-panel">
-      <h2>Browse folders</h2>
-      <nav aria-label="Library folder path">
-        {path.map((folder, index) => (
-          <button
-            key={folder.id}
-            onClick={() => setPath(path.slice(0, index + 1))}
-          >
-            {folder.name}
-          </button>
-        ))}
-      </nav>
-      {loading && <LoadingStatus>Loading library folders…</LoadingStatus>}
-      {!!error && (
-        <>
-          <Failure error={error} />
-          <button onClick={() => setAttempt(attempt + 1)}>
-            Retry folder browsing
-          </button>
-        </>
-      )}
-      {!loading && !error && folders.length === 0 && <p>No subfolders here.</p>}
-      <ul className="folder-list">
-        {folders.map((folder) => (
-          <li key={folder.id}>
-            <button onClick={() => setPath([...path, folder])}>
-              {folder.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+function BoxGroups({
+  boxes,
+  grouped,
+}: {
+  boxes: BoxIndexEntry[];
+  grouped: boolean;
+}) {
+  if (!grouped)
+    return (
       <ul className="box-grid">
-        {state.index?.boxes
-          .filter((box) => box.driveFolderId === current.id)
-          .map((box) => (
-            <BoxCard key={box.boxId} entry={box} />
-          ))}
+        {boxes.map((entry) => (
+          <BoxCard key={entry.boxId} entry={entry} />
+        ))}
       </ul>
-    </section>
+    );
+  const groups = new Map<string, BoxIndexEntry[]>();
+  for (const box of boxes) {
+    const location = box.location?.trim() || "";
+    const entries = groups.get(location) ?? [];
+    entries.push(box);
+    groups.set(location, entries);
+  }
+  return (
+    <>
+      {[...groups.entries()]
+        .sort(([a], [b]) =>
+          a === ""
+            ? 1
+            : b === ""
+              ? -1
+              : a.localeCompare(b, undefined, { numeric: true }),
+        )
+        .map(([location, entries]) => (
+          <section
+            className="location-group"
+            key={location}
+            aria-label={location || "Location not recorded"}
+          >
+            <h2>{location || "Location not recorded"}</h2>
+            <ul className="box-grid">
+              {entries.map((entry) => (
+                <BoxCard key={entry.boxId} entry={entry} />
+              ))}
+            </ul>
+          </section>
+        ))}
+    </>
   );
 }
 
@@ -265,7 +246,7 @@ export function RecoveryPanel() {
           )}
           <details>
             <summary>Review proposed index JSON</summary>
-            <pre>{JSON.stringify(report.candidate, null, 2)}</pre>
+            <pre>{previewJson(report.candidate)}</pre>
           </details>
           <p>
             Index replacement is awaiting verified protection against concurrent
@@ -326,7 +307,9 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
   const item = view?.inventory.items.find((item) => item.id === itemId);
   return (
     <>
-      <Link to="/library">Back to library</Link>
+      <Link to={itemOnly ? `/box/${boxId}` : "/library"}>
+        {itemOnly ? "Back to box" : "Back to library"}
+      </Link>
       <button
         className="button secondary"
         disabled={loading}
@@ -351,7 +334,7 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
       )}
       {view && (
         <>
-          <h2>
+          <h2 className="record-title">
             {view.inventory.box.number} · {view.inventory.box.name}
           </h2>
           <p>{view.inventory.box.location || "Location not recorded"}</p>
@@ -364,9 +347,21 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
             Read-only inventory. Refresh to check for changes made in Google
             Drive.
           </p>
-          <Link to={`/box/${boxId}/edit`}>Edit box and items</Link>
-          <Link to={`/box/${boxId}/label`}>QR label</Link>
-          <Link to={`/box/${boxId}/tags`}>Manage NFC tags</Link>
+          <div className="actions box-actions">
+            <Link className="button" to={`/box/${boxId}/edit`}>
+              Edit box and items
+            </Link>
+            {!itemOnly && (
+              <>
+                <Link className="button secondary" to={`/box/${boxId}/label`}>
+                  QR label
+                </Link>
+                <Link className="button secondary" to={`/box/${boxId}/tags`}>
+                  Manage NFC tags
+                </Link>
+              </>
+            )}
+          </div>
           {itemOnly ? (
             item ? (
               <ItemDetails item={item} boxId={boxId} />
@@ -376,41 +371,83 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
           ) : (
             <>
               {!view.inventory.items.length && <p>This box is empty.</p>}
-              <ul className="item-list">
-                {view.inventory.items.map((item) => (
-                  <li key={item.id}>
-                    <Link to={`/box/${boxId}/item/${item.id}`}>
-                      <strong>{item.name}</strong>
-                    </Link>
-                    <Link to={`/box/${boxId}/item/${item.id}/photos`}>
-                      Manage photographs
-                    </Link>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>{item.description}</p>
-                    {!!item.images?.length && (
-                      <p>
-                        {item.images.length} photographs — open item to view
-                      </p>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              {!!view.inventory.items.length && (
+                <div className="inventory-table-scroll">
+                  <table
+                    className="box-items-table"
+                    aria-label="Box inventory items"
+                  >
+                    <thead>
+                      <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Photographs</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {view.inventory.items.map((item) => (
+                        <tr key={item.id}>
+                          <th scope="row">
+                            <Link to={`/box/${boxId}/item/${item.id}`}>
+                              {item.name}
+                            </Link>
+                          </th>
+                          <td>{item.quantity}</td>
+                          <td>{item.description}</td>
+                          <td>
+                            <PhotoButton item={item} boxId={boxId} />
+                            {!!item.images?.length && (
+                              <p>
+                                {item.images.length} photographs — open item to
+                                view
+                              </p>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </>
           )}
-          {itemOnly && <Link to={`/box/${boxId}`}>Back to box</Link>}
         </>
       )}
     </>
   );
 }
 
+function PhotoButton({ item, boxId }: { item: InventoryItem; boxId: string }) {
+  return (
+    <Link
+      className="button secondary photo-action"
+      to={`/box/${boxId}/item/${item.id}/photos`}
+      aria-label="Manage photographs"
+      title={`Manage photographs for ${item.name}`}
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8" cy="8" r="1.5" />
+        <path d="m3 17 5-5 4 4 4-6 5 7" strokeLinejoin="round" />
+      </svg>
+    </Link>
+  );
+}
 function ItemDetails({ item, boxId }: { item: InventoryItem; boxId: string }) {
   return (
     <article>
-      <h3>{item.name}</h3>
-      <Link to={`/box/${boxId}/item/${item.id}/photos`}>
-        Manage photographs
-      </Link>
+      <h3 className="record-title">{item.name}</h3>
+      {!item.images?.length && <PhotoButton item={item} boxId={boxId} />}
       <p>Quantity: {item.quantity}</p>
       <p>{item.description}</p>
       <p>{item.notes}</p>
@@ -422,6 +459,8 @@ function ItemDetails({ item, boxId }: { item: InventoryItem; boxId: string }) {
           boxId={boxId}
           itemId={item.id}
           filename={filename}
+          autoLoad
+          linkToManagement
         />
       ))}
     </article>
@@ -431,23 +470,27 @@ export function Photo({
   boxId,
   itemId,
   filename,
+  autoLoad = false,
+  linkToManagement = false,
 }: {
   boxId: string;
   itemId: string;
   filename: string;
+  autoLoad?: boolean;
+  linkToManagement?: boolean;
 }) {
   const { library, state } = useLibrary();
   const [url, setUrl] = useState<string>();
   const [requested, setRequested] = useState(false);
   const [error, setError] = useState<unknown>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(autoLoad);
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let active = true;
     let owned: string | undefined;
     setUrl(undefined);
     setError(undefined);
-    if (requested) {
+    if (autoLoad || requested) {
       setLoading(true);
       void library
         .photo(boxId, itemId, filename)
@@ -468,11 +511,20 @@ export function Photo({
       active = false;
       if (owned) library.releasePhoto(owned);
     };
-  }, [library, boxId, itemId, filename, requested, state.revision, attempt]);
+  }, [
+    library,
+    boxId,
+    itemId,
+    filename,
+    autoLoad,
+    requested,
+    state.revision,
+    attempt,
+  ]);
   return (
     <figure className="item-photo">
       <figcaption>{filename}</figcaption>
-      {!url && (
+      {!url && (!autoLoad || !!error) && (
         <button
           className="button secondary"
           disabled={loading}
@@ -488,8 +540,21 @@ export function Photo({
       {!!error && <Failure error={error} />}
       {url && (
         <>
-          <img src={url} alt={`Item photograph: ${filename}`} />
-          <button onClick={() => setRequested(false)}>Close photo</button>
+          {linkToManagement ? (
+            <Link
+              className="photo-management-link"
+              to={`/box/${boxId}/item/${itemId}/photos`}
+              aria-label="Manage photographs"
+              title="Manage photographs"
+            >
+              <img src={url} alt={`Item photograph: ${filename}`} />
+            </Link>
+          ) : (
+            <img src={url} alt={`Item photograph: ${filename}`} />
+          )}
+          {!autoLoad && (
+            <button onClick={() => setRequested(false)}>Close photo</button>
+          )}
         </>
       )}
     </figure>
