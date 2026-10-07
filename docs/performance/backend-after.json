@@ -1,0 +1,146 @@
+{
+  "model": "optimized backend in-process TestClient; app timing to response headers excludes socket/Drive latency; 5 samples; synthetic validation/QR payloads",
+  "appConstructionMs": 82.09100599924568,
+  "results": [
+    {
+      "sample": 0,
+      "operation": "health",
+      "elapsedMs": 32.92766600497998,
+      "appToHeadersMs": 7.23,
+      "responseBytes": 51
+    },
+    {
+      "sample": 0,
+      "operation": "config",
+      "elapsedMs": 39.83590799907688,
+      "appToHeadersMs": 37.29,
+      "responseBytes": 368
+    },
+    {
+      "sample": 0,
+      "operation": "validateInventory",
+      "elapsedMs": 6.518002002849244,
+      "appToHeadersMs": 3.31,
+      "responseBytes": 26
+    },
+    {
+      "sample": 0,
+      "operation": "qr",
+      "elapsedMs": 59.48048298887443,
+      "appToHeadersMs": 56.8,
+      "responseBytes": 591
+    },
+    {
+      "sample": 1,
+      "operation": "health",
+      "elapsedMs": 3.9907379978103563,
+      "appToHeadersMs": 1.25,
+      "responseBytes": 51
+    },
+    {
+      "sample": 1,
+      "operation": "config",
+      "elapsedMs": 7.072520995279774,
+      "appToHeadersMs": 1.92,
+      "responseBytes": 368
+    },
+    {
+      "sample": 1,
+      "operation": "validateInventory",
+      "elapsedMs": 6.74927000363823,
+      "appToHeadersMs": 3.53,
+      "responseBytes": 26
+    },
+    {
+      "sample": 1,
+      "operation": "qr",
+      "elapsedMs": 29.481625999324024,
+      "appToHeadersMs": 25.14,
+      "responseBytes": 591
+    },
+    {
+      "sample": 2,
+      "operation": "health",
+      "elapsedMs": 3.891579995979555,
+      "appToHeadersMs": 1.21,
+      "responseBytes": 51
+    },
+    {
+      "sample": 2,
+      "operation": "config",
+      "elapsedMs": 9.525078989099711,
+      "appToHeadersMs": 1.97,
+      "responseBytes": 368
+    },
+    {
+      "sample": 2,
+      "operation": "validateInventory",
+      "elapsedMs": 4.92777799081523,
+      "appToHeadersMs": 2.49,
+      "responseBytes": 26
+    },
+    {
+      "sample": 2,
+      "operation": "qr",
+      "elapsedMs": 21.795680004288442,
+      "appToHeadersMs": 18.07,
+      "responseBytes": 591
+    },
+    {
+      "sample": 3,
+      "operation": "health",
+      "elapsedMs": 5.277613992802799,
+      "appToHeadersMs": 1.12,
+      "responseBytes": 51
+    },
+    {
+      "sample": 3,
+      "operation": "config",
+      "elapsedMs": 3.8254560058703646,
+      "appToHeadersMs": 1.04,
+      "responseBytes": 368
+    },
+    {
+      "sample": 3,
+      "operation": "validateInventory",
+      "elapsedMs": 7.139487992390059,
+      "appToHeadersMs": 3.64,
+      "responseBytes": 26
+    },
+    {
+      "sample": 3,
+      "operation": "qr",
+      "elapsedMs": 24.59389499563258,
+      "appToHeadersMs": 21.55,
+      "responseBytes": 591
+    },
+    {
+      "sample": 4,
+      "operation": "health",
+      "elapsedMs": 2.632897987496108,
+      "appToHeadersMs": 0.7,
+      "responseBytes": 51
+    },
+    {
+      "sample": 4,
+      "operation": "config",
+      "elapsedMs": 2.3153049987740815,
+      "appToHeadersMs": 0.68,
+      "responseBytes": 368
+    },
+    {
+      "sample": 4,
+      "operation": "validateInventory",
+      "elapsedMs": 3.3101489971159026,
+      "appToHeadersMs": 1.69,
+      "responseBytes": 26
+    },
+    {
+      "sample": 4,
+      "operation": "qr",
+      "elapsedMs": 12.071271994500421,
+      "appToHeadersMs": 9.72,
+      "responseBytes": 591
+    }
+  ]
+}

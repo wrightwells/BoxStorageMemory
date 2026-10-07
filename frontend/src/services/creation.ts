@@ -116,6 +116,14 @@ export class CoordinatedCreation {
       driveProperties: properties,
     };
   }
+  private async verifyTogether(
+    checks: Array<() => Promise<unknown>>,
+  ): Promise<void> {
+    // Drain all read-only proofs before cleanup or reporting a failure.
+    const results = await Promise.allSettled(checks.map((check) => check()));
+    for (const result of results)
+      if (result.status === "rejected") throw result.reason;
+  }
   private async metadata(id: string, signal?: AbortSignal) {
     await this.storage.withinRoot(id, signal);
     const { data } = await this.auth.request<Record<string, unknown>>(
@@ -832,8 +840,10 @@ export class CoordinatedCreation {
         )
       )
         throw new ClientError("READ_CONFLICT");
-      await verify(inventory.id, document);
-      await verify(current.file.id, index);
+      await this.verifyTogether([
+        () => verify(inventory.id, document),
+        () => verify(current.file.id, index),
+      ]);
       if (photo?.action.kind === "cleanup") {
         result.phase = "photo-cleanup";
         for (const candidate of obsolete) {
@@ -1249,9 +1259,11 @@ export class CoordinatedCreation {
         )
       )
         throw new ClientError("READ_CONFLICT");
-      await verify(source.file.id, index);
-      await verify(inventoryId, document);
-      await this.verifyStoredQr(qrFileId, folderId, qrImage, signal);
+      await this.verifyTogether([
+        () => verify(source.file.id, index),
+        () => verify(inventoryId, document),
+        () => this.verifyStoredQr(qrFileId, folderId, qrImage, signal),
+      ]);
       task.check();
       result.phase = "lock-release";
       await unlock();

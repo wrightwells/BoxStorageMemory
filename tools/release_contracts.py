@@ -13,15 +13,16 @@ def files() -> list[Path]:
     result = [ROOT / name for name in [
         "api/v1/openapi.json", "docs/client-integration.md", "docs/compatibility.md",
         "docs/contracts.md", "docs/api.md", "requirements-contracts.txt",
+        "docs/performance-review.md", "docs/performance-review-prompt.md",
         "docs/deployment.md", "docs/release-acceptance.md", "docs/qr-nfc.md",
         "docs/deployment-test-2026-10-04.md", "docs/live-box-creation-test.md", "docs/live-item-save-test.md", "docs/live-photo-management-test.md",
         "docs/google-setup.md", "docs/library.md", "docs/photos.md", "docs/editing.md",
         "docs/release-notes-1.0.0.md", "docs/decisions/004-writes-and-recovery.md",
         "docs/decisions/006-application-oauth-registration.md",
-        "shared/python/contracts.py", "shared/typescript/contracts.ts", "shared/typescript/models.ts",
+        "shared/python/contracts.py", "shared/typescript/contracts.ts", "shared/typescript/contract-core.ts", "shared/typescript/models.ts",
         "tools/smoke_api.py", "tools/check_running_openapi.py", "tools/release_contracts.py", "tools/smoke_http.py",
     ]]
-    for directory in ["schemas/v1", "fixtures/contracts", "examples/library"]:
+    for directory in ["schemas/v1", "fixtures/contracts", "examples/library", "docs/performance"]:
         result.extend((ROOT / directory).rglob("*.json"))
     result.extend((ROOT / "docs/decisions").glob("*.md"))
     return sorted(set(result), key=lambda path: path.relative_to(ROOT).as_posix())

@@ -124,3 +124,11 @@ The approved default is NAV-001 persistent desktop navigation and the phone/tabl
 [IMG-001 — photo recognition](photo-recognition-experiment.md) adds `photoRecognition` flags with 0% default rollout. Preview with `?photos=photo-recognition`; disable its `enabled` flag or force `control` to restore photo icons without changing navigation or search flags. No Drive writes or external analytics are introduced.
 
 [REF-001 — reference-based box workspace](reference-box-experiment.md) adds independent `referenceLayout` flags. Preview with `?layout=reference-box`; disable its `enabled` flag or force `control` for rollback. The approved `referenceLayout.baselineVariant: "reference-box"` is the default regardless of old session assignments; explicit control selection and runtime rollback remain available. Measurement remains off.
+
+## Performance diagnostics and static assets
+
+The frontend build creates gzip siblings of public hashed JavaScript/CSS assets. The application negotiates gzip (including quality-zero opt-out), emits `Vary: Accept-Encoding`, and caches hashed assets immutably. HTML revalidates and API responses remain `no-store`. Compression runs during the build rather than on each request.
+
+Browser diagnostics are off by default. Open a route with `?perf=1` to inspect `window.boxStoragePerformance.summary()`; at most 1,000 numeric operation samples remain in memory, without tokens, URLs, IDs or content. Account/root changes clear them. To enable optional backend response-header timing, add `PERFORMANCE_TIMING: "true"` under the service environment in an operator compose override; it is not automatically forwarded from `.env`. Default is false. The timing ends at response headers and excludes body/network latency.
+
+See [the performance review](performance-review.md) for reproducible synthetic versus real HTTP measurements and remaining live Google/mobile acceptance.

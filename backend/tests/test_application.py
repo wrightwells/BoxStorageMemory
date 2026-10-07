@@ -1,3 +1,4 @@
+import gzip
 import logging
 from pathlib import Path
 
@@ -138,3 +139,25 @@ def test_cors_uses_explicit_allow_list(client: TestClient) -> None:
         "access-control-allow-origin"
         not in client.get("/api/v1/health", headers={"Origin": "https://unrelated.example"}).headers
     )
+
+
+def test_static_assets_compress_and_cache_without_caching_api(tmp_path: Path) -> None:
+    (tmp_path / "assets").mkdir()
+    body = "export const example = true;\n" * 1000
+    (tmp_path / "assets" / "app.js").write_text(body)
+    (tmp_path / "assets" / "app.js.gz").write_bytes(gzip.compress(body.encode()))
+    (tmp_path / "index.html").write_text("<html>App</html>")
+    client = TestClient(create_app(Settings(frontend_dist=tmp_path, performance_timing=True)))
+    response = client.get("/assets/app.js", headers={"Accept-Encoding": "gzip"})
+    assert response.text == body
+    assert response.headers["content-encoding"] == "gzip"
+    assert "immutable" in response.headers["cache-control"]
+    assert "Accept-Encoding" in response.headers["vary"]
+    assert "app;dur=" in response.headers["server-timing"]
+    plain = client.get("/assets/app.js", headers={"Accept-Encoding": "gzip;q=0, *;q=1"})
+    assert "content-encoding" not in plain.headers
+    assert plain.text == body
+    assert client.get("/").headers["cache-control"] == "no-cache"
+    assert client.get("/api/v1/health").headers["cache-control"] == "no-store"
+    quiet = TestClient(create_app(Settings(frontend_dist=tmp_path)))
+    assert "server-timing" not in quiet.get("/api/v1/health").headers

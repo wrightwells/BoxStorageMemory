@@ -1,8 +1,9 @@
+import { diagnostics } from "./performance";
 import { validator } from "./validation";
 import {
   normalizeBoxNumber,
   schemaMode,
-} from "../../../shared/typescript/contracts";
+} from "../../../shared/typescript/contract-core";
 import type {
   BoxIndex,
   BoxIndexEntry,
@@ -26,7 +27,8 @@ export type LibraryDrive = Pick<
   | "releaseImage"
   | "writeJson"
   | "createJson"
->;
+> &
+  Partial<Pick<DriveStorageService, "folderContents">>;
 export interface BoxView {
   inventory: Inventory;
   snapshot: JsonSnapshot;
@@ -85,6 +87,9 @@ export class LibraryService {
   #epoch = 0;
   #controllers = new Set<AbortController>();
   #boxes = new Map<string, BoxView>();
+  #boxLoads = new Map<string, Promise<BoxView>>();
+  #loadedAt = 0;
+  #boxLoadedAt = new Map<string, number>();
   #versions = new Map<string, string>();
   #photos = new Set<string>();
   #loading?: Promise<void>;
@@ -110,6 +115,9 @@ export class LibraryService {
     for (const url of this.#photos) this.drive.releaseImage(url);
     this.#photos.clear();
     this.#boxes.clear();
+    this.#boxLoads.clear();
+    this.#boxLoadedAt.clear();
+    this.#loadedAt = 0;
     this.#versions.clear();
     this.#loading = undefined;
     this.#state = {
@@ -138,7 +146,35 @@ export class LibraryService {
       finish: () => this.#controllers.delete(controller),
     };
   }
-  async load(refresh = false): Promise<void> {
+  // Transfer only already validated read data into an independent session reader.
+  // No controllers, drafts or image URLs are shared. Writes still perform fresh preflight.
+  seedReader(source: LibraryService): void {
+    if (
+      this.#state.status !== "idle" ||
+      source.#state.status !== "ready" ||
+      performance.now() - source.#loadedAt > 60_000 ||
+      this.context() !== source.context() ||
+      this.drive.root?.id !== source.drive.root?.id
+    )
+      return;
+    this.#boxes = new Map(
+      [...source.#boxes].filter(
+        ([id]) =>
+          performance.now() - (source.#boxLoadedAt.get(id) ?? -Infinity) <=
+          60_000,
+      ),
+    );
+    this.#boxLoadedAt = new Map(source.#boxLoadedAt);
+    this.#loadedAt = source.#loadedAt;
+    this.#versions = new Map(source.#versions);
+    this.update({ status: "ready", index: source.#state.index });
+  }
+  load(refresh = false): Promise<void> {
+    return diagnostics.measure("library.load", () =>
+      this.loadInternal(refresh),
+    );
+  }
+  private async loadInternal(refresh: boolean): Promise<void> {
     if (refresh) {
       const previous = new Map(this.#versions);
       this.reset();
@@ -170,6 +206,7 @@ export class LibraryService {
           throw new ClientError("UNSUPPORTED_SCHEMA");
         if (!validator.validate("index", snapshot.document).valid)
           throw new ClientError("INVALID_INDEX");
+        this.#loadedAt = performance.now();
         this.update({ status: "ready", index: snapshot.document as BoxIndex });
       } catch (error) {
         if (task.epoch === this.#epoch)
@@ -195,7 +232,12 @@ export class LibraryService {
     }
     return this.#state.index?.boxes.find((box) => box.boxNumber === canonical);
   }
-  async box(boxId: string, refresh = false): Promise<BoxView> {
+  box(boxId: string, refresh = false): Promise<BoxView> {
+    return diagnostics.measure("library.box", () =>
+      this.boxInternal(boxId, refresh),
+    );
+  }
+  private async boxInternal(boxId: string, refresh: boolean): Promise<BoxView> {
     if (!validUuid(boxId)) throw new ClientError("INVALID_BOX_ID");
     const loading = this.load(refresh);
     const epoch = this.#epoch;
@@ -205,15 +247,36 @@ export class LibraryService {
       throw new ClientError(this.#state.error ?? "INVALID_INDEX");
     const entry = this.#state.index.boxes.find((box) => box.boxId === boxId);
     if (!entry) throw new ClientError("BOX_NOT_FOUND");
+    diagnostics.start("library.cache")(
+      200,
+      0,
+      null,
+      null,
+      !refresh && this.#boxes.has(boxId) ? "hit" : "miss",
+    );
     if (!refresh && this.#boxes.has(boxId)) return this.#boxes.get(boxId)!;
     if (refresh) this.#boxes.delete(boxId);
+    const pending = this.#boxLoads.get(boxId);
+    if (pending) return pending;
+    const reading = this.readBox(entry);
+    this.#boxLoads.set(boxId, reading);
+    try {
+      return await reading;
+    } finally {
+      if (this.#boxLoads.get(boxId) === reading) this.#boxLoads.delete(boxId);
+    }
+  }
+  private async readBox(entry: BoxIndexEntry): Promise<BoxView> {
+    const boxId = entry.boxId;
     const task = this.task();
     try {
-      const folder = await this.drive.withinRoot(
-        entry.driveFolderId,
-        task.signal,
-      );
-      const files = await this.drive.listChildren(folder.id, task.signal);
+      const { folder, files } = this.drive.folderContents
+        ? await this.drive.folderContents(entry.driveFolderId, task.signal)
+        : await Promise.all([
+            this.drive.withinRoot(entry.driveFolderId, task.signal),
+            this.drive.listChildren(entry.driveFolderId, task.signal),
+          ]).then(([folder, files]) => ({ folder, files }));
+      task.check();
       const inventories = files.filter((f) => f.name === "inventory.json");
       if (!inventories.length) throw new ClientError("INVENTORY_MISSING");
       if (inventories.length !== 1) throw new ClientError("DUPLICATE_FILE");
@@ -247,6 +310,7 @@ export class LibraryService {
         warnings.push("INDEX_STALE");
       const view = { inventory, snapshot, folder, files, warnings };
       this.#boxes.set(boxId, view);
+      this.#boxLoadedAt.set(boxId, performance.now());
       return view;
     } finally {
       task.finish();
@@ -256,6 +320,7 @@ export class LibraryService {
     boxId: string,
     itemId: string,
     filename: string,
+    previewLimit?: number,
   ): Promise<string> {
     const epoch = this.#epoch;
     const view = await this.box(boxId);
@@ -270,7 +335,18 @@ export class LibraryService {
       const matches = files.filter((file) => file.name === filename);
       if (!matches.length) throw new ClientError("IMAGE_NOT_FOUND");
       if (matches.length !== 1) throw new ClientError("DUPLICATE_FILE");
-      const photo = await this.drive.image(matches[0]!.id, task.signal);
+      if (
+        previewLimit !== undefined &&
+        (!matches[0]!.size ||
+          !/^\d+$/.test(matches[0]!.size!) ||
+          Number(matches[0]!.size) > previewLimit)
+      )
+        throw new ClientError("PREVIEW_DEFERRED");
+      const photo = await this.drive.image(
+        matches[0]!.id,
+        task.signal,
+        previewLimit,
+      );
       try {
         task.check();
       } catch (error) {

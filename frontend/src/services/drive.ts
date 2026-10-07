@@ -1,3 +1,4 @@
+import { diagnostics } from "./performance";
 import type { BoxView } from "./library";
 import type { Draft } from "./editing";
 import { ClientError } from "./errors";
@@ -9,13 +10,14 @@ const API = "https://www.googleapis.com/drive/v3";
 const UPLOAD = "https://www.googleapis.com/upload/drive/v3";
 export const FOLDER_TYPE = "application/vnd.google-apps.folder";
 const FIELDS =
-  "id,name,description,mimeType,version,parents,trashed,appProperties,capabilities(canEdit,canAddChildren,canTrash)";
+  "id,name,description,mimeType,size,version,parents,trashed,appProperties,capabilities(canEdit,canAddChildren,canTrash)";
 export interface DriveFile {
   id: string;
   name: string;
   mimeType: string;
   description?: string;
   version?: string;
+  size?: string;
   parents?: string[];
   trashed?: boolean;
   appProperties?: Record<string, string>;
@@ -132,6 +134,7 @@ export class DriveStorageService {
     return this.#root;
   }
   clear() {
+    diagnostics.clear();
     this.#root = undefined;
     for (const url of this.#urls) URL.revokeObjectURL(url);
     this.#urls.clear();
@@ -246,14 +249,23 @@ export class DriveStorageService {
     }
     throw new ClientError("OUTSIDE_ROOT");
   }
-  async listChildren(id: string, signal?: AbortSignal): Promise<DriveFile[]> {
+  async folderContents(
+    id: string,
+    signal?: AbortSignal,
+  ): Promise<{ folder: DriveFile; files: DriveFile[] }> {
+    // One fresh ancestry check for the combined folder/list operation.
+    // JSON reads retain their independent before/after ancestry and version checks.
     const folder = await this.withinRoot(id, signal);
     if (folder.mimeType !== FOLDER_TYPE)
       throw new ClientError("ROOT_NOT_FOLDER");
-    return this.list(
+    const files = await this.list(
       `'${checkedId(id)}' in parents and trashed = false`,
       signal,
     );
+    return { folder, files };
+  }
+  async listChildren(id: string, signal?: AbortSignal): Promise<DriveFile[]> {
+    return (await this.folderContents(id, signal)).files;
   }
   async findFile(
     parent: string,
@@ -304,6 +316,7 @@ export class DriveStorageService {
   async image(
     id: string,
     signal?: AbortSignal,
+    previewLimit?: number,
   ): Promise<{ url: string; file: DriveFile }> {
     const generation = this.current();
     const file = await this.withinRoot(id, signal);
@@ -315,12 +328,21 @@ export class DriveStorageService {
       "image/avif",
     ]);
     if (!allowed.has(file.mimeType)) throw new ClientError("INVALID_IMAGE");
+    if (
+      previewLimit !== undefined &&
+      (!file.size ||
+        !/^\d+$/.test(file.size) ||
+        Number(file.size) > previewLimit)
+    )
+      throw new ClientError("PREVIEW_DEFERRED");
     const { data } = await this.auth.request<Blob>(
       `${API}/files/${checkedId(id)}?alt=media&supportsAllDrives=true`,
       { format: "blob", signal },
     );
     this.auth.assertCurrent(generation);
     if (!allowed.has(data.type)) throw new ClientError("INVALID_IMAGE");
+    if (previewLimit !== undefined && data.size > previewLimit)
+      throw new ClientError("PREVIEW_DEFERRED");
     const url = URL.createObjectURL(data);
     this.#urls.add(url);
     return { url, file };

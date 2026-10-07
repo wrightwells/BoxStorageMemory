@@ -1,6 +1,9 @@
 import { validator } from "./validation";
 import { boxDescription } from "./discoverability";
-import { normalizeNfc, schemaMode } from "../../../shared/typescript/contracts";
+import {
+  normalizeNfc,
+  schemaMode,
+} from "../../../shared/typescript/contract-core";
 import type {
   BoxIndex,
   Inventory,

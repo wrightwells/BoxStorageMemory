@@ -58,6 +58,7 @@ export function ReferenceBoxView({
         <BoxIcon className="reference-box-icon" />
         <div className="reference-box-identity">
           <h1>{box.name}</h1>
+          <p>{box.location || "Location not recorded"}</p>
           <p>
             <strong>{box.number}</strong>
             <span aria-hidden="true"> · </span>
@@ -159,7 +160,6 @@ export function ReferenceBoxView({
                       <th scope="col">Photo</th>
                       <th scope="col">Description</th>
                       <th scope="col">Quantity</th>
-                      <th scope="col">Location</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
@@ -173,12 +173,18 @@ export function ReferenceBoxView({
                         </th>
                         <td>
                           {item.images?.[0] ? (
-                            <InventoryThumbnail
-                              boxId={box.id}
-                              itemId={item.id}
-                              filename={item.images[0]}
-                              name={item.name}
-                            />
+                            <div className="inventory-photo-gallery">
+                              {item.images.map((filename) => (
+                                <InventoryThumbnail
+                                  key={filename}
+                                  boxId={box.id}
+                                  itemId={item.id}
+                                  filename={filename}
+                                  name={item.name}
+                                  fullPhoto
+                                />
+                              ))}
+                            </div>
                           ) : (
                             <Link
                               className="reference-no-photo"
@@ -190,11 +196,6 @@ export function ReferenceBoxView({
                         </td>
                         <td>{item.description || "—"}</td>
                         <td>{item.quantity}</td>
-                        <td>
-                          {typeof item.location === "string"
-                            ? item.location
-                            : box.location || "—"}
-                        </td>
                         <td>
                           <div className="reference-row-actions">
                             <Link

@@ -107,6 +107,7 @@ async function mockGoogle(page: Page) {
   ];
   files.push({
     id: "photo-file",
+    size: String(readFileSync("tests/browser/photo.jpg").length),
     name: inventory.items[0].images[0],
     mimeType: "image/jpeg",
     parents: ["box-folder"],
@@ -373,7 +374,7 @@ test("strict policies support login, browse/search/edit/label/recovery and clear
     await page.emulateMedia({ media: "screen" });
   }
   await expect(page.locator("body")).not.toContainText(BOX);
-  await page.getByRole("link", { name: "Library", exact: true }).click();
+  await page.getByRole("link", { name: "Settings", exact: true }).click();
   await page.getByRole("button", { name: "Preview rebuilt index" }).click();
   await expect(
     page.getByText("No duplicate or unavailable records were found."),
@@ -602,6 +603,10 @@ for (const width of [320, 390, 768, 1024, 1440]) {
     await expect(page.getByLabel("QR label URL")).toBeVisible();
     await fits();
     await page.getByRole("link", { name: "Settings", exact: true }).click();
+    // A direct page load starts a new in-memory auth session.
+    await page
+      .getByRole("button", { name: "Sign in with Google", exact: true })
+      .click();
     await expect(
       page.getByRole("button", { name: "Sign out", exact: true }),
     ).toBeVisible();
@@ -842,7 +847,7 @@ test("CTX-001 forgets search context on sign-out and reconnect", async ({
 });
 
 for (const preview of [false, true]) {
-  test(`IMG-001 ${preview ? "shows thumbnails with independent rollback" : "control keeps photo icons"}`, async ({
+  test(`Box table photographs remain visible with IMG-001 ${preview ? "enabled and after rollback" : "disabled"}`, async ({
     page,
   }) => {
     await mockGoogle(page);
@@ -880,13 +885,6 @@ for (const preview of [false, true]) {
     await page.getByRole("button", { name: "Open box", exact: true }).click();
     const table = page.getByRole("table", { name: "Box inventory items" });
     await expect(table).toBeVisible();
-    if (!preview) {
-      await expect(table.getByRole("img")).toHaveCount(0);
-      await expect(
-        table.getByRole("link", { name: "Manage photographs", exact: true }),
-      ).toBeVisible();
-      return;
-    }
     const thumbnail = table.getByRole("link", {
       name: "Open item: 13A Extension Lead",
       exact: true,
@@ -904,15 +902,7 @@ for (const preview of [false, true]) {
     await expect(thumbnail).toBeFocused();
     enabled = false;
     await page.clock.runFor(15000);
-    await expect(table.getByRole("img")).toHaveCount(0);
-    await expect(
-      table.getByRole("link", { name: "Manage photographs", exact: true }),
-    ).toBeVisible();
-    expect(
-      await page.evaluate(
-        () => (window as unknown as { releasedPhotos: number }).releasedPhotos,
-      ),
-    ).toBeGreaterThan(0);
+    await expect(image).toBeVisible();
     await expect(page.locator("html")).toHaveAttribute(
       "data-ui-variant",
       "persistent-navigation",
@@ -981,7 +971,7 @@ test("IMG-001 keeps item navigation available when a preview fails and retries",
   ).toBeVisible();
 });
 
-test("IMG-001 waits for viewport entry and releases previews on exit", async ({
+test("Box photos load on first viewport entry and stay loaded while scrolling", async ({
   page,
 }) => {
   await mockGoogle(page);
@@ -1051,19 +1041,21 @@ test("IMG-001 waits for viewport entry and releases previews on exit", async ({
   );
   await expect(thumbnail.getByRole("img")).toHaveJSProperty("naturalWidth", 32);
   expect(reads).toBe(1);
+  const photoUrl = await thumbnail.getByRole("img").getAttribute("src");
   await page.evaluate(() =>
     (
       window as unknown as { setPreviewVisible: (visible: boolean) => void }
     ).setPreviewVisible(false),
   );
-  await expect(thumbnail.getByRole("img")).toHaveCount(0);
+  await expect(thumbnail.getByRole("img")).toHaveAttribute("src", photoUrl!);
   await page.evaluate(() =>
     (
       window as unknown as { setPreviewVisible: (visible: boolean) => void }
     ).setPreviewVisible(true),
   );
   await expect(thumbnail.getByRole("img")).toHaveJSProperty("naturalWidth", 32);
-  expect(reads).toBe(2);
+  await expect(thumbnail.getByRole("img")).toHaveAttribute("src", photoUrl!);
+  expect(reads).toBe(1);
 });
 
 test("REF-001 reference layout has working sections, search and a single focused new item", async ({
@@ -1101,12 +1093,14 @@ test("REF-001 reference layout has working sections, search and a single focused
     page.getByRole("link", { name: "Box Library", exact: true }),
   ).toBeVisible();
   const table = page.getByRole("table", { name: "Box inventory items" });
+  await expect(page.locator(".reference-box-identity h1 + p")).toHaveText(
+    "Garage",
+  );
   await expect(table.getByRole("columnheader")).toHaveText([
     "Item",
     "Photo",
     "Description",
     "Quantity",
-    "Location",
     "Actions",
   ]);
   await expect(
@@ -1252,7 +1246,14 @@ for (const width of [320, 768, 1440]) {
     await expect(
       nav.getByRole("link", { name: "Add", exact: true }),
     ).toHaveCount(0);
+    await expect(
+      page.getByRole("region", { name: "Tools", exact: true }),
+    ).toHaveCount(0);
+    await nav.getByRole("link", { name: "Settings", exact: true }).click();
     const tools = page.getByRole("region", { name: "Tools", exact: true });
+    await expect(
+      page.getByRole("heading", { name: "Library folder", exact: true }),
+    ).toBeVisible();
     await expect(
       tools.getByRole("button", { name: "Refresh library", exact: true }),
     ).toBeVisible();
@@ -1262,13 +1263,16 @@ for (const width of [320, 768, 1440]) {
     await tools
       .getByRole("button", { name: "Refresh library", exact: true })
       .click();
-    await expect(page.getByLabel("Find a box number")).toBeVisible();
+    await expect(
+      tools.getByRole("button", { name: "Refresh library", exact: true }),
+    ).toBeEnabled();
     await tools
       .getByRole("button", { name: "Preview rebuilt index", exact: true })
       .click();
     await expect(
       tools.getByRole("status").filter({ hasText: "valid inventories" }),
     ).toBeVisible();
+    await nav.getByRole("link", { name: "Boxes", exact: true }).click();
     await expect(page.locator(".box-card-icon")).toHaveCount(2);
     if (process.env.BSM_VISUAL_DIR)
       await page.screenshot({
@@ -1341,3 +1345,183 @@ for (const width of [320, 768, 1440]) {
     ).toBe(true);
   });
 }
+
+test("PERF controlled browser startup and read workflows", async ({
+  browser,
+}) => {
+  test.skip(
+    !process.env.BSM_BROWSER_PERF_OUTPUT,
+    "Opt-in measurement; synthetic Drive only",
+  );
+  test.setTimeout(90000);
+  const { writeFileSync } = await import("node:fs");
+  const results: unknown[] = [];
+  for (let sample = 0; sample < 5; sample++) {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await mockGoogle(page);
+    let requests = 0;
+    await page.route("https://www.googleapis.com/**", async (route) => {
+      requests++;
+      await new Promise((resolve) => setTimeout(resolve, 20));
+      await route.fallback();
+    });
+    const measure = async (operation: string, task: () => Promise<void>) => {
+      const started = performance.now(),
+        count = requests;
+      await task();
+      results.push({
+        sample,
+        operation,
+        elapsedMs: performance.now() - started,
+        driveCalls: requests - count,
+      });
+    };
+    await measure("shellVisible", async () => {
+      await page.goto("/login?perf=1");
+      await expect(
+        page.getByRole("heading", {
+          name: "Connect Google Drive",
+          exact: true,
+        }),
+      ).toBeVisible();
+    });
+    await measure("authenticationAndRoot", () => connect(page));
+    await measure("freshLibrary", async () => {
+      await page
+        .getByRole("navigation", { name: "Main navigation", exact: true })
+        .getByRole("link", { name: "Boxes", exact: true })
+        .click();
+      await expect(page.locator(".box-card")).toHaveCount(2);
+    });
+    await measure("freshBoxWithPhoto", async () => {
+      await page.locator(`a[href="/box/${BOX}"]`).first().click();
+      await expect(
+        page.getByRole("heading", { name: "Electrical Box", exact: true }),
+      ).toBeVisible();
+      await expect(page.locator(".inventory-thumbnail img")).toBeVisible();
+    });
+    await measure("searchAfterViewedBox", async () => {
+      await page
+        .getByRole("navigation", { name: "Main navigation", exact: true })
+        .getByRole("link", { name: "Search", exact: true })
+        .click();
+      await page
+        .getByLabel("Search boxes and items", { exact: true })
+        .fill("10 metre");
+      await expect(
+        page.getByRole("link", { name: "13A Extension Lead", exact: true }),
+      ).toBeVisible();
+      await expect(
+        page.getByText("Search ready: 2 indexed boxes loaded.", {
+          exact: true,
+        }),
+      ).toBeVisible();
+    });
+    results.push({
+      sample,
+      operation: "resources",
+      resources: await page.evaluate(() =>
+        performance
+          .getEntriesByType("resource")
+          .filter((entry) => entry.name.includes("/assets/"))
+          .map((entry) => {
+            const resource = entry as PerformanceResourceTiming;
+            return {
+              durationMs: resource.duration,
+              transferSize: resource.transferSize,
+              decodedBodySize: resource.decodedBodySize,
+            };
+          }),
+      ),
+    });
+    await context.close();
+  }
+  writeFileSync(
+    process.env.BSM_BROWSER_PERF_OUTPUT!,
+    JSON.stringify(
+      {
+        model:
+          "deployed Tailscale HTTPS; synthetic OAuth/2-box Drive with 20ms added per intercepted request; fresh browser contexts; image fixture 32px",
+        results,
+      },
+      null,
+      2,
+    ),
+  );
+});
+
+test("Box table displays large photographs", async ({ browser }) => {
+  test.setTimeout(60000);
+  const { writeFileSync } = await import("node:fs");
+  const results: unknown[] = [];
+  const original = readFileSync("tests/browser/photo.jpg");
+  const payload = Buffer.concat([
+    original,
+    Buffer.alloc(3 * 1024 * 1024 - original.length),
+  ]);
+  for (
+    let sample = 0;
+    sample < (process.env.BSM_THUMBNAIL_PERF_OUTPUT ? 3 : 1);
+    sample++
+  ) {
+    const context = await browser.newContext(),
+      page = await context.newPage();
+    const fixture = await mockGoogle(page);
+    Object.assign(
+      fixture.files.find((file) => file.id === "photo-file")!,
+      { size: String(payload.length) },
+    );
+    let imageCalls = 0,
+      bytes = 0;
+    await page.route("**/drive/v3/files/photo-file?**", async (route) => {
+      if (new URL(route.request().url()).searchParams.get("alt") !== "media") {
+        await route.fallback();
+        return;
+      }
+      imageCalls++;
+      bytes += payload.length;
+      await route.fulfill({
+        contentType: "image/jpeg",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: payload,
+      });
+    });
+    await page.goto("/login?perf=1");
+    await connect(page);
+    await page
+      .getByRole("navigation", { name: "Main navigation", exact: true })
+      .getByRole("link", { name: "Boxes", exact: true })
+      .click();
+    await page.locator(`a[href="/box/${BOX}"]`).first().click();
+    await expect(page.locator(".inventory-thumbnail img")).toBeVisible();
+    await expect(page.locator(".inventory-thumbnail img")).toHaveJSProperty(
+      "naturalWidth",
+      32,
+    );
+    expect(imageCalls).toBe(1);
+    expect(bytes).toBe(payload.length);
+    results.push({ sample, imageCalls, imageBytes: bytes });
+    // Full photograph remains a working item-detail workflow.
+    await page
+      .getByRole("link", { name: "Open item: 13A Extension Lead", exact: true })
+      .click();
+    await expect(
+      page.getByRole("img", { name: /photograph/i }).first(),
+    ).toBeVisible();
+    await context.close();
+  }
+  if (process.env.BSM_THUMBNAIL_PERF_OUTPUT)
+    writeFileSync(
+      process.env.BSM_THUMBNAIL_PERF_OUTPUT,
+      JSON.stringify(
+        {
+          model:
+            "synthetic JPEG with 3MiB padded payload; table preview only; item-detail full photo verified separately",
+          results,
+        },
+        null,
+        2,
+      ),
+    );
+});

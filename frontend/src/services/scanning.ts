@@ -1,4 +1,7 @@
-import { normalizeNfc, parseQr } from "../../../shared/typescript/contracts";
+import {
+  normalizeNfc,
+  parseQr,
+} from "../../../shared/typescript/contract-core";
 import { ClientError } from "./errors";
 import { PhotoCamera } from "./image-processing";
 

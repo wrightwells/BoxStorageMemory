@@ -1,3 +1,4 @@
+import { diagnostics, driveOperation } from "./performance";
 import { ClientError } from "./errors";
 
 export const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive";
@@ -138,6 +139,7 @@ export class GoogleAuthService {
     for (const wake of this.#slots) wake();
   }
   clear(status: AuthStatus = "signed-out", error?: string) {
+    diagnostics.clear();
     this.#token = undefined;
     this.#expires = 0;
     clearTimeout(this.#timer);
@@ -276,6 +278,7 @@ export class GoogleAuthService {
             : "CONTEXT_CHANGED",
         );
     };
+    const finishQueue = diagnostics.start("drive.queue");
     let acquired = false;
     try {
       check();
@@ -294,7 +297,12 @@ export class GoogleAuthService {
       check();
       this.#active++;
       acquired = true;
+      finishQueue(200);
       for (let attempt = 0; ; attempt++) {
+        const finishRequest = diagnostics.start(driveOperation(target, method));
+        let perfStatus = 0,
+          perfBytes: number | null = null,
+          perfCount: number | null = null;
         check();
         const timeout = setTimeout(() => {
           timedOut = true;
@@ -322,6 +330,10 @@ export class GoogleAuthService {
             await pause(250 * 2 ** attempt, controller.signal);
             continue;
           }
+          perfStatus = response.status;
+          const length = response.headers.get("Content-Length");
+          if (length !== null && Number.isFinite(Number(length)))
+            perfBytes = Number(length);
           check();
           if (response.status === 401) {
             this.clear("expired");
@@ -421,8 +433,16 @@ export class GoogleAuthService {
             );
           }
           check();
+          if (
+            data &&
+            typeof data === "object" &&
+            "files" in data &&
+            Array.isArray(data.files)
+          )
+            perfCount = data.files.length;
           return { data, etag: response.headers.get("ETag") };
         } finally {
+          finishRequest(perfStatus, attempt, perfBytes, perfCount);
           clearTimeout(timeout);
         }
       }

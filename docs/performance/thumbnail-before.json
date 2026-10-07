@@ -1,0 +1,20 @@
+{
+  "model": "synthetic JPEG with 3MiB padded payload; table preview only; item-detail full photo verified separately",
+  "results": [
+    {
+      "sample": 0,
+      "imageCalls": 1,
+      "imageBytes": 3145728
+    },
+    {
+      "sample": 1,
+      "imageCalls": 1,
+      "imageBytes": 3145728
+    },
+    {
+      "sample": 2,
+      "imageCalls": 1,
+      "imageBytes": 3145728
+    }
+  ]
+}

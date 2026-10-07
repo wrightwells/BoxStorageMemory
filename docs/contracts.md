@@ -118,3 +118,7 @@ npm run test:prototypes
 ```
 
 The TypeScript test executes the independent Python validator and compares all shared results, including unknown-field-preserving edits. `npm run build:contracts` creates browser-importable JavaScript and declarations in ignored `.build/contracts/`. Nothing in these tests accesses a real Google account.
+
+## Browser runtime and release packaging
+
+`shared/typescript/contract-core.ts` contains pure helpers and the validator using precompiled functions. The public `contracts.ts` adapter retains the existing `ContractValidator` constructor and Node schema compilation. Browser code imports the core to avoid shipping AJV compilation. Contract releases include both files; API/schema v1 and shared validation behavior are unchanged. See [the performance review](performance-review.md).

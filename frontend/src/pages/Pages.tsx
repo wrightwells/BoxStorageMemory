@@ -161,7 +161,7 @@ export function SettingsPage() {
     <section className="page-panel">
       <h1>Settings</h1>
       <p>Choose the Google account and storage folder for your library.</p>
-      <DriveConnection />
+      <DriveConnection showLibraryTools />
     </section>
   );
 }

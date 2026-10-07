@@ -1,0 +1,59 @@
+{
+  "model": "coordinator simulator; 20ms per v2 transport call; storage helpers in memory; synthetic 1MiB JPEG upload",
+  "results": [
+    {
+      "sample": 0,
+      "operation": "createBox",
+      "elapsedMs": 650.4218340000002,
+      "coordinatorHttpCalls": 31
+    },
+    {
+      "sample": 0,
+      "operation": "saveEdit",
+      "elapsedMs": 478.4083440000004,
+      "coordinatorHttpCalls": 23
+    },
+    {
+      "sample": 0,
+      "operation": "uploadPhoto",
+      "elapsedMs": 587.742878,
+      "coordinatorHttpCalls": 27
+    },
+    {
+      "sample": 1,
+      "operation": "createBox",
+      "elapsedMs": 644.1492600000001,
+      "coordinatorHttpCalls": 31
+    },
+    {
+      "sample": 1,
+      "operation": "saveEdit",
+      "elapsedMs": 477.4517399999995,
+      "coordinatorHttpCalls": 23
+    },
+    {
+      "sample": 1,
+      "operation": "uploadPhoto",
+      "elapsedMs": 624.5786580000004,
+      "coordinatorHttpCalls": 27
+    },
+    {
+      "sample": 2,
+      "operation": "createBox",
+      "elapsedMs": 654.9172440000002,
+      "coordinatorHttpCalls": 31
+    },
+    {
+      "sample": 2,
+      "operation": "saveEdit",
+      "elapsedMs": 475.2428200000004,
+      "coordinatorHttpCalls": 23
+    },
+    {
+      "sample": 2,
+      "operation": "uploadPhoto",
+      "elapsedMs": 596.9226179999996,
+      "coordinatorHttpCalls": 27
+    }
+  ]
+}

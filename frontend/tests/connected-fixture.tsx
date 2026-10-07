@@ -48,6 +48,12 @@ export async function prepare(simulatedWrites = false) {
     email: "",
   });
   vi.spyOn(session.drive, "selectRoot").mockResolvedValue(f.root);
+  vi.spyOn(session.drive, "folderContents").mockImplementation(
+    async (id, signal) => ({
+      folder: await session.drive.withinRoot(id, signal),
+      files: await session.drive.listChildren(id, signal),
+    }),
+  );
   vi.spyOn(session.drive, "listChildren").mockImplementation(
     f.drive.listChildren,
   );

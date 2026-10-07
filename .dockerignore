@@ -30,6 +30,7 @@ frontend/*.tsbuildinfo
 
 !tools/
 !tools/build_web_validators.mjs
+!tools/compress_web_assets.mjs
 
 !config/
 !config/ui-experiments.json

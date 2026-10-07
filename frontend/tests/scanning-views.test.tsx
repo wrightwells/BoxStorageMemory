@@ -91,7 +91,7 @@ describe("labels and scanner views", () => {
   it("opens only valid labels and reports invalid inputs without navigation", async () => {
     const f = await fixture(),
       router = f.open("/scan");
-    const input = screen.getByLabelText("QR label URL");
+    const input = await screen.findByLabelText("QR label URL");
     await userEvent.type(input, "https://evil.example/box/" + BOX);
     await userEvent.click(
       screen.getByRole("button", { name: "Open QR label" }),

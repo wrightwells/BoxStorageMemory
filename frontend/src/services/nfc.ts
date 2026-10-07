@@ -1,4 +1,4 @@
-import { normalizeNfc } from "../../../shared/typescript/contracts";
+import { normalizeNfc } from "../../../shared/typescript/contract-core";
 import type { BoxIndexEntry } from "../../../shared/typescript/models";
 import type { ApiClient } from "./api";
 import {

@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     allowed_origins: str = "http://localhost:5173"
     enable_web_nfc: bool = False
     enable_api_docs: bool = True
+    performance_timing: bool = False
     max_request_bytes: int = Field(default=1048576, ge=1024, le=16777216)
     utility_requests_per_minute: int = Field(default=60, ge=1, le=10000)
     utility_global_requests_per_minute: int = Field(default=600, ge=1, le=100000)

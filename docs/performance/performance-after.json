@@ -1,0 +1,6840 @@
+{
+  "model": "synthetic 20ms per HTTP request; nested 2-box fixture; actual application services",
+  "results": [
+    {
+      "sample": 0,
+      "operation": "freshLibrary",
+      "elapsedMs": 160.84759999999983,
+      "driveCalls": 7,
+      "responseBytes": 1315,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03408799999988332,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.69436399999995,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012349000000085653,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.384256999999934,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02391000000011445,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.315673999999944,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.16718300000002273,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.38593199999991,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.04822300000000723,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.999160999999958,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.05475099999989652,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.78454499999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01569100000006074,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.48989000000006,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 160.7087039999999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 0,
+      "operation": "freshNestedBox",
+      "elapsedMs": 295.1866850000001,
+      "driveCalls": 13,
+      "responseBytes": 2151,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.030192999999826498,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.008336999999983163,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.040394000000105734,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 26.03107799999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.026818000000048414,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.91430400000013,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.14669800000001487,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.322165999999925,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01461099999983162,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 22.133972000000085,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01680700000019897,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.278542000000016,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020529000000124142,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.024629000000004,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014772999999877356,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.006234999999833,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.028782999999748426,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.868352999999843,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.011966999999913241,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.63066200000003,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005365999999867199,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.38248300000032,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.011108000000149332,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.232582000000093,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012122000000090338,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.65694799999983,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0051419999999779975,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.458448000000317,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 295.0369099999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 0,
+      "operation": "cachedBox",
+      "elapsedMs": 0.08480900000040492,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.005066000000169879,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0012910000000374566,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.055772999999589956,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 0,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 212.79418799999985,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.005075999999917258,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.0040640000001985754,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.025411000000076456,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.012834999999995489,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0016470000000481377,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0009549999999762804,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009117000000060216,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.3153780000002371,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.62207699999999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0056110000000444415,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.473439999999755,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005812999999761814,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.66626899999983,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008711000000403146,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.009750000000167,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013178000000152679,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.32498200000009,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019171999999798572,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.924042999999983,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013214999999945576,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.133406999999806,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014543999999659718,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.151304999999866,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015409999999974389,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.988508999999794,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0144719999998415,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.053060000000187,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 211.8715140000004,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "search.load",
+          "durationMs": 212.73144500000035,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 0,
+      "operation": "warmSearchQuery",
+      "elapsedMs": 5.056964999999764,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": []
+    },
+    {
+      "sample": 0,
+      "operation": "concurrentSameBox",
+      "elapsedMs": 214.15855599999986,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.0834460000000945,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.035200000000259024,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.006324999999833381,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01876399999991918,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.006348000000343745,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.634308000000146,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.024343000000044412,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.153867999999875,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014372999999977765,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.591347999999925,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014573999999811349,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.958498999999847,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02129300000024159,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.24032699999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014224000000012893,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.749946000000364,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01098199999978533,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.288718000000245,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.007447000000411208,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.92525300000034,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008932999999615276,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.554915000000165,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008616000000074564,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.59108900000001,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 213.8994319999997,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 213.85307399999965,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 0,
+      "operation": "refreshOneBox",
+      "elapsedMs": 431.2367330000002,
+      "driveCalls": 20,
+      "responseBytes": 3466,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.003627000000051339,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.36680699999988,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010659000000032393,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.643535000000156,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005848000000241882,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.769338999999945,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.011570000000119762,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.97489200000018,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013211999999839463,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.939824999999928,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01282500000024811,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.927978000000167,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012626000000182103,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.431416999999783,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 152.4974430000002,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0035000000002582965,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02366600000004837,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.925502999999935,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012100999999802298,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.926696999999876,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012568000000101165,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.90550600000006,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020148999999946682,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.403111999999965,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.029350000000249565,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.104526999999962,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012480999999752385,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.927020000000084,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012791999999990367,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.034905999999864,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02496400000018184,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.40465600000016,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019487000000026455,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.20480099999986,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021636999999827822,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.030415999999605,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014623999999912485,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.029171000000133,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013399999999819556,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.00519600000007,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01448500000014974,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.206194999999752,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 431.16690800000015,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "freshLibrary",
+      "elapsedMs": 147.4554860000003,
+      "driveCalls": 7,
+      "responseBytes": 1315,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.029037999999673048,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.362517000000025,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021704000000227097,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.98158400000011,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014182000000346306,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.098049999999603,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020934000000124797,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 19.66518999999971,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009173000000373577,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.491481999999905,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006011999999827822,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.594680000000153,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009591999999884138,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.560853999999836,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 147.4335759999999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "freshNestedBox",
+      "elapsedMs": 275.0048319999996,
+      "driveCalls": 13,
+      "responseBytes": 2151,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.009333000000424363,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.002159000000119704,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006105000000388827,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.250845000000027,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010209999999915453,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.559160000000247,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006630999999742926,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.50314900000012,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005302999999912572,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.44957000000022,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006151999999929103,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.579681000000164,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005359000000225933,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.56934999999976,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008558999999877415,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.870739000000412,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013104999999995925,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.18240999999989,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021023000000241154,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.03965900000003,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012316000000282656,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.81952000000001,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012820999999803462,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.79030499999999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019769999999880383,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.300197000000026,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019114000000172382,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.953371999999945,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 274.9820990000003,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "cachedBox",
+      "elapsedMs": 0.0743400000001202,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.017854999999599386,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.003531999999722757,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.04874699999982113,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 222.09916300000032,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.006435000000237778,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.009442999999919266,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.03398700000025201,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.014303999999810912,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.002615999999761698,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0016709999999875436,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00914199999988341,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.37421900000026653,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.1061380000001,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019928000000163593,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.02193599999964,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013175000000046566,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.9185080000002,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01310799999964729,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 19.815517,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012683000000379252,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.565946000000167,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020698000000265893,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 26.002816999999595,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018941999999697146,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.928829999999834,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.024636999999984255,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.22672999999986,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.028029999999944266,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.25922199999968,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013649999999870488,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.763582000000042,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 221.82125700000006,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "search.load",
+          "durationMs": 222.0805919999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "warmSearchQuery",
+      "elapsedMs": 0.41302200000018274,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": []
+    },
+    {
+      "sample": 1,
+      "operation": "concurrentSameBox",
+      "elapsedMs": 211.85967400000027,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.008759999999710999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.004535000000032596,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0020429999999578285,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0037149999998291605,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0018709999999373395,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.50749199999973,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008599000000231172,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 19.576792000000296,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005415999999968335,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.626103000000057,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00853599999936705,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.760317999999643,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010103000000526663,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.164972999999918,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020778000000063912,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.639381999999387,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02724899999975605,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.220948999999564,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019091000000116765,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.18538499999977,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02419099999951868,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.447721999999885,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01945900000009715,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.095712000000276,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 211.8447240000005,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 211.83931600000005,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "refreshOneBox",
+      "elapsedMs": 427.407655,
+      "driveCalls": 20,
+      "responseBytes": 3466,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012361000000055355,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.493921999999657,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019637000000329863,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.668166999999812,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.025496000000202912,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.101588000000447,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01581700000042474,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.34545100000014,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.022140000000035798,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.37406800000008,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.026253999999426014,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.810709999999744,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008550999999897613,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.46637600000031,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 150.81285899999966,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.000984000000244123,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00705999999991036,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.77332800000022,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008937999999943713,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.92043400000057,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005919999999605352,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.913618999999926,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.016301999999996042,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.10106799999994,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.016846999999870604,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.24186699999973,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02502600000025268,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.36736800000017,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.027706000000762288,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.09579500000018,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02315600000019913,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.120590999999877,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03006699999968987,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.455387000000883,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02853300000060699,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.87747599999966,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013267999999698077,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.60421899999983,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010164000000258966,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.481936000000132,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006333999999696971,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.732727000000523,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 427.3957369999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "freshLibrary",
+      "elapsedMs": 149.34288199999992,
+      "driveCalls": 7,
+      "responseBytes": 1315,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0038100000001577428,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.424352,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005498999999872467,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.164933999999448,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009497000000010303,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.848186999999598,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.016590000000178406,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.07501299999967,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017360999999255,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.725838999999723,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02329199999985576,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.334748999999647,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018066999999973632,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.01636000000053,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 149.33496300000024,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "freshNestedBox",
+      "elapsedMs": 279.97734500000024,
+      "driveCalls": 13,
+      "responseBytes": 2151,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.008681000000251515,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.002365000000281725,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.011375000000043656,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.2871810000006,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021978000000672182,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.505859000000783,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02591299999949115,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.58593799999926,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.025058000000171887,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.0807190000005,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015127000000575208,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.249917000000096,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.028365999999550695,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.342894000000342,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02228300000024319,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.110732000000098,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015459999999620777,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.14368000000013,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.025966999999582185,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.155625000000327,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.016908999999941443,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.274812999999995,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.016164000000571832,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.01546000000053,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015806999999767868,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.14742799999931,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01755100000082166,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.197003000000223,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 279.9649330000002,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "cachedBox",
+      "elapsedMs": 0.0835559999995894,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.009608000000298489,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.002292000000124972,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.0735370000002149,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 211.40364299999965,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.00766600000042672,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.0037859999993088422,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.03289500000028056,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.016422000000602566,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0027220000001761946,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0015280000006896444,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.011739000000488886,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.3887849999991886,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.605881999999838,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02367300000059913,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.51759299999958,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03129799999987881,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.61283999999978,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.022445999999945343,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.141521999999895,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015249999999468855,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 19.57165299999997,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006951000000299246,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.76583799999935,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009378999999171356,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.990952000000107,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009187000000565604,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.49858200000017,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005467000000862754,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.443151999999827,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0060050000001865556,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.424101999999948,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 211.17023700000027,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "search.load",
+          "durationMs": 211.3958590000002,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "warmSearchQuery",
+      "elapsedMs": 0.1702049999994415,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": []
+    },
+    {
+      "sample": 2,
+      "operation": "concurrentSameBox",
+      "elapsedMs": 215.32324599999993,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.022538999999596854,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.01295399999980873,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.002553999999690859,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010940000000118744,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0028030000003127498,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.31420899999921,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03349600000001374,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.10598200000004,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015848000000005413,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.14191899999969,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.029050000000097498,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.222823000000062,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015679999999520078,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.1101349999999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015288999999938824,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 19.983062999999675,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017780999999558844,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.513152000000446,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02410000000054424,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.578051000000414,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.026627000000189582,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.17668599999979,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018739999999525025,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.224819000000025,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 215.24596399999973,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 215.27973399999973,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "refreshOneBox",
+      "elapsedMs": 427.68698399999994,
+      "driveCalls": 20,
+      "responseBytes": 3466,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02836600000046019,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.406491000000642,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02823499999976775,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.697148999999627,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01929299999937939,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.153545000000122,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015772000000652042,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.28159400000004,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0244620000003124,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.730993999999555,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.026700000000346336,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.463238000000274,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02606700000069395,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.230524000000514,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 151.30141000000003,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.001443999999537482,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008367999999791209,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.867450999999164,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005105999999614141,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.580301999999392,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005693999999493826,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.529954999999973,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0052680000007967465,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.659465000000637,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010020000000622531,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.181169999999838,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010455999999976484,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.51891699999942,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005084000000351807,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.70389299999988,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009296000000176718,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.31397199999992,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01999900000009802,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.573637999999846,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03642200000012963,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.29631999999947,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02637499999946158,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.338659999999436,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017963000000236207,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.15484600000036,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03495199999997567,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.222822000000633,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 427.6545270000006,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "freshLibrary",
+      "elapsedMs": 152.8112769999998,
+      "driveCalls": 7,
+      "responseBytes": 1315,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02556800000002113,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.25957400000061,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.04924699999992299,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.378216000000066,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017964000000574742,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.22910899999988,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017590000000382133,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.737466999999924,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020156000000497443,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.580503999999564,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02169400000002497,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.223831000000246,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.016764999999395513,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.348539000000528,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 152.7935350000007,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "freshNestedBox",
+      "elapsedMs": 280.1488899999995,
+      "driveCalls": 13,
+      "responseBytes": 2151,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.014280999999755295,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.004146000000218919,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.023207999999613094,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.826271999999335,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.028086999999686668,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.494756000000052,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02980699999989156,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.5816990000003,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.028935000000274158,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.593439000000217,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03797300000042014,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.45168199999989,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02820400000018708,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.398866999999882,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021735999999691558,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.995961999999963,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010839000000487431,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.495194000000083,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01443199999994249,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 22.056722999999693,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010006999999859545,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.550607000000127,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00873299999966548,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.595303000000058,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008039999999709835,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.44680100000005,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.004958000000442553,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.447212999999465,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 280.1338019999994,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "cachedBox",
+      "elapsedMs": 0.01393000000007305,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.0030010000000402215,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0006470000007539056,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.00989800000024843,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 218.4992430000002,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.002434999999422871,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.0012560000004668836,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.014689999999973224,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.006567999999788299,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0006419999999707215,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0005410000003394089,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006164999999782594,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.28901500000029046,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.410757000000558,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006996999999500986,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.504908999999316,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006679000000076485,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.50478699999985,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02417799999966519,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.763495999999577,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.030329999999594293,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.41952300000048,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021003000000746397,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.431900000000496,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.030455999999503547,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.751940000000104,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02988999999979569,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.05795399999988,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02841800000078365,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.424976000000242,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03475900000012189,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.537115000000085,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 217.9900749999997,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "search.load",
+          "durationMs": 218.48953099999926,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "warmSearchQuery",
+      "elapsedMs": 0.7786210000003848,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": []
+    },
+    {
+      "sample": 3,
+      "operation": "concurrentSameBox",
+      "elapsedMs": 216.97166000000016,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.037826000000677595,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.02213800000026822,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.004784000000654487,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.022276000000601925,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.004802999999810709,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.331170000000384,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017345999999633932,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.231417999999394,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.023756999999932304,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.300027000000227,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018084999999700813,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.518809000000147,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018132000000150583,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.522181999999702,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.030784999999923457,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.518387000000075,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.028131000000030326,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.010049999999865,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.030198000000382308,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.207989000000453,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01864599999953498,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.684000000000196,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009761999999682303,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.323677000000316,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 216.93739499999992,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 216.9116350000004,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "refreshOneBox",
+      "elapsedMs": 431.59255200000007,
+      "driveCalls": 20,
+      "responseBytes": 3466,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.004834000000300875,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.496903000000202,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005469000000630331,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.414074999999684,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00501200000053359,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.607038000000102,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008606999999756226,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.34412599999996,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01628400000026886,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.562936000000263,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006005999999615597,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.803484000000026,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.010900000000219734,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.215306999999484,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 146.7724619999999,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0019490000004225294,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013071000000309141,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.643565999999737,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.032032000000072,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.305875000000015,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018782000000101107,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.27448700000059,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01750400000037189,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.380191000000195,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020322000000305707,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.25975500000004,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02077000000008411,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.47493200000008,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.035385000000133005,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.577363000000332,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.025227999999515305,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.327945,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02201500000046508,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.233761999999842,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.020306000000346103,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.518730000000687,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02080900000055408,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 22.538312000000587,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03566899999987072,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.340126999999484,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019240999999965425,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.47410299999956,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 431.57518700000037,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "freshLibrary",
+      "elapsedMs": 154.472401,
+      "driveCalls": 7,
+      "responseBytes": 1315,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01584000000002561,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.458386000000246,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03467400000045018,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.70632999999998,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.027943000000050233,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.336691000000428,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019905999999537016,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.604613999999856,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.030839000000014494,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.978194999999687,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.029290999999830092,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.495421000000533,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.034032000000479457,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.090736000000106,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 154.459605,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "freshNestedBox",
+      "elapsedMs": 272.1110699999999,
+      "driveCalls": 13,
+      "responseBytes": 2151,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.06048999999984517,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0038129999993543606,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009054000000105589,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.566483999999946,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008074999999735155,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.459277999999358,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.004922000000078697,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.42136400000072,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005298999999467924,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.510739000000285,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008751000000302156,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.77702599999975,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005470999999488413,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.72748000000047,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0055179999999381835,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.495890000000145,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005462999999508611,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.476667000000816,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005897000000004482,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.546267000000626,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00906200000008539,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.6269740000007,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008150999999998021,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.149833999999828,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017825000000811997,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.324149000000034,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.021609000000353262,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.604365000000143,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 272.08566900000005,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "cachedBox",
+      "elapsedMs": 0.06327499999952124,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.014420999999856576,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.004339999999501742,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.04740399999991496,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 219.02024600000004,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.0127360000005865,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.008397000000513799,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.05286100000012084,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.029034999999566935,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.003891000000294298,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "hit"
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.003125000000181899,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.04870599999958358,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 0.9226859999998851,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.67233600000054,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017225999999936903,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.103696000000127,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017468000000008033,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.5911100000003,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.03422000000045955,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.572581999999784,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.019390000000385044,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.19812499999989,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.05493600000045262,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.335008000000926,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.02803700000004028,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.468510000000606,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.017974999998841668,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.149037999999564,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018057999999655294,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.744967000000543,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.026212000000668922,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.58775500000047,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 218.50188100000014,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "search.load",
+          "durationMs": 219.00453899999957,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "warmSearchQuery",
+      "elapsedMs": 1.136705000000802,
+      "driveCalls": 0,
+      "responseBytes": 0,
+      "transport": []
+    },
+    {
+      "sample": 4,
+      "operation": "concurrentSameBox",
+      "elapsedMs": 207.9254200000014,
+      "driveCalls": 10,
+      "responseBytes": 1372,
+      "transport": [
+        {
+          "operation": "library.load",
+          "durationMs": 0.012050999999701162,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 0.007332999999562162,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0020000000004074536,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005660999999236083,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0015089999997144332,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.526136000000406,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006558999999469961,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.887838000000556,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015460999999049818,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 20.58748999999989,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 131,
+          "resultCount": 1,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006980000000112341,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.897977000000537,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008506000000124914,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.51258400000006,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.007572000000436674,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.56710600000042,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.0076730000000679865,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.621462999999494,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 271,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009879999999611755,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.507689000000028,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 119,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00665599999956612,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.578835000000254,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 133,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.006729000000632368,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.614055000000008,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 207.91104199999972,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 207.90378999999848,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "refreshOneBox",
+      "elapsedMs": 425.9761980000003,
+      "driveCalls": 20,
+      "responseBytes": 3466,
+      "transport": [
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.005253999999695225,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.825967000000674,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013474999999743886,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.57923099999971,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 379,
+          "resultCount": 3,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014075999999477062,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.73518999999942,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.009259999998903368,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.583384999999907,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01028999999834923,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 20.975854999998774,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 369,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.012779999999111169,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.171492999999828,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 117,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01296600000023318,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.753751999998713,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.load",
+          "durationMs": 148.2517059999991,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.cache",
+          "durationMs": 0.0014109999992797384,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": "miss"
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.007961999999679392,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.939704000000347,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.10608800000045449,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.096506999998383,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.013431000001219218,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.217501000000993,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.07881900000029418,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.list",
+          "durationMs": 21.087263000001258,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 277,
+          "resultCount": 2,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014622999999119202,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.01136900000165,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.014960000000428408,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.81219500000043,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.015927999998893938,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.01594599999953,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.018599999999423744,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.436838999999964,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.1517600000006496,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.media",
+          "durationMs": 21.661087999998927,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 559,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.01536599999963073,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.656428999998752,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 116,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.00906599999871105,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.53871799999979,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 135,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008647999999084277,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 20.927762999999686,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 115,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.queue",
+          "durationMs": 0.008308999998916988,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "drive.metadata",
+          "durationMs": 21.15713499999947,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": 111,
+          "resultCount": null,
+          "cache": null
+        },
+        {
+          "operation": "library.box",
+          "durationMs": 425.96822299999985,
+          "status": 200,
+          "retry": 0,
+          "responseBytes": null,
+          "resultCount": null,
+          "cache": null
+        }
+      ]
+    }
+  ]
+}

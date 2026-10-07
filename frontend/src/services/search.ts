@@ -1,3 +1,4 @@
+import { diagnostics } from "./performance";
 import type { Inventory } from "../../../shared/typescript/models";
 import { ClientError } from "./errors";
 import { LibraryService, type LibraryDrive } from "./library";
@@ -98,7 +99,7 @@ export class SearchService {
   #unsubscribe: () => void;
   constructor(
     private readonly drive: LibraryDrive,
-    source: LibraryService,
+    private readonly source: LibraryService,
     private readonly generation: () => number,
   ) {
     // A separate reader avoids cancelling view requests or parallel box workers
@@ -146,6 +147,9 @@ export class SearchService {
     this.#listeners.clear();
   }
   load(refresh = false): Promise<void> {
+    return diagnostics.measure("search.load", () => this.loadInternal(refresh));
+  }
+  private loadInternal(refresh: boolean): Promise<void> {
     if (refresh) this.reset();
     if (this.#loading) return this.#loading;
     if (this.#state.status !== "idle") return Promise.resolve();
@@ -159,7 +163,12 @@ export class SearchService {
     this.update({ status: "loading" });
     const loading = (async () => {
       try {
-        await this.#library.load(true);
+        if (!refresh) {
+          await this.source.load();
+          if (!current()) return;
+          this.#library.seedReader(this.source);
+        }
+        await this.#library.load(refresh);
         if (!current()) return;
         const index = this.#library.getSnapshot().index;
         if (!index)

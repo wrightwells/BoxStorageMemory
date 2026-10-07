@@ -6,6 +6,7 @@ Development follows [plan.md](plan.md) and the [technical specification v1.1](do
 
 Operators can start the application locally with `docker compose up --build --wait`, then open `http://localhost:8080`. See [development instructions](docs/development.md) for local setup, configuration and required checks. Sign-in requires one operator-configured public web OAuth client ID and registered trusted origin; ordinary users need only their Google account, with no Cloud project or payment-card setup. See [Google setup](docs/google-setup.md#stage-5-application-setup-and-live-checks). See [browsing and recovery instructions](docs/library.md). [Creation/editing drafts](docs/editing.md) support verified new-box creation; ordinary box/item saves are available; rebuilt-index replacement remains gated; list thumbnails remain pending a compatible client-only implementation.
 
+- [Performance review, measured results and remaining opportunities](docs/performance-review.md)
 - [Architecture decisions](docs/decisions/README.md)
 - [Application registration: no per-user Cloud/payment setup](docs/decisions/006-application-oauth-registration.md)
 - [Integration findings and pending live gates](docs/stage-1-findings.md)

@@ -11,8 +11,9 @@ METHODS = {"GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
 
 
 class SafeRequestLoggingMiddleware:
-    def __init__(self, app: ASGIApp) -> None:
+    def __init__(self, app: ASGIApp, performance_timing: bool = False) -> None:
         self.app = app
+        self.performance_timing = performance_timing
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if scope["type"] != "http":
@@ -28,6 +29,15 @@ class SafeRequestLoggingMiddleware:
             if message["type"] == "http.response.start":
                 status = message["status"]
                 response_started = True
+                if self.performance_timing:
+                    headers = list(message.get("headers", []))
+                    headers.append(
+                        (
+                            b"server-timing",
+                            f"app;dur={(monotonic() - started) * 1000:.2f}".encode("ascii"),
+                        )
+                    )
+                    message = {**message, "headers": headers}
             await send(message)
 
         try:

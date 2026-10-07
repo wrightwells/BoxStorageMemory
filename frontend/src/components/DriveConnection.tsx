@@ -1,3 +1,4 @@
+import { LibraryTools } from "./LibraryTools";
 import { LoadingStatus } from "./LoadingStatus";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -5,7 +6,11 @@ import type { DriveFile } from "../services/drive";
 import { ClientError, errorMessage } from "../services/errors";
 import { useStorage } from "./StorageProvider";
 
-export function DriveConnection() {
+export function DriveConnection({
+  showLibraryTools = false,
+}: {
+  showLibraryTools?: boolean;
+}) {
   const { session, state } = useStorage();
   const mayDiscard = () =>
     (!session.editing.getSnapshot().dirty && !session.photos.dirty) ||
@@ -89,6 +94,9 @@ export function DriveConnection() {
               >
                 Change library folder
               </button>
+              {showLibraryTools && (
+                <LibraryTools key={`${state.account?.id}:${state.root.id}`} />
+              )}
             </>
           ) : state.busy ? (
             <LoadingStatus>Connecting to Google Drive…</LoadingStatus>

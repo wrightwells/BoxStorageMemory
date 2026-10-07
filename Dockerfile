@@ -9,6 +9,7 @@ COPY shared/typescript shared/typescript
 COPY schemas/v1 schemas/v1
 COPY fixtures/contracts fixtures/contracts
 COPY tools/build_web_validators.mjs tools/build_web_validators.mjs
+COPY tools/compress_web_assets.mjs tools/compress_web_assets.mjs
 RUN npm run build
 
 FROM python:3.12-slim-bookworm AS runtime

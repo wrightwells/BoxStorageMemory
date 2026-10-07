@@ -1,10 +1,25 @@
-import {
-  QrLabelView,
-  ScanView,
-  NfcManagementView,
-} from "./components/ScanningViews";
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import { PhotoManagementView } from "./components/PhotoManagementView";
+const PhotoManagementView = lazy(() =>
+  import("./components/PhotoManagementView").then((module) => ({
+    default: module.PhotoManagementView,
+  })),
+);
+const QrLabelView = lazy(() =>
+  import("./components/ScanningViews").then((module) => ({
+    default: module.QrLabelView,
+  })),
+);
+const ScanView = lazy(() =>
+  import("./components/ScanningViews").then((module) => ({
+    default: module.ScanView,
+  })),
+);
+const NfcManagementView = lazy(() =>
+  import("./components/ScanningViews").then((module) => ({
+    default: module.NfcManagementView,
+  })),
+);
 import { Layout } from "./components/Layout";
 import { StorageProvider } from "./components/StorageProvider";
 import type { StorageSession } from "./services/session";

@@ -1,0 +1,210 @@
+{
+  "model": "sequential token-free urllib requests to deployed HTTPS; gzip accepted; 5 samples; response body bytes exclude HTTP/TLS overhead",
+  "results": [
+    {
+      "sample": 0,
+      "operation": "health",
+      "elapsedMs": 91.15504300280008,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "config",
+      "elapsedMs": 27.572506995056756,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "schema",
+      "elapsedMs": 31.320285008405335,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "html",
+      "elapsedMs": 18.709480995312333,
+      "transferBytes": 610,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "entryJavaScript",
+      "elapsedMs": 20.96196700586006,
+      "transferBytes": 652605,
+      "encoding": "identity",
+      "cacheControl": "",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "health",
+      "elapsedMs": 17.619432997889817,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "config",
+      "elapsedMs": 24.426755000604317,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "schema",
+      "elapsedMs": 18.251333996886387,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "html",
+      "elapsedMs": 18.707702998653986,
+      "transferBytes": 610,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "entryJavaScript",
+      "elapsedMs": 20.982855989132077,
+      "transferBytes": 652605,
+      "encoding": "identity",
+      "cacheControl": "",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "health",
+      "elapsedMs": 16.132585995364934,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "config",
+      "elapsedMs": 16.144926004926674,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "schema",
+      "elapsedMs": 16.45709500007797,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "html",
+      "elapsedMs": 16.57542299653869,
+      "transferBytes": 610,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "entryJavaScript",
+      "elapsedMs": 29.004441006691195,
+      "transferBytes": 652605,
+      "encoding": "identity",
+      "cacheControl": "",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "health",
+      "elapsedMs": 18.72374099912122,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "config",
+      "elapsedMs": 16.1930490139639,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "schema",
+      "elapsedMs": 16.18349899945315,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "html",
+      "elapsedMs": 38.97341100673657,
+      "transferBytes": 610,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "entryJavaScript",
+      "elapsedMs": 26.302290003513917,
+      "transferBytes": 652605,
+      "encoding": "identity",
+      "cacheControl": "",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "health",
+      "elapsedMs": 16.618813999230042,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "config",
+      "elapsedMs": 20.80279099754989,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "schema",
+      "elapsedMs": 17.26881200738717,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "html",
+      "elapsedMs": 17.6477770000929,
+      "transferBytes": 610,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "entryJavaScript",
+      "elapsedMs": 21.591377997538075,
+      "transferBytes": 652605,
+      "encoding": "identity",
+      "cacheControl": "",
+      "status": 200
+    }
+  ]
+}

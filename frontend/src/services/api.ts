@@ -1,3 +1,4 @@
+import { diagnostics } from "./performance";
 import { ClientError } from "./errors";
 
 export interface PublicConfig {
@@ -36,6 +37,8 @@ export class ApiClient {
     if (signal?.aborted) controller.abort();
     signal?.addEventListener("abort", cancel, { once: true });
     const timeout = setTimeout(cancel, 15000);
+    const finish = diagnostics.start("api.request");
+    let status = 0;
     try {
       const response = await this.fetcher(`/api/v1/${path}`, {
         method: post ? "POST" : "GET",
@@ -46,6 +49,7 @@ export class ApiClient {
         cache: "no-store",
         signal: controller.signal,
       });
+      status = response.status;
       if (!response.ok) throw new ClientError("API_UNAVAILABLE");
       const data = await (format === "blob"
         ? response.blob()
@@ -55,6 +59,7 @@ export class ApiClient {
     } catch {
       throw new ClientError("API_UNAVAILABLE");
     } finally {
+      finish(status);
       clearTimeout(timeout);
       signal?.removeEventListener("abort", cancel);
     }

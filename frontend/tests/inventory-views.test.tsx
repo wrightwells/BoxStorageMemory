@@ -54,6 +54,12 @@ async function prepare() {
     email: "",
   });
   vi.spyOn(session.drive, "selectRoot").mockResolvedValue(fixture.root);
+  vi.spyOn(session.drive, "folderContents").mockImplementation(
+    async (id, signal) => ({
+      folder: await session.drive.withinRoot(id, signal),
+      files: await session.drive.listChildren(id, signal),
+    }),
+  );
   vi.spyOn(session.drive, "listChildren").mockImplementation(
     fixture.drive.listChildren,
   );
@@ -120,9 +126,52 @@ describe("inventory screens", () => {
       within(table).getByRole("link", { name: "13A Extension Lead" }),
     ).toHaveAttribute("href", `/box/${BOX}/item/${ITEM}`);
     expect(
-      within(table).getByRole("link", { name: "Manage photographs" }),
-    ).toHaveAttribute("href", `/box/${BOX}/item/${ITEM}/photos`);
-    expect(fixture.drive.image).not.toHaveBeenCalled();
+      within(table).getByRole("link", {
+        name: "Open item: 13A Extension Lead",
+      }),
+    ).toHaveAttribute("href", `/box/${BOX}/item/${ITEM}`);
+    expect(
+      await within(table).findByRole("img", {
+        name: "Photograph of 13A Extension Lead",
+      }),
+    ).toBeInTheDocument();
+  });
+  it("shows all item photos in the box table even for large or unknown file sizes", async () => {
+    const fixture = await prepare();
+    fixture.files.get("photo-file")!.size = String(3 * 1024 * 1024);
+    const filename = "BOX-0001-extension-lead-77eb8825-back.jpg";
+    fixture.inventory.items[0]!.images!.push(filename);
+    const second = {
+      ...fixture.files.get("photo-file")!,
+      id: "second-photo",
+      name: filename,
+    };
+    delete second.size;
+    fixture.files.set(second.id, second);
+    fixture.open(`/box/${BOX}`);
+    const table = await screen.findByRole("table", {
+      name: "Box inventory items",
+    });
+    await waitFor(() =>
+      expect(
+        within(table).getAllByRole("img", {
+          name: "Photograph of 13A Extension Lead",
+        }),
+      ).toHaveLength(2),
+    );
+    expect(fixture.drive.image).toHaveBeenCalledWith(
+      "photo-file",
+      expect.anything(),
+      undefined,
+    );
+    expect(fixture.drive.image).toHaveBeenCalledWith(
+      "second-photo",
+      expect.anything(),
+      undefined,
+    );
+    expect(
+      within(table).queryByText("Open item to view photo"),
+    ).not.toBeInTheDocument();
   });
   it("opens indexed nested boxes without redundant settings or folder browsing", async () => {
     const fixture = await prepare();
@@ -185,6 +234,10 @@ describe("inventory screens", () => {
     expect(
       screen.queryByRole("button", { name: "Initialize empty library" }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("region", { name: "Tools" }),
+    ).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("link", { name: "Settings" }));
     expect(
       screen.getByRole("button", { name: "Preview rebuilt index" }),
     ).toBeEnabled();
@@ -258,7 +311,9 @@ describe("inventory screens", () => {
       screen.queryByRole("button", { name: "Load photo" }),
     ).not.toBeInTheDocument();
     await userEvent.click(screen.getByRole("link", { name: "Back to box" }));
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("img", { name: /Item photograph/ }),
+    ).not.toBeInTheDocument();
     expect(fixture.drive.releaseImage).toHaveBeenCalledWith("blob:photo-file");
   });
   it("keeps the photo management icon for an item without photographs", async () => {
@@ -309,6 +364,7 @@ describe("inventory screens", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "library index is missing",
     );
+    await userEvent.click(screen.getByRole("link", { name: "Settings" }));
     await userEvent.click(
       screen.getByRole("button", { name: "Preview rebuilt index" }),
     );

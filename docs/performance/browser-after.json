@@ -1,0 +1,260 @@
+{
+  "model": "deployed Tailscale HTTPS; synthetic OAuth/2-box Drive with 20ms added per intercepted request; fresh browser contexts; image fixture 32px",
+  "results": [
+    {
+      "sample": 0,
+      "operation": "shellVisible",
+      "elapsedMs": 457.67098300000043,
+      "driveCalls": 0
+    },
+    {
+      "sample": 0,
+      "operation": "authenticationAndRoot",
+      "elapsedMs": 303.905346,
+      "driveCalls": 3
+    },
+    {
+      "sample": 0,
+      "operation": "freshLibrary",
+      "elapsedMs": 380.028358,
+      "driveCalls": 7
+    },
+    {
+      "sample": 0,
+      "operation": "freshBoxWithPhoto",
+      "elapsedMs": 991.9386869999998,
+      "driveCalls": 17
+    },
+    {
+      "sample": 0,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 561.3852349999997,
+      "driveCalls": 10
+    },
+    {
+      "sample": 0,
+      "operation": "resources",
+      "resources": [
+        {
+          "durationMs": 60.70000000298023,
+          "transferSize": 146203,
+          "decodedBodySize": 507747
+        },
+        {
+          "durationMs": 53.400000005960464,
+          "transferSize": 668,
+          "decodedBodySize": 589
+        },
+        {
+          "durationMs": 48.20000000298023,
+          "transferSize": 5418,
+          "decodedBodySize": 20909
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "operation": "shellVisible",
+      "elapsedMs": 336.0047060000006,
+      "driveCalls": 0
+    },
+    {
+      "sample": 1,
+      "operation": "authenticationAndRoot",
+      "elapsedMs": 272.752751,
+      "driveCalls": 3
+    },
+    {
+      "sample": 1,
+      "operation": "freshLibrary",
+      "elapsedMs": 365.3190509999995,
+      "driveCalls": 7
+    },
+    {
+      "sample": 1,
+      "operation": "freshBoxWithPhoto",
+      "elapsedMs": 851.7097789999998,
+      "driveCalls": 17
+    },
+    {
+      "sample": 1,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 407.3468219999995,
+      "driveCalls": 10
+    },
+    {
+      "sample": 1,
+      "operation": "resources",
+      "resources": [
+        {
+          "durationMs": 62.400000005960464,
+          "transferSize": 146203,
+          "decodedBodySize": 507747
+        },
+        {
+          "durationMs": 57.79999999701977,
+          "transferSize": 668,
+          "decodedBodySize": 589
+        },
+        {
+          "durationMs": 50.6000000089407,
+          "transferSize": 5418,
+          "decodedBodySize": 20909
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "operation": "shellVisible",
+      "elapsedMs": 365.1277990000008,
+      "driveCalls": 0
+    },
+    {
+      "sample": 2,
+      "operation": "authenticationAndRoot",
+      "elapsedMs": 319.7939660000002,
+      "driveCalls": 3
+    },
+    {
+      "sample": 2,
+      "operation": "freshLibrary",
+      "elapsedMs": 379.5790619999989,
+      "driveCalls": 7
+    },
+    {
+      "sample": 2,
+      "operation": "freshBoxWithPhoto",
+      "elapsedMs": 1023.6526740000008,
+      "driveCalls": 17
+    },
+    {
+      "sample": 2,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 508.63880100000097,
+      "driveCalls": 10
+    },
+    {
+      "sample": 2,
+      "operation": "resources",
+      "resources": [
+        {
+          "durationMs": 63.5,
+          "transferSize": 146203,
+          "decodedBodySize": 507747
+        },
+        {
+          "durationMs": 51.5,
+          "transferSize": 668,
+          "decodedBodySize": 589
+        },
+        {
+          "durationMs": 59.20000000298023,
+          "transferSize": 5418,
+          "decodedBodySize": 20909
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "operation": "shellVisible",
+      "elapsedMs": 343.56413799999973,
+      "driveCalls": 0
+    },
+    {
+      "sample": 3,
+      "operation": "authenticationAndRoot",
+      "elapsedMs": 270.07293299999947,
+      "driveCalls": 3
+    },
+    {
+      "sample": 3,
+      "operation": "freshLibrary",
+      "elapsedMs": 389.49996699999974,
+      "driveCalls": 7
+    },
+    {
+      "sample": 3,
+      "operation": "freshBoxWithPhoto",
+      "elapsedMs": 1025.163559999999,
+      "driveCalls": 17
+    },
+    {
+      "sample": 3,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 486.8424639999994,
+      "driveCalls": 10
+    },
+    {
+      "sample": 3,
+      "operation": "resources",
+      "resources": [
+        {
+          "durationMs": 57.400000005960464,
+          "transferSize": 146203,
+          "decodedBodySize": 507747
+        },
+        {
+          "durationMs": 49.1000000089407,
+          "transferSize": 668,
+          "decodedBodySize": 589
+        },
+        {
+          "durationMs": 51.70000000298023,
+          "transferSize": 5418,
+          "decodedBodySize": 20909
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "operation": "shellVisible",
+      "elapsedMs": 352.8068460000013,
+      "driveCalls": 0
+    },
+    {
+      "sample": 4,
+      "operation": "authenticationAndRoot",
+      "elapsedMs": 242.4779209999997,
+      "driveCalls": 3
+    },
+    {
+      "sample": 4,
+      "operation": "freshLibrary",
+      "elapsedMs": 396.97985300000073,
+      "driveCalls": 7
+    },
+    {
+      "sample": 4,
+      "operation": "freshBoxWithPhoto",
+      "elapsedMs": 987.1535760000006,
+      "driveCalls": 17
+    },
+    {
+      "sample": 4,
+      "operation": "searchAfterViewedBox",
+      "elapsedMs": 479.2193349999998,
+      "driveCalls": 10
+    },
+    {
+      "sample": 4,
+      "operation": "resources",
+      "resources": [
+        {
+          "durationMs": 74.59999999403954,
+          "transferSize": 146203,
+          "decodedBodySize": 507747
+        },
+        {
+          "durationMs": 69.80000001192093,
+          "transferSize": 668,
+          "decodedBodySize": 589
+        },
+        {
+          "durationMs": 67,
+          "transferSize": 5418,
+          "decodedBodySize": 20909
+        }
+      ]
+    }
+  ]
+}

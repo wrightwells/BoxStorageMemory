@@ -21,6 +21,26 @@ def api_error(code: str, message: str, status: int) -> JSONResponse:
     )
 
 
+def accepts_gzip(value: str) -> bool:
+    explicit: float | None = None
+    wildcard = 0.0
+    for part in value.lower().split(","):
+        encoding, *parameters = part.strip().split(";")
+        quality = 1.0
+        for parameter in parameters:
+            key, _, raw = parameter.strip().partition("=")
+            if key == "q":
+                try:
+                    quality = float(raw)
+                except ValueError:
+                    quality = 0.0
+        if encoding == "gzip":
+            explicit = quality
+        elif encoding == "*":
+            wildcard = quality
+    return 0 < (explicit if explicit is not None else wildcard) <= 1
+
+
 def create_app(settings: Settings | None = None) -> FastAPI:
     config = settings or Settings()
     app = FastAPI(
@@ -39,7 +59,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_methods=["GET", "HEAD", "POST", "OPTIONS"],
         allow_headers=["Content-Type"],
     )
-    app.add_middleware(SafeRequestLoggingMiddleware)
+    app.add_middleware(SafeRequestLoggingMiddleware, performance_timing=config.performance_timing)
     app.add_middleware(SecurityHeadersMiddleware, config=config)
     app.include_router(health_router)
     app.include_router(utility_router(config))
@@ -62,7 +82,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     dist = config.frontend_dist.resolve()
 
     @app.api_route("/{path:path}", methods=["GET", "HEAD"], include_in_schema=False)
-    async def frontend(path: str) -> Response:
+    async def frontend(path: str, request: Request) -> Response:
         # API errors and missing assets must never become a successful HTML SPA response.
         if path == "api" or path.startswith("api/"):
             return api_error("NOT_FOUND", "API endpoint not found", 404)
@@ -72,7 +92,24 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if not candidate.is_relative_to(dist):
             return api_error("NOT_FOUND", "Resource not found", 404)
         if path and candidate.is_file():
-            return FileResponse(candidate)
+            headers = (
+                {"Cache-Control": "public, max-age=31536000, immutable"}
+                if path.startswith("assets/")
+                else {}
+            )
+            if path.startswith("assets/") and candidate.suffix in {".js", ".css"}:
+                headers["Vary"] = "Accept-Encoding"
+                compressed = candidate.with_name(candidate.name + ".gz")
+                if compressed.is_file() and accepts_gzip(
+                    request.headers.get("accept-encoding", "")
+                ):
+                    headers["Content-Encoding"] = "gzip"
+                    return FileResponse(
+                        compressed,
+                        media_type="text/javascript" if candidate.suffix == ".js" else "text/css",
+                        headers=headers,
+                    )
+            return FileResponse(candidate, headers=headers)
         if path.startswith("assets/") or Path(path).suffix:
             return api_error("NOT_FOUND", "Asset not found", 404)
         index = dist / "index.html"

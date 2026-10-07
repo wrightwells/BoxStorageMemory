@@ -1,0 +1,210 @@
+{
+  "model": "sequential token-free urllib requests to deployed HTTPS; gzip accepted; 5 samples; response body bytes exclude HTTP/TLS overhead",
+  "results": [
+    {
+      "sample": 0,
+      "operation": "health",
+      "elapsedMs": 76.90237199130934,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "config",
+      "elapsedMs": 18.67690499057062,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "schema",
+      "elapsedMs": 26.237520010909066,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "html",
+      "elapsedMs": 27.749936998588964,
+      "transferBytes": 697,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 0,
+      "operation": "entryJavaScript",
+      "elapsedMs": 28.91902200644836,
+      "transferBytes": 145903,
+      "encoding": "gzip",
+      "cacheControl": "public, max-age=31536000, immutable",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "health",
+      "elapsedMs": 41.05159599566832,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "config",
+      "elapsedMs": 35.799190009129234,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "schema",
+      "elapsedMs": 25.705085005029105,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "html",
+      "elapsedMs": 23.54274899698794,
+      "transferBytes": 697,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 1,
+      "operation": "entryJavaScript",
+      "elapsedMs": 21.08234200568404,
+      "transferBytes": 145903,
+      "encoding": "gzip",
+      "cacheControl": "public, max-age=31536000, immutable",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "health",
+      "elapsedMs": 17.72199000697583,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "config",
+      "elapsedMs": 19.06821198645048,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "schema",
+      "elapsedMs": 16.826848004711792,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "html",
+      "elapsedMs": 19.9858529958874,
+      "transferBytes": 697,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 2,
+      "operation": "entryJavaScript",
+      "elapsedMs": 18.670613004360348,
+      "transferBytes": 145903,
+      "encoding": "gzip",
+      "cacheControl": "public, max-age=31536000, immutable",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "health",
+      "elapsedMs": 21.234314001048915,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "config",
+      "elapsedMs": 17.3500469973078,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "schema",
+      "elapsedMs": 16.736981997382827,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "html",
+      "elapsedMs": 20.590205996995792,
+      "transferBytes": 697,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 3,
+      "operation": "entryJavaScript",
+      "elapsedMs": 20.572003995766863,
+      "transferBytes": 145903,
+      "encoding": "gzip",
+      "cacheControl": "public, max-age=31536000, immutable",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "health",
+      "elapsedMs": 17.801442998461425,
+      "transferBytes": 51,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "config",
+      "elapsedMs": 17.348866997053847,
+      "transferBytes": 399,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "schema",
+      "elapsedMs": 17.52988299995195,
+      "transferBytes": 1753,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "html",
+      "elapsedMs": 17.766190998372622,
+      "transferBytes": 697,
+      "encoding": "identity",
+      "status": 200
+    },
+    {
+      "sample": 4,
+      "operation": "entryJavaScript",
+      "elapsedMs": 21.942894003586844,
+      "transferBytes": 145903,
+      "encoding": "gzip",
+      "cacheControl": "public, max-age=31536000, immutable",
+      "status": 200
+    }
+  ]
+}

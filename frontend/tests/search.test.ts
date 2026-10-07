@@ -224,3 +224,31 @@ describe("runtime global search", () => {
     expect(f.search.getSnapshot().total).toBe(0);
   });
 });
+
+it("reuses current view data, refreshes explicitly and clears copied data on context change", async () => {
+  const f = fixtureLibrary();
+  const search = new SearchService(f.drive, f.library, () => 0);
+  await f.library.box(BOX);
+  vi.mocked(f.drive.readJson).mockClear();
+  await search.load();
+  expect(f.drive.readJson).toHaveBeenCalledTimes(1); // only unopened second box
+  expect(search.getSnapshot().records).toHaveLength(3);
+  await search.load(true);
+  expect(f.drive.readJson).toHaveBeenCalledTimes(4); // fresh index and both inventories
+  f.changeContext();
+  expect(search.getSnapshot().records).toHaveLength(0);
+  search.dispose();
+});
+
+it("does not seed a newly opened search with view data older than one minute", async () => {
+  const clock = vi.spyOn(performance, "now").mockReturnValue(0);
+  const f = fixtureLibrary();
+  await f.library.box(BOX);
+  clock.mockReturnValue(60_001);
+  vi.mocked(f.drive.readJson).mockClear();
+  const search = new SearchService(f.drive, f.library, () => 0);
+  await search.load();
+  expect(f.drive.readJson).toHaveBeenCalledTimes(3); // fresh index and both inventories
+  search.dispose();
+  clock.mockRestore();
+});

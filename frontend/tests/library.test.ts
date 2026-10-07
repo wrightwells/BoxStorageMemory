@@ -308,3 +308,34 @@ it("previews a restored synthetic library with changed Drive IDs while retaining
     f.inventory.box.nfcIds,
   );
 });
+
+it("coalesces concurrent box loads but keeps refresh and context invalidation fresh", async () => {
+  const f = fixtureLibrary();
+  await f.library.load();
+  const [first, second] = await Promise.all([
+    f.library.box(BOX),
+    f.library.box(BOX),
+  ]);
+  expect(first).toBe(second);
+  expect(f.drive.readJson).toHaveBeenCalledTimes(2); // index + one inventory
+  await f.library.box(BOX, true);
+  expect(f.drive.readJson).toHaveBeenCalledTimes(4);
+  f.changeContext();
+  expect(f.library.getSnapshot().index).toBeUndefined();
+});
+
+it("defers large or unknown photo previews without downloading; item photos remain available", async () => {
+  const f = fixtureLibrary();
+  f.files.get("photo-file")!.size = String(3 * 1024 * 1024);
+  await expect(
+    f.library.photo(BOX, ITEM, PHOTO, 256 * 1024),
+  ).rejects.toMatchObject({ code: "PREVIEW_DEFERRED" });
+  expect(f.drive.image).not.toHaveBeenCalled();
+  await expect(f.library.photo(BOX, ITEM, PHOTO)).resolves.toBe(
+    "blob:photo-file",
+  );
+  delete f.files.get("photo-file")!.size;
+  await expect(
+    f.library.photo(BOX, ITEM, PHOTO, 256 * 1024),
+  ).rejects.toMatchObject({ code: "PREVIEW_DEFERRED" });
+});

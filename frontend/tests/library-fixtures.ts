@@ -34,7 +34,10 @@ export function fixtureLibrary() {
   const indexFile = file("index-file", "box-storage-index.json", root.id);
   const inventoryFile = file("inventory-file", "inventory.json", boxFolder.id);
   const emptyFile = file("empty-inventory", "inventory.json", emptyFolder.id);
-  const photoFile = file("photo-file", PHOTO, boxFolder.id, "image/jpeg");
+  const photoFile = {
+    ...file("photo-file", PHOTO, boxFolder.id, "image/jpeg"),
+    size: "1024",
+  };
   const inventory = structuredClone(inventoryFixture) as Inventory;
   const empty: Inventory = {
     schemaVersion: 1,

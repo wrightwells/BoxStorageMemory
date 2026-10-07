@@ -1,3 +1,4 @@
+import { diagnostics } from "./performance";
 import { ClientError } from "./errors";
 
 export const MAX_PHOTO_BYTES = 25 * 1024 * 1024;
@@ -32,7 +33,16 @@ export function canvasJpeg(canvas: HTMLCanvasElement): Promise<Blob> {
   );
 }
 // Browser decoding honours source orientation. No image bytes enter inventory JSON.
-export async function preparePhoto(
+export function preparePhoto(
+  source: Blob,
+  resize = true,
+  signal?: AbortSignal,
+): Promise<Blob> {
+  return diagnostics.measure("photo.prepare", () =>
+    preparePhotoInternal(source, resize, signal),
+  );
+}
+async function preparePhotoInternal(
   source: Blob,
   resize = true,
   signal?: AbortSignal,

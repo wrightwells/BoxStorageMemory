@@ -1197,3 +1197,86 @@ it("refuses association when a duplicate filename appears after upload discovery
     f.properties.get("root")!.some((p) => p.key === "bsmCreateOwner"),
   ).toBe(false);
 });
+
+it.skipIf(!process.env.BSM_WRITE_PERF_OUTPUT)(
+  "profiles coordinated writes without live Drive mutations",
+  async () => {
+    const { writeFileSync } = await import("node:fs");
+    const results: unknown[] = [];
+    for (let sample = 0; sample < 3; sample++) {
+      const f = fixture(),
+        c = f.client();
+      f.setHook(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      });
+      const source = await c.service.initialize();
+      const measure = async (
+        operation: string,
+        task: () => Promise<unknown>,
+      ) => {
+        const started = performance.now(),
+          calls = f.events.length;
+        const result = await task();
+        expect(result).toMatchObject({ outcome: "complete" });
+        results.push({
+          sample,
+          operation,
+          elapsedMs: performance.now() - started,
+          coordinatorHttpCalls: f.events.length - calls,
+        });
+        return result as { folderId: string };
+      };
+      const created = await measure("createBox", () =>
+        c.service.create(draft(), source, crypto.randomUUID()),
+      );
+      const folder = await f.storage.withinRoot(created.folderId);
+      const inventory = await f.storage.readJson(
+        (await f.storage.listChildren(folder.id)).find(
+          (file) => file.name === "inventory.json",
+        )!.id,
+      );
+      const original = structuredClone(inventory.document) as Inventory;
+      const proposal: import("../src/services/editing").Draft = {
+        kind: "edit",
+        document: structuredClone(original),
+        original,
+        inventory,
+        folder,
+        index: await f.storage.readJson(source.file.id),
+        rootId: "root",
+        readOnly: false,
+        operationId: crypto.randomUUID(),
+      };
+      proposal.document.box.description = "Measured ordinary edit";
+      await measure("saveEdit", () => c.service.edit(proposal));
+      const fresh = await refreshed(f, proposal);
+      await measure("uploadPhoto", () =>
+        c.service.edit(fresh, undefined, {
+          itemId: fresh.document.items[0]!.id,
+          action: { kind: "add" },
+          selections: [
+            {
+              ...selection(fresh),
+              blob: new Blob([new Uint8Array(1024 * 1024)], {
+                type: "image/jpeg",
+              }),
+            },
+          ],
+        }),
+      );
+    }
+    writeFileSync(
+      process.env.BSM_WRITE_PERF_OUTPUT!,
+      JSON.stringify(
+        {
+          model:
+            "coordinator simulator; 20ms per v2 transport call; storage helpers in memory; synthetic 1MiB JPEG upload",
+          results,
+        },
+        null,
+        2,
+      ),
+    );
+  },
+  30000,
+);

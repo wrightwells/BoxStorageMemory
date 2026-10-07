@@ -1,3 +1,4 @@
+import { ClientError } from "../services/errors";
 import {
   createContext,
   useContext,
@@ -46,20 +47,22 @@ export function InventoryThumbnail({
   itemId,
   filename,
   name,
+  fullPhoto = false,
 }: {
   boxId: string;
   itemId: string;
   filename: string;
   name: string;
+  fullPhoto?: boolean;
 }) {
   const { library } = useLibrary();
   const holder = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const ownedPhoto = useRef<string | undefined>(undefined);
   const [url, setUrl] = useState<string>();
-  const [phase, setPhase] = useState<"waiting" | "loading" | "ready" | "error">(
-    "waiting",
-  );
+  const [phase, setPhase] = useState<
+    "waiting" | "loading" | "ready" | "error" | "deferred"
+  >("waiting");
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") {
@@ -68,7 +71,11 @@ export function InventoryThumbnail({
     }
     const observer = new IntersectionObserver(
       (entries) => {
-        setVisible(entries.some((entry) => entry.isIntersecting));
+        // Load once on first visibility; scrolling must not release/reload photos.
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setVisible(true);
+          observer.disconnect();
+        }
       },
       { rootMargin: "120px" },
     );
@@ -86,7 +93,16 @@ export function InventoryThumbnail({
     setPhase("loading");
     setUrl(undefined);
     void queueFor(library)
-      .run(() => library.photo(boxId, itemId, filename), controller.signal)
+      .run(
+        () =>
+          library.photo(
+            boxId,
+            itemId,
+            filename,
+            fullPhoto ? undefined : 256 * 1024,
+          ),
+        controller.signal,
+      )
       .then((photo) => {
         if (!active) {
           library.releasePhoto(photo);
@@ -96,7 +112,15 @@ export function InventoryThumbnail({
         setUrl(photo);
         setPhase("ready");
       })
-      .catch(() => {
+      .catch((error) => {
+        if (
+          active &&
+          error instanceof ClientError &&
+          error.code === "PREVIEW_DEFERRED"
+        ) {
+          setPhase("deferred");
+          return;
+        }
         if (active) {
           setPhase("error");
           window.boxStoragePhotoUx?.record("thumbnailFailed");
@@ -110,7 +134,7 @@ export function InventoryThumbnail({
         ownedPhoto.current = undefined;
       }
     };
-  }, [visible, library, boxId, itemId, filename, attempt]);
+  }, [visible, library, boxId, itemId, filename, fullPhoto, attempt]);
   return (
     <div ref={holder} className="inventory-thumbnail">
       <Link
@@ -143,6 +167,7 @@ export function InventoryThumbnail({
         )}
       </Link>
       {phase === "loading" && <LoadingStatus>Loading preview…</LoadingStatus>}
+      {phase === "deferred" && <small>Open item to view photo</small>}
       {phase === "error" && (
         <>
           <p role="status">Photograph unavailable.</p>

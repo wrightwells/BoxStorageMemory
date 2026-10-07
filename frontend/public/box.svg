@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#203d32"/><path d="m12 22 20-10 20 10v23L32 55 12 45zm0 0 20 10 20-10M32 32v23M22 17l20 10" fill="none" stroke="#f5ecd9" stroke-width="3" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="cardboard" x1="18" y1="44" x2="111" y2="101" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b77837"/><stop offset="1" stop-color="#dba05d"/>
+    </linearGradient>
+    <linearGradient id="inside" x1="24" y1="40" x2="104" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#805026"/><stop offset="1" stop-color="#aa6c32"/>
+    </linearGradient>
+    <linearGradient id="flaps" x1="36" y1="18" x2="93" y2="79" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e9b472"/><stop offset="1" stop-color="#daa05e"/>
+    </linearGradient>
+  </defs>
+  <g stroke="#422309" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M20 62 63 44 106 62v33l-43 20-43-20Z" fill="url(#cardboard)"/>
+    <path d="M63 63v52" stroke="#9b622d" stroke-width="1.4"/>
+    <path d="m22 47 41-15 42 15-42 16Z" fill="url(#inside)"/>
+    <path d="M63 32v30" stroke="#7f4b20" stroke-width="1.4"/>
+    <path d="M8 32 49 17l14 15-41 15Z" fill="url(#flaps)"/>
+    <path d="m63 32 16-15 41 15-15 15Z" fill="url(#flaps)"/>
+    <path d="m6 60 16-13 41 16-17 15Z" fill="url(#flaps)"/>
+    <path d="m63 63 42-16 16 13-42 19Z" fill="url(#flaps)"/>
+  </g>
+</svg>

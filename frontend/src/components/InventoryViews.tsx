@@ -1,9 +1,8 @@
 import { BoxIcon } from "./BoxIcon";
 import { useReferenceLayout } from "./ReferenceLayout";
 import { ReferenceBoxView } from "./ReferenceBoxView";
-import { InventoryThumbnail, usePhotoRecognition } from "./PhotoRecognition";
+import { InventoryThumbnail } from "./PhotoRecognition";
 import { LoadingStatus } from "./LoadingStatus";
-import { previewJson } from "./previewJson";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import type {
@@ -129,17 +128,6 @@ function ConnectedLibraryView() {
           <BoxGroups boxes={state.index.boxes} grouped={groupByLocation} />
         </>
       )}
-      <section className="library-tools sub-panel" aria-label="Tools">
-        <h2>Tools</h2>
-        <button
-          className="button secondary"
-          onClick={() => void library.load(true)}
-          disabled={state.status === "loading" || state.recovering}
-        >
-          Refresh library
-        </button>
-        <RecoveryPanel />
-      </section>
       <p className="read-only-note">
         Browsing is read-only. Your Drive files are not changed.
       </p>
@@ -200,70 +188,6 @@ function BoxGroups({
   );
 }
 
-export function RecoveryPanel() {
-  const { library, state } = useLibrary();
-  const [error, setError] = useState<unknown>();
-  const report = state.recovery;
-  return (
-    <section className="sub-panel">
-      <h3>Index recovery</h3>
-      <p>
-        Discover inventories inside this library and review a proposed index.
-        Unavailable existing records are retained and reported. Original files
-        remain unchanged.
-      </p>
-      <button
-        className="button secondary"
-        disabled={state.recovering || state.status === "loading"}
-        onClick={() => {
-          setError(undefined);
-          void library.recover().catch(setError);
-        }}
-      >
-        Preview rebuilt index
-      </button>
-      {state.recovering && (
-        <LoadingStatus>Scanning library inventories…</LoadingStatus>
-      )}
-      {!!error && <Failure error={error} />}
-      {report && (
-        <>
-          <p role="status">
-            Found {report.discovered} valid inventories across{" "}
-            {report.scans.length} folders. Retained {report.retained}{" "}
-            unavailable records.
-          </p>
-          {report.issues.length > 0 ? (
-            <ul className="recovery-issues">
-              {report.issues.map((issue, index) => (
-                <li key={index}>
-                  {errorMessage(new ClientError(issue.code))}
-                  {issue.boxNumber && ` (${issue.boxNumber})`}
-                  {issue.folderId &&
-                    ` — ${report.scans.find((scan) => scan.folder.id === issue.folderId)?.folder.name ?? "Unavailable folder"}`}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No duplicate or unavailable records were found.</p>
-          )}
-          <details>
-            <summary>Review proposed index JSON</summary>
-            <pre>{previewJson(report.candidate)}</pre>
-          </details>
-          <p>
-            Index replacement is awaiting verified protection against concurrent
-            changes. This preview has not been saved to Google Drive.
-          </p>
-          <button className="button" disabled>
-            Replace index after review
-          </button>
-        </>
-      )}
-    </section>
-  );
-}
-
 export function InventoryView({ itemOnly = false }: { itemOnly?: boolean }) {
   const { state: connection } = useStorage();
   const { state } = useLibrary();
@@ -278,7 +202,6 @@ export function InventoryView({ itemOnly = false }: { itemOnly?: boolean }) {
 }
 
 function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
-  const photoRecognition = usePhotoRecognition();
   const referenceLayout = useReferenceLayout();
   const { boxId = "", itemId = "" } = useParams();
   const { state: connection } = useStorage();
@@ -413,24 +336,21 @@ function ConnectedInventoryView({ itemOnly }: { itemOnly: boolean }) {
                           <td>{item.quantity}</td>
                           <td>{item.description}</td>
                           <td>
-                            {photoRecognition && item.images?.[0] ? (
-                              <InventoryThumbnail
-                                boxId={boxId}
-                                itemId={item.id}
-                                filename={item.images[0]}
-                                name={item.name}
-                              />
+                            {item.images?.length ? (
+                              <div className="inventory-photo-gallery">
+                                {item.images.map((filename) => (
+                                  <InventoryThumbnail
+                                    key={filename}
+                                    boxId={boxId}
+                                    itemId={item.id}
+                                    filename={filename}
+                                    name={item.name}
+                                    fullPhoto
+                                  />
+                                ))}
+                              </div>
                             ) : (
                               <PhotoButton item={item} boxId={boxId} />
-                            )}
-                            {photoRecognition && !item.images?.length && (
-                              <p>No photographs.</p>
-                            )}
-                            {!!item.images?.length && (
-                              <p>
-                                {item.images.length} photographs
-                                {!photoRecognition && " — open item to view"}
-                              </p>
                             )}
                           </td>
                         </tr>

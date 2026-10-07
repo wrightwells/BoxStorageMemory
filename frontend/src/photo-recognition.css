@@ -29,3 +29,11 @@
     display: none;
   }
 }
+
+.inventory-photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-width: 88px;
+  max-width: 280px;
+}

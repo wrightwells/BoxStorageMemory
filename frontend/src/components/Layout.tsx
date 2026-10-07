@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { LoadingStatus } from "./LoadingStatus";
 import {
   ReferenceLayoutProvider,
   ReferenceCubeIcon,
@@ -80,7 +82,9 @@ export function Layout({ dataRouter = false }: { dataRouter?: boolean }) {
           </header>
           {referenceLayout && <ReferenceSearch />}
           <main id="main" tabIndex={-1}>
-            <Outlet />
+            <Suspense fallback={<LoadingStatus>Loading page…</LoadingStatus>}>
+              <Outlet />
+            </Suspense>
           </main>
           <footer>
             <span>Your boxes. Your Google Drive.</span>
