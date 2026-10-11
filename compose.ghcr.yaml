@@ -1,0 +1,28 @@
+# Standalone example: downloads the published image; no checkout or build needed.
+services:
+  box-storage:
+    image: ${BOX_STORAGE_IMAGE:-ghcr.io/wrightwells/boxstoragememory:latest}
+    ports:
+      - "127.0.0.1:${HOST_PORT:-8080}:8080"
+    environment:
+      APP_NAME: ${APP_NAME:-Box Storage}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8080}
+      GOOGLE_WEB_CLIENT_ID: ${GOOGLE_WEB_CLIENT_ID:-}
+      API_PORT: 8080
+      ENABLE_API_DOCS: "false"
+      ENABLE_WEB_NFC: ${ENABLE_WEB_NFC:-false}
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "python", "-m", "backend.app.healthcheck"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
